@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
 	nmr = new NMRCore();
 
-	LOG("NMR Server Daemon version %s", VERSION);
+	LOG("NMR Server Daemon version %s\n", VERSION);
 
 	// Get a server socket
 	int sock_server;
@@ -144,8 +144,24 @@ int handleConnection(int sock_client)
 				LOG("Set Rx SampleRate #%d: %d ksps.\n", command.param, nmr->getRxRate());
 				break;
 			case CMD_SET_AWIDTH:
-				LOG("Set A-Width %d/10 periods.\n", command.param);
-				reply.result = nmr->setTxPeriods(command.param) ? RES_ERROR : RES_OK;
+				LOG("Set A-Width %d usec.\n", command.param);
+				reply.result = nmr->setTxAlen(command.param) ? RES_ERROR : RES_OK;
+				break;
+			case CMD_SET_BWIDTH:
+				LOG("Set B-Width %d usec.\n", command.param);
+				reply.result = nmr->setTxBlen(command.param) ? RES_ERROR : RES_OK;
+				break;
+			case CMD_SET_ABDLY:
+				LOG("Set AB-Delay %d usec.\n", command.param);
+				reply.result = nmr->setTxABdly(command.param) ? RES_ERROR : RES_OK;
+				break;
+			case CMD_SET_BBDLY:
+				LOG("Set BB-Delay %d usec.\n", command.param);
+				reply.result = nmr->setTxBBdly(command.param) ? RES_ERROR : RES_OK;
+				break;
+			case CMD_SET_BBCNT:
+				LOG("Set B-Count %d usec.\n", command.param);
+				reply.result = nmr->setTxBBcnt(command.param) ? RES_ERROR : RES_OK;
 				break;
 			case CMD_FIRE:
 				LOG("SingleShot.\n");

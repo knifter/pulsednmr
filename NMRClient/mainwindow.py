@@ -61,6 +61,12 @@ class MainWindow(QMainWindow):
         # Mode 1
         self.freqValue.valueChanged.connect(self.set_freq)
         self.awidthValue.valueChanged.connect(self.set_awidth)
+        # Mode 2
+        self.bwidthValue.valueChanged.connect(self.set_bwidth)
+        self.abdelayValue.valueChanged.connect(self.set_abdelay)
+        self.bbdelayValue.valueChanged.connect(self.set_bbdelay)
+        self.bcountValue.valueChanged.connect(self.set_bcount)
+
         # Other
         self.menuConnect.triggered.connect(self.action_Connect)
         self.startButton.clicked.connect(self.startButtonClicked)
@@ -78,6 +84,11 @@ class MainWindow(QMainWindow):
 
         self.freqValue.setValue(22)
         self.awidthValue.setValue(12)
+
+        self.bwidthValue.setValue(12)
+        self.abdelayValue.setValue(1)
+        self.bbdelayValue.setValue(1)
+        self.bcountValue.setValue(0)
 
         self.plotFFTCheck.setChecked(True)
         self.plotTimeCheck.setChecked(True)
@@ -167,15 +178,27 @@ class MainWindow(QMainWindow):
         self.plotTimeWidget.set_rate(rate)
         self.plotFFTWidget.set_rate(rate)
 
-    def set_awidth(self, width):
-        self.nmr.set_awidth(width)
-        self.plotTimeWidget.set_ignore(us=width)
-        self.plotFFTWidget.set_ignore(us=width)
+    def set_awidth(self, width_us):
+        self.nmr.set_awidth(width_us)
+        self.plotTimeWidget.set_ignore(us=width_us)
+        self.plotFFTWidget.set_ignore(us=width_us)
 
-    def set_delta(self, value):
+    def set_bwidth(self, width_us):
+        self.nmr.set_bwidth(width_us)
+
+    def set_abdelay(self, delay_ms):
+        self.nmr.set_abdelay(1000 * delay_ms)
+
+    def set_bbdelay(self, delay_ms):
+        self.nmr.set_bbdelay(1000 * delay_ms)
+
+    def set_bcount(self, cnt):
+        self.nmr.set_bcount(cnt)
+
+    def set_delta(self, ms):
         if self.started:
             self.timer.stop()
-            self.timer.start(value)
+            self.timer.start(ms)
 
     def set_average(self, value = None):
         if not self.averageCheck.isChecked():

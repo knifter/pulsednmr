@@ -337,8 +337,15 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="deltaLabel">
+              <property name="text">
+               <string>A-to-A delay</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="1">
-             <widget class="QSpinBox" name="deltaValue">
+             <widget class="QDoubleSpinBox" name="deltaValue">
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
@@ -348,24 +355,20 @@
               <property name="suffix">
                <string> ms</string>
               </property>
+              <property name="decimals">
+               <number>0</number>
+              </property>
               <property name="minimum">
-               <number>100</number>
+               <double>100.000000000000000</double>
               </property>
               <property name="maximum">
-               <number>10000</number>
+               <double>5000.000000000000000</double>
               </property>
               <property name="singleStep">
-               <number>20</number>
+               <double>100.000000000000000</double>
               </property>
               <property name="value">
-               <number>100</number>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="deltaLabel">
-              <property name="text">
-               <string>A-to-A delay</string>
+               <double>500.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -386,7 +389,7 @@
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QLabel" name="d1widthLabel">
+             <widget class="QLabel" name="abdelayLabel">
               <property name="text">
                <string>A-B delay</string>
               </property>
@@ -425,7 +428,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QDoubleSpinBox" name="d1widthValue">
+             <widget class="QDoubleSpinBox" name="abdelayValue">
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
@@ -442,7 +445,7 @@
                <double>1000.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>1.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="value">
                <double>1.000000000000000</double>
@@ -461,7 +464,7 @@
                <number>0</number>
               </property>
               <property name="minimum">
-               <double>1.000000000000000</double>
+               <double>0.000000000000000</double>
               </property>
               <property name="maximum">
                <double>10.000000000000000</double>
@@ -470,7 +473,7 @@
                <double>1.000000000000000</double>
               </property>
               <property name="value">
-               <double>1.000000000000000</double>
+               <double>0.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -493,16 +496,16 @@
                <number>1</number>
               </property>
               <property name="minimum">
-               <double>0.500000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="maximum">
-               <double>1000.000000000000000</double>
+               <double>64.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>1.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="value">
-               <double>10.000000000000000</double>
+               <double>1.000000000000000</double>
               </property>
              </widget>
             </item>

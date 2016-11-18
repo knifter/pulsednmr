@@ -36,7 +36,7 @@ class Command(Enum):
     SET_ABDELAY = 6
     SET_BWIDTH = 7
     SET_BBDELAY = 8
-    SET_BBCOUNT = 9
+    SET_BCOUNT = 9
 
 RATES = {0: 25.0e3,   # 25ksmps
          1: 50.0e3,
@@ -60,7 +60,11 @@ class NMRCtrl(object):
         self._freq = 21E6
         self._rate_index = 6
         self._rate = RATES[self._rate_index]
-        self._awidth = 200
+        self._awidth = 10
+        self._bwidth = 10
+        self._abdelay = 1000
+        self._bbdelay = 1000
+        self._bcount = 0
         self._rxsize = 1000
         self._connected = False
         self._host = None
@@ -189,15 +193,46 @@ class NMRCtrl(object):
     def awidth(self): return self._awidth
     def set_awidth(self, usecs = None):
         if usecs != None:
-            one_half_period = 1E6 / (2*self.freq)
-            log.debug("One half-period of %f MHz is: %f us" % (self.freq / 1E6, one_half_period))
-            self._awidth = int(usecs / one_half_period)
-            log.debug("Set A-Width %d us', %d half-periods." % (usecs, self._awidth))
-        else:
-            log.debug("Set A-Width %d half-periods." % (self._awidth))
+            log.debug("Set A-Width %d us." % (usecs))
+            self._awidth = usecs
         if self._connected:
-            # send periods/10, half_periods/5
-            self._send_cmd(Command.SET_AWIDTH, self._awidth*5)
+            self._send_cmd(Command.SET_AWIDTH, self._awidth)
+
+    @property
+    def bwidth(self): return self._bwidth
+    def set_bwidth(self, usecs = None):
+        if usecs != None:
+            log.debug("Set B-Width %d us." % (usecs))
+            self._bwidth = usecs
+        if self._connected:
+            self._send_cmd(Command.SET_BWIDTH, self._bwidth)
+
+    @property
+    def abdelay(self): return self._abdelayh
+    def set_abdelay(self, usecs = None):
+        if usecs != None:
+            log.debug("Set AB-Delay %d us." % (usecs))
+            self._abdelay = usecs
+        if self._connected:
+            self._send_cmd(Command.SET_ABDELAY, self._abdelay)
+
+    @property
+    def bbdelay(self): return self._bbdelay
+    def set_bbdelay(self, usecs = None):
+        if usecs != None:
+            log.debug("Set BB-Delay %d us." % (usecs))
+            self._bbdelay = usecs
+        if self._connected:
+            self._send_cmd(Command.SET_BBDELAY, self._bbdelay)
+
+    @property
+    def bcount(self): return self._bcount
+    def set_bcount(self, cnt = None):
+        if cnt != None:
+            log.debug("Set B-Count %d." % (cnt))
+            self._bcount = cnt;
+        if self._connected:
+            self._send_cmd(Command.SET_BCOUNT, self._bcount)
 
     @property
     def rxsize(self): return self._rxsize

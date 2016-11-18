@@ -4,6 +4,7 @@
 #include "log.h"
 
 #include <stdio.h>
+#include <stdint.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
@@ -13,14 +14,27 @@
 
 
 #define MEM_DEVICE			"/dev/mem"
-#define MMAP_CONFIG 		0x40000000
-#define MMAP_STATUS 		0x40001000
+#define MMAP_RXCONFIG 		0x40000000
+#define RESET_NONE	0x00
+#define RESET_RX 	0x01
+#define RESET_TX 	0x02
+#define MMAP_RXSTATUS 		0x40001000
+#define MMAP_TXCONFIG 		0x40002000
 #define MMAP_RXDATA 		0x40010000
-#define MMAP_TXDATA 		0x40020000
 #define DAC_SAMPLE_RATE     125000000		// 125 MSPS
 #define TX_BUFSIZE          50000           // Configures buffer size (PL)
-#define FREQ_MIN            (DAC_SAMPLE_RATE/TX_BUFSIZE)    
+#define RX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
+#define TX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
+#define FREQ_MIN            (DAC_SAMPLE_RATE/TX_BUFSIZE)
 #define FREQ_MAX            (DAC_SAMPLE_RATE/2)
+
+#define PULSE_LEN_MIN		0
+#define PULSE_LEN_MAX		1000
+#define PULSE_DLY_MIN		100
+#define PULSE_DLY_MAX		64000
+#define PULSE_BCNT_MIN		0
+#define PULSE_BCNT_MAX		10
+
 
 NMRCore::NMRCore()
 {
@@ -32,24 +46,44 @@ NMRCore::NMRCore()
 		ERROR("ERROR: opening mem-device");
 		return;
 	}; 
-	_config = (PL_ConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_CONFIG);
-	_status = (PL_StatusRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_STATUS);
+	_rxconfig = (PL_RxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXCONFIG);
+	_status =   (PL_StatusRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXSTATUS);
+	_txconfig = (PL_TxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_TXCONFIG);
 	_map_rxdata = mmap(NULL, 16*sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXDATA);
-	_map_txdata = (uint16_t*) mmap(NULL, 16*sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_TXDATA);
   	// sysconf(_SC_PAGESIZE) = 4096, 16*=65536 bytes
-  	if(_config == NULL)
+  	if(_rxconfig == NULL)
   	{
-  		ERROR("ERROR: mmap(CONFIG) failed.");
+  		ERROR("mmap(RXCONFIG) failed.");
   		return;
   	}
   	if(_status == NULL)
   	{
-  		ERROR("ERROR: mmap(STATUS) failed.");
+  		ERROR("mmap(TXSTATUS) failed.");
+  		return;
+  	}
+  	if(_txconfig == NULL)
+  	{
+  		ERROR("mmap(TXCONFIG) failed.");
   		return;
   	}
 
-	/* fill tx buffer with zeros */
-	memset(_map_txdata, 0, 65536);
+  	// Alignment checking
+#ifdef DEBUG_ALIGNMENT
+	printf("RxConfig at: %p\n", _rxconfig);
+	printf("\treset: %p\n", &(_rxconfig->reset));
+	printf("\trate: %p\n", &(_rxconfig->rate));
+	printf("\tpir: %p\n", &(_rxconfig->pir));
+	printf("SizeOf(PL_ConfigRxRegister: %d\n", sizeof(*_rxconfig));
+
+	printf("TxConfig at: %p\n", _txconfig);
+	printf("\tpir: %p\n", &(_txconfig->pir));
+	printf("\talen: %p\n", &(_txconfig->a_len));
+	printf("\tbleb: %p\n", &(_txconfig->b_len));
+	printf("\tabdly: %p\n", &(_txconfig->ab_dly));
+	printf("\tbbdly: %p\n", &(_txconfig->bb_dly));
+	printf("\tbbcnt: %p\n", &(_txconfig->bb_cnt));
+	printf("SizeOf(PL_ConfigTxRegister: %d\n", sizeof(*_txconfig));
+#endif
 
 	// Put us in reset
 	// *_reg_rx_rst |= 1; *_reg_tx_rst |= 1;
@@ -57,16 +91,22 @@ NMRCore::NMRCore()
 	// Set some defaults
 	setFrequency(1E6);
 	setRxRate(RATE_2500K);
-	setTxPeriods(2000);
 	setRxSize(50000);
+
+	setTxAlen(100);
+	setTxBlen(100);
+	setTxABdly(200);
+	setTxBBdly(200);
+	setTxBBcnt(0);
 }
 
 NMRCore::~NMRCore()
 {
 	if(_map_fd)
 		close(_map_fd);
-	_config = NULL;
+	_rxconfig = NULL;
 	_status = NULL;
+	_txconfig = NULL;
 }
 
 int NMRCore::setFrequency(uint32_t freq)
@@ -79,9 +119,9 @@ int NMRCore::setFrequency(uint32_t freq)
 
 int NMRCore::setRxFrequency(uint32_t freq)
 {
-	if(!_config)
+	if(!_rxconfig)
 	{
-		ERROR("setRxFrequency: _config == NULL\n");
+		ERROR("setRxFrequency: _rxconfig == NULL\n");
 		return 1;
 	};
 	if(freq < FREQ_MIN | freq > FREQ_MAX)
@@ -90,41 +130,130 @@ int NMRCore::setRxFrequency(uint32_t freq)
 		return 2;
 	};
 
-	uint32_t pir = floor((float)freq / DAC_SAMPLE_RATE * (1<<30) + 0.5);
+	uint32_t pir = floor((float)freq / DAC_SAMPLE_RATE * (1<<RX_DDS_PIR_WIDTH) + 0.5);
 	DBG("setRxFrequency: %u Hz -> DDS phase-incr-reg: %u\n", freq, pir);
-	_config->rx_pir = pir;
+	_rxconfig->pir = pir;
 
 	return 0;
 }
 
 int NMRCore::setTxFrequency(uint32_t freq)
 {
+	if(!_txconfig)
+	{
+		ERROR("_txconfig == NULL\n");
+		return 1;
+	};
 	if(freq < FREQ_MIN | freq > FREQ_MAX)
 	{
 		ERROR("Tx Freq out of range.");
 		return 2;
 	};
 
-	DBG("setTxFrequency: %u Hz\n", freq);
-	_tx_freq = freq;
-	_needs_generate = true;
+	uint32_t pir = floor((float)freq / DAC_SAMPLE_RATE * (1<<TX_DDS_PIR_WIDTH) + 0.5);
+	DBG("setTxFrequency: %u Hz -> DDS phase-incr-reg: %u\n", freq, pir);
+	_txconfig->pir = pir;
+
 	return 0;
 }
 
-int NMRCore::setTxPeriods(uint32_t periods10)
+int NMRCore::setTxAlen(uint32_t usec)
 {
-	printf("setTxPeriods: %d/10\n", periods10);
-	_tx_periods = periods10;
-	_needs_generate = true;
-	return 0;
+	if(!_txconfig)
+	{
+		ERROR("_txconfig == NULL\n");
+		return 1;
+	};
+	if(usec > PULSE_LEN_MAX | usec < PULSE_LEN_MIN)
+	{
+		ERROR("A-length %u out of range (%d, %d)", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
+		return 2;
+	}
+
+	DBG("A-length: %u us pulse.\n", usec);
+
+	_txconfig->a_len = usec;
 }
+
+int NMRCore::setTxBlen(uint32_t usec)
+{
+	if(!_txconfig)
+	{
+		ERROR("_txconfig == NULL\n");
+		return 1;
+	};
+	if(usec > PULSE_LEN_MAX | usec < PULSE_LEN_MIN)
+	{
+		ERROR("B-length %u out of range (%d, %d)", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
+		return 2;
+	}
+
+	DBG("B-length: %u us pulse.\n", usec);
+
+	_txconfig->b_len = usec;
+}
+
+int NMRCore::setTxABdly(uint32_t usec)
+{
+	if(!_txconfig)
+	{
+		ERROR("_txconfig == NULL\n");
+		return 1;
+	};
+	if(usec > PULSE_DLY_MAX | usec < PULSE_DLY_MIN)
+	{
+		ERROR("A-to-B-Delay %u out of range (%d, %d)", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
+		return 2;
+	}
+
+	DBG("A-to-B-Delay: %u us.\n", usec);
+
+	_txconfig->ab_dly = usec;
+}
+
+int NMRCore::setTxBBdly(uint32_t usec)
+{
+	if(!_txconfig)
+	{
+		ERROR("_txconfig == NULL\n");
+		return 1;
+	};
+	if(usec > PULSE_DLY_MAX | usec < PULSE_DLY_MIN)
+	{
+		ERROR("B-to-B-Delay %u out of range (%d, %d)", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
+		return 2;
+	}
+
+	DBG("B-to-B-Delay: %u us.\n", usec);
+
+	_txconfig->bb_dly = usec;
+}
+
+int NMRCore::setTxBBcnt(uint32_t count)
+{
+	if(!_txconfig)
+	{
+		ERROR("_txconfig == NULL\n");
+		return 1;
+	};
+	if(count > PULSE_BCNT_MAX | count < PULSE_BCNT_MIN)
+	{
+		ERROR("B-Count %u out of range (%d, %d)", count, PULSE_BCNT_MIN, PULSE_BCNT_MAX);
+		return 2;
+	}
+
+	DBG("B-Count: %u pulses.\n", count);
+
+	_txconfig->bb_cnt = count;
+}
+
 
 int NMRCore::setRxRate(NMRDecimationRate rate)
 {
 	DBG("setRxRate: idx = %d\n", rate);
-	if(!_config)
+	if(!_rxconfig)
 	{
-		ERROR("setRxRate: _config == NULL\n");
+		ERROR("setRxRate: _rxconfig == NULL\n");
 		return 1;
 	};
 	// rx_rate = DAC_SAMPLE_RATE / divider / 2 [CIC(rx_rate) + FIR(2)]
@@ -132,31 +261,31 @@ int NMRCore::setRxRate(NMRDecimationRate rate)
 	{
 		// DAC_SAMPLE_RATE / 2500 = 50ksmps
 		case RATE_25K:
-			_config->rx_rate = DAC_SAMPLE_RATE/2 / 25E3;
+			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 25E3;
 			break;
 		case RATE_50K:
-			_config->rx_rate = DAC_SAMPLE_RATE/2 / 50E3;
+			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 50E3;
 			break;
 		case RATE_125K:
-			_config->rx_rate = DAC_SAMPLE_RATE/2 / 125E3;
+			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 125E3;
 			break;
 		case RATE_250K:
-			_config->rx_rate = DAC_SAMPLE_RATE/2 / 250E3;
+			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 250E3;
 			break;
 		case RATE_500K:
-			_config->rx_rate = DAC_SAMPLE_RATE/2 / 500E3;
+			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 500E3;
 			break;
 		case RATE_1250K:
-			_config->rx_rate = DAC_SAMPLE_RATE/2 / 1250E3;
+			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 1250E3;
 			break;
 		case RATE_2500K:
-			_config->rx_rate = DAC_SAMPLE_RATE/2 / 2500E3;
+			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 2500E3;
 			break;
 		// case RATE_5000K:
-		// 	_config->rx_rate = DAC_SAMPLE_RATE/2 / 5000E3;
+		// 	_rxconfig->rate = DAC_SAMPLE_RATE/2 / 5000E3;
 		// 	break;
 		default: 
-			printf("ERROR: Received an incorrect rate-index: %d", rate);
+			ERROR("Received an incorrect rate-index: %d", rate);
 			return 1;
 	}
 	return 0;
@@ -164,7 +293,7 @@ int NMRCore::setRxRate(NMRDecimationRate rate)
 
 int NMRCore::getRxRate()
 {
-	 return DAC_SAMPLE_RATE/2 / _config->rx_rate;
+	 return DAC_SAMPLE_RATE/2 / _rxconfig->rate;
 }
 
 int NMRCore::setRxSize(uint32_t size)
@@ -178,7 +307,7 @@ int NMRCore::setRxSize(uint32_t size)
 	_rx_buffer = malloc(bsize);
 	if(_rx_buffer == NULL)
 	{
-		ERROR("Failed to allocate RxBuffer of %u bytes for %u samples.");
+		ERROR("Failed to allocate RxBuffer of %u bytes for %u samples.", bsize, size);
 		_rx_size = 0;
 		return 1;
 	}
@@ -189,11 +318,10 @@ int NMRCore::setRxSize(uint32_t size)
 
 int NMRCore::singleShot()
 {
-	DBG("Start.\n");
 
-	if(!_config)
+	if(!_rxconfig)
 	{
-		DBG("singleShot: _config == NULL\n");
+		DBG("singleShot: _rxconfig == NULL\n");
 		return 1;
 	};
 	if(!_rx_buffer)
@@ -202,33 +330,26 @@ int NMRCore::singleShot()
 		return 2;
 	};
 
-	if(_needs_generate)
-		if(generatePulse())
-		{
-			ERROR("generatePulse failed.\n");
-			return 3;
-		};
-
-	// un-reset Rx&Tx cores
-	// Reset Rx
-	_config->rx_reset |= 1;		// RESET Rx
-
-	// Reset cycle Tx
-	_config->tx_resetn &= ~1;	// RESET Tx
-	_config->tx_resetn |= 1;	// UN-RESET Tx
+	// reset Rx&Tx cores
+	DBG("Start Tx.\n");
+	_rxconfig->reset = RESET_RX | RESET_TX;
 
 #ifdef WAIT_RX_FOR_TX
+	// UN-Reset Tx
+	_rxconfig->reset = RESET_RX;
+
 	// Wait until TX pulse is over before enabling receiver
 	uint32_t wait_time = (_tx_size * 1E6) / DAC_SAMPLE_RATE
 	usleep(wait_time);
 	DBG("Waiting %u usec.\n", wait_time);
-#endif
 
 	// enable Rx
-	_config->rx_reset &= ~1; 	// UN-RESET Rx
+#endif
+	// enable Rx & Tx
+	_rxconfig->reset = RESET_NONE;
+	DBG("Start Rx.\n");
 
 	// Get FIFO data into buffer
-
 #ifdef DEBUG_READLOOP
 	DBG("read loop start\n");
 	struct timeval tv;
@@ -254,9 +375,12 @@ int NMRCore::singleShot()
 	uint32_t needed;
 	while(rx_total < _rx_size)
 	{
+
 		// throttle polling
 		while(_status->rx_counter < 5000)
+		{
 			usleep(100);
+		};
 
 		// rx_counter is our total number of floats waiting, twice the amount of samples
 		// read it once and cache it locally, it's updated by the PL
@@ -281,11 +405,10 @@ int NMRCore::singleShot()
 #endif // DEBUG_READLOOP
 
 	// stop the receiver
-	_config->rx_reset |= 1;
+	_rxconfig->reset = RESET_RX | RESET_TX;
 
 	DBG("Total %d complex-floats read. %d Bytes.\n", rx_total, rx_total*2*sizeof(float));
 
-	// TODO: put core in reset?
 	return 0;
 }
 
@@ -305,72 +428,5 @@ int NMRCore::getRxBuffer(void** data_target, uint32_t* len_target)
 	*data_target = _rx_buffer;
 	*len_target = _rx_size * 2 * sizeof(float);
 	return 0;
-}
-
-int NMRCore::generatePulse()
-{
-	if(!_map_txdata)
-	{
-		perror("generatePulse: _reg_tx_data == NULL");
-		return 1;
-	};
-	if(!_config)
-	{
-		perror("generatePulse: _config == NULL");
-		return 2;
-	};
-
-    // Check periods fit in buffer
-    // 50k samples @ 125 MSPS = 400 uS
-    // samples per period = 125 MSPS / freq
-    // periods = 400 uS / samples per period
-    uint16_t half_periods = _tx_periods / 5;
-
-    // half_period_time = 1/(2*freq)
-    // buffer_time = TX_BUFSIZE / DAC_SAMPLE_RATE
-    // half_periods_max = buffer_time / half_period_time
-    uint32_t half_periods_max = 2.0*TX_BUFSIZE/DAC_SAMPLE_RATE * _tx_freq;
-    // Generate <freq> sine in buffer
-    // samples per period = DAC_SAMPLE_RATE / freq
-    // samples needed = half_periods * samples per period / 2
-    _tx_pulse_size = floor((1.0*half_periods * DAC_SAMPLE_RATE) / (_tx_freq*2) + 0.5);
-
-    // increase _tx_pulse_size by 1 to include the last zero
-    _tx_pulse_size++;
-
-    // pulse time = sample per period / 2 * half_periods
-    // printf("generatePulse: Max half-periods that fit in buffer: %d\n", half_periods_max);
-	printf("generatePulse: %u half-periods, %.2f usecs.\n", half_periods, (_tx_pulse_size*1.0E6)/DAC_SAMPLE_RATE);
-    printf("generatePulse: %u samples needed for %u half-periods.\n", _tx_pulse_size, half_periods);
-    
-    // check that this frequency and periods fit in tx_data
-    if(_tx_pulse_size > TX_BUFSIZE)
-    {
-    	printf("generatePulse: ERROR: Too many half-periods to fit in buffer (max %u half periods)", half_periods_max);
-    	return 2;
-    };
-
-    // Synthesize the sine the tx_buffer
-    printf("generatePulse: generating %u samples (%u bytes)\n", 
-    	_tx_pulse_size, _tx_pulse_size*sizeof(uint16_t));
-    // int16_t* data = (int16_t*) _map_txdata;
-    int16_t sample;
-    float pirc = 2.0*M_PI * _tx_freq/DAC_SAMPLE_RATE;
-    for(int i = 0; i < _tx_pulse_size; i++)
-    {
-    	sample = floor(8191.0 * sin(i*pirc) + 0.5);
-        // printf("%d, %d\n", i, sample);
-        _map_txdata[i] = sample;
-    };
-
-    // TODO: Somehow we still need to keep copying it, 32-bits bus the cause?
-    // memcpy(data, buf, _tx_pulse_size*sizeof(uint16_t));
-
-    // written _tx_pulse_size*2 bytes
-    _config->tx_size = _tx_pulse_size;
-
-    // done
-    _needs_generate = false;
-    return 0;        
 }
 

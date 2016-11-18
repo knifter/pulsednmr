@@ -12,6 +12,12 @@ typedef enum CommandCode_enum : uint32_t {
 	CMD_SET_AWIDTH 	= 2,
 	CMD_FIRE		= 3,
 	CMD_SET_RX_SIZE = 4,
+
+    CMD_SET_AADLY 	= 5, // currently host side, not implemented in PL
+    CMD_SET_ABDLY 	= 6,
+    CMD_SET_BWIDTH 	= 7,
+    CMD_SET_BBDLY 	= 8,
+    CMD_SET_BBCNT 	= 9
 } CommandCode;
 
 typedef struct {
