@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-//Date        : Fri Nov 04 16:36:14 2016
+//Date        : Fri Nov 18 16:21:50 2016
 //Host        : U031014 running 64-bit major release  (build 9200)
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -44,9 +44,9 @@ module system_wrapper
     dac_rst_o,
     dac_sel_o,
     dac_wrt_o,
-    exp_n_tri_io,
-    exp_p_tri_io,
-    led_o);
+    led_o,
+    pulse_on,
+    sync);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -81,9 +81,9 @@ module system_wrapper
   output dac_rst_o;
   output dac_sel_o;
   output dac_wrt_o;
-  inout [7:0]exp_n_tri_io;
-  inout [7:0]exp_p_tri_io;
-  output [0:0]led_o;
+  output [7:0]led_o;
+  output pulse_on;
+  output sync;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -119,9 +119,9 @@ module system_wrapper
   wire dac_rst_o;
   wire dac_sel_o;
   wire dac_wrt_o;
-  wire [7:0]exp_n_tri_io;
-  wire [7:0]exp_p_tri_io;
-  wire [0:0]led_o;
+  wire [7:0]led_o;
+  wire pulse_on;
+  wire sync;
 
   system system_i
        (.DDR_addr(DDR_addr),
@@ -158,7 +158,7 @@ module system_wrapper
         .dac_rst_o(dac_rst_o),
         .dac_sel_o(dac_sel_o),
         .dac_wrt_o(dac_wrt_o),
-        .exp_n_tri_io(exp_n_tri_io),
-        .exp_p_tri_io(exp_p_tri_io),
-        .led_o(led_o));
+        .led_o(led_o),
+        .pulse_on(pulse_on),
+        .sync(sync));
 endmodule
