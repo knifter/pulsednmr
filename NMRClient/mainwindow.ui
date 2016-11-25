@@ -160,7 +160,7 @@
                <double>1.000000000000000</double>
               </property>
               <property name="value">
-               <double>5.000000000000000</double>
+               <double>9.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -196,18 +196,24 @@
                <double>0.500000000000000</double>
               </property>
               <property name="maximum">
-               <double>100.000000000000000</double>
+               <double>1000.000000000000000</double>
               </property>
               <property name="singleStep">
                <double>0.100000000000000</double>
               </property>
               <property name="value">
-               <double>0.500000000000000</double>
+               <double>9.000000000000000</double>
               </property>
              </widget>
             </item>
             <item row="5" column="2">
              <widget class="QLineEdit" name="rxSamplesEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -304,7 +310,7 @@
                <double>1.000000000000000</double>
               </property>
               <property name="value">
-               <double>1.000000000000000</double>
+               <double>9.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -333,7 +339,7 @@
                <double>0.001000000000000</double>
               </property>
               <property name="value">
-               <double>0.000000000000000</double>
+               <double>9.990000000000000</double>
               </property>
              </widget>
             </item>
@@ -368,7 +374,7 @@
                <double>100.000000000000000</double>
               </property>
               <property name="value">
-               <double>500.000000000000000</double>
+               <double>999.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -381,21 +387,21 @@
             <string>Mode 2: Echo</string>
            </property>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="1" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="bwidthLabel">
               <property name="text">
                <string>B width</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
+            <item row="2" column="0">
              <widget class="QLabel" name="abdelayLabel">
               <property name="text">
                <string>A-B delay</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="3" column="1">
              <widget class="QDoubleSpinBox" name="bwidthValue">
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -416,18 +422,11 @@
                <double>1.000000000000000</double>
               </property>
               <property name="value">
-               <double>200.000000000000000</double>
+               <double>9.000000000000000</double>
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="bcountLabel">
-              <property name="text">
-               <string>B count</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
+            <item row="2" column="1">
              <widget class="QDoubleSpinBox" name="abdelayValue">
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -448,43 +447,18 @@
                <double>0.100000000000000</double>
               </property>
               <property name="value">
-               <double>1.000000000000000</double>
+               <double>9.000000000000000</double>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QDoubleSpinBox" name="bcountValue">
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-              <property name="suffix">
-               <string extracomment="periods"/>
-              </property>
-              <property name="decimals">
-               <number>0</number>
-              </property>
-              <property name="minimum">
-               <double>0.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>10.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>1.000000000000000</double>
-              </property>
-              <property name="value">
-               <double>0.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="bbdelayLabel">
               <property name="text">
                <string>B-to-B delay</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="4" column="1">
              <widget class="QDoubleSpinBox" name="bbdelayValue">
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -505,7 +479,39 @@
                <double>0.100000000000000</double>
               </property>
               <property name="value">
+               <double>9.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QDoubleSpinBox" name="bcountValue">
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="suffix">
+               <string extracomment="periods"/>
+              </property>
+              <property name="decimals">
+               <number>0</number>
+              </property>
+              <property name="minimum">
+               <double>0.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>10.000000000000000</double>
+              </property>
+              <property name="singleStep">
                <double>1.000000000000000</double>
+              </property>
+              <property name="value">
+               <double>9.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="bcountLabel">
+              <property name="text">
+               <string>B count</string>
               </property>
              </widget>
             </item>

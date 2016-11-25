@@ -108,6 +108,10 @@ class NMRCtrl(object):
         self.set_awidth()
         self.set_rate()
         self.set_rxsize()
+        self.set_bwidth()
+        self.set_abdelay()
+        self.set_bbdelay()
+        self.set_bcount()
 
     def fire(self):
         # fire
@@ -139,7 +143,7 @@ class NMRCtrl(object):
         # id(uint32_t), cmd(uint32_t), param(uint32_t), data_len(uint32_t)
         self._sequence += 1
         command_bin = struct.pack('<IIII', self._sequence, cmd.value, param, 0)
-        log.debug("Send:\tCommand(id=%d, len = %d)" % (self._sequence, len(command_bin)))
+        # log.debug("Send:\tCommand(id=%d, len = %d)" % (self._sequence, len(command_bin)))
         self._socket.sendall(command_bin)
 
         # receive reply
@@ -160,7 +164,7 @@ class NMRCtrl(object):
                 buf = self._socket.recv(reply.data_len - bread)
                 reply.data += buf
                 bread += len(buf)
-        log.debug("\t\t" + repr(reply));
+        # log.debug("\t\t" + repr(reply));
         return reply
 
     @property
@@ -178,12 +182,15 @@ class NMRCtrl(object):
 
     @property
     def rate(self): return self._rate
-    def set_rate(self, index = None):
+    def set_rate(self, rate = None, index = None):
         if index != None:
-            if index > 10:
-                log.debug("Index of %d: %d" % (index, list(RATES.values()).index(index)))
-                index = list(RATES.values()).index(index)
+            RATES[index] # check that it is valid
             self._rate_index = index
+        if rate != None:
+            log.debug("Index of %d: %d" % (index, list(RATES.values()).index(index)))
+            index = list(RATES.values()).index(rate)
+            self._rate_index = index
+
         log.debug("Set rate index %d (%d smps)" % (self._rate_index, RATES[self._rate_index]))
         self._rate = RATES[self._rate_index]
         if self._connected:

@@ -12,7 +12,7 @@ from nmrctrl import NMRConnectionError, RATES
 LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.gui'
 WINDOW_TITLE = "NMR Control"
-RXTX_OFFSET = 170
+RXTX_OFFSET = 85
 
 log = logging.getLogger(LOG_NAME)
 
@@ -74,6 +74,9 @@ class MainWindow(QMainWindow):
         # create timer for the repetitions
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.fireTimer)
+
+        self.plotTimeWidget.set_ignore(samples=RXTX_OFFSET)
+        self.plotFFTWidget.set_ignore(samples=RXTX_OFFSET)
 
     def setDefaults(self):
         self.deltaValue.setValue(300)
@@ -162,21 +165,32 @@ class MainWindow(QMainWindow):
 
     ### (UI) ACTIONS ########################################################################
     def set_freq(self, value):
-        self.nmr.set_freq(int(value * 1E6))
+        hz = int(value * 1E6)
+        self.nmr.set_freq(hz)
+        self.plotFFTWidget.set_frequencyOffset(hz)
 
     def set_rate(self, index):
-        self.nmr.set_rate(index)
+        self.nmr.set_rate(index=index)
         rate = self.nmr.rate
-        size = self.nmr.rxsize
-
-        # set repetition time
-        minimum = size / rate * 2000.0
-        if minimum < 100.0:
-            minimum = 100.0
-        self.deltaValue.setMinimum(minimum)
+        size = int(self.rxTimeValue.value() * rate / 1E3);
+        log.debug("rate = %d, new size = %d" % (rate, size))
 
         self.plotTimeWidget.set_rate(rate)
         self.plotFFTWidget.set_rate(rate)
+
+        self.set_rxSize(size)
+
+    def set_rxTime(self, time):
+        size = int(time * self.nmr.rate / 1E3)
+
+        self.set_rxSize(size)
+
+    def set_rxSize(self, size):
+        self.nmr.set_rxsize(size)
+
+        self.plotTimeWidget.set_size(size)
+        self.plotFFTWidget.set_size(size)
+        self.rxSamplesEdit.setText(str(size))
 
     def set_awidth(self, width_us):
         self.nmr.set_awidth(width_us)
@@ -207,14 +221,6 @@ class MainWindow(QMainWindow):
             return
         self.plotTimeWidget.setAverageCount(self.averageValue.value())
         self.plotFFTWidget.setAverageCount(self.averageValue.value())
-
-    def set_rxTime(self, time):
-        size = int(time * self.nmr.rate / 1E3)
-        self.nmr.set_rxsize(size)
-        # TODO: nmr.set_rxtime(time) to keep track when rate changes
-        self.plotTimeWidget.set_size(size)
-        self.plotFFTWidget.set_size(size)
-        self.rxSamplesEdit.setText(str(size))
 
     def action_plotTimeFFTCheck(self):
         self.plotTimeWidget.setVisible(self.plotTimeCheck.isChecked())

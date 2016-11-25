@@ -3,6 +3,11 @@ import matplotlib
 import numpy as np
 from nmrctrl import NMRMeasurement
 
+import logging
+LOG_ROOT = 'nmr'
+LOG_NAME = 'nmr.plotwidgets'
+log = logging.getLogger(LOG_NAME)
+
 QT_VERSION = 5
 if QT_VERSION == 4:
     # Qwidget
@@ -60,6 +65,14 @@ class PlotWidget(QWidget):
         mainlayout.addWidget(self.frame)
         self.setLayout(mainlayout)
 
+    def initPlot(self):
+        #toolbar
+        #self.toolbar.home()
+        #self.toolbar._views.clear()
+        #self.toolbar._positions.clear()
+
+        self._avgdata = None
+
     @property
     def _ignore_total(self):
         return min(int(self._ignore_us * self._rate / 1E6 + self._ignore_samples), self._size)
@@ -67,30 +80,21 @@ class PlotWidget(QWidget):
     def setTitle(self, title):
         self.frame.setTitle(title)
 
-
     def setSampleSize(self, size):
         self._size = size
-
 
     def setSampleRate(self, rate):
         self._rate = rate
 
-
     def setAverageCount(self, cnt):
-        print("set avg = %d\n" % cnt)
         self._avg = max(cnt, 1)
 
     def set_rate(self, rate):
         self._rate = int(rate)
         self.initPlot()
 
-
     def set_size(self, size):
         self._size = int(size)
-
-        # Reset averager (more or less samples)
-        self._avgdata = None
-
         self.initPlot()
 
     def set_ignore(self, us = None, samples = None):
@@ -98,8 +102,9 @@ class PlotWidget(QWidget):
             self._ignore_us = us
         if samples != None:
             self._ignore_samples = samples
+        log.debug("ignoring a total of %d samples (%d us + %s samples)."
+                  % (self._ignore_total, self._ignore_us, self._ignore_samples))
         self.initPlot()
-
 
 class PlotTimeWidget(PlotWidget):
     def __init__(self, parent=None, title=None):
@@ -108,28 +113,23 @@ class PlotTimeWidget(PlotWidget):
 
         self.initPlot()
 
-
     def initPlot(self):
-         #toolbar
-        #self.toolbar.home()
-        #self.toolbar._views.clear()
-        #self.toolbar._positions.clear()
-
         size = self._size
         rate = self._rate
         ignore = self._ignore_total
 
          # configure time axis
         time = np.linspace(0.0, (size - 1) * 1E6 / rate, size)
+        zeros = np.zeros(len(time))
 
         # configure axis
         self.axis.clear()
         self.axis.grid()
-        self.curveA = self.axis.plot(time[0:ignore], np.zeros(ignore), '0.50')[0]
-        self.curveB = self.axis.plot(time[ignore:], np.zeros(size-ignore, 'b'))[0]
+        self.curveA = self.axis.plot(time[0:ignore], zeros[0:ignore], '0.50')[0]
+        self.curveB = self.axis.plot(time[ignore-1:], zeros[ignore-1:], 'b')[0]
         x1, x2, y1, y2 = self.axis.axis()
         self.axis.axis((x1, x2, -0.1, 0.4))
-        self.axis.set_xlabel('t [ms]')
+        self.axis.set_xlabel('t [us]')
 
         self._avgdata = None
 
@@ -149,7 +149,7 @@ class PlotTimeWidget(PlotWidget):
             ValueError("Not supported")
 
         # stream through the averager
-        if self._avgdata == None:
+        if self._avgdata is None or (len(self._avgdata) != len(data)):
             self._avgdata = data
         self._avgdata = (self._avg - 1) * self._avgdata + data
         self._avgdata = self._avgdata / self._avg
@@ -157,7 +157,7 @@ class PlotTimeWidget(PlotWidget):
         # plot zeros and store the returned Line2D object
         ignore = self._ignore_total
         self.curveA.set_ydata(self._avgdata[0:ignore])
-        self.curveB.set_ydata(self._avgdata[ignore:])
+        self.curveB.set_ydata(self._avgdata[ignore-1:])
         self.canvas.draw()
 
     def set_mode(self, mode):
@@ -172,20 +172,17 @@ class PlotFFTWidget(PlotWidget):
     def __init__(self, parent=None, title=None):
         super(PlotFFTWidget, self).__init__(parent)
 
+        self._freq_offset = 0
+
         self.initPlot()
 
     def initPlot(self):
-        # toolbar
-        # self.toolbar.home()
-        # self.toolbar._views.clear()
-        # self.toolbar._positions.clear()
-
         size = self._size
         rate = self._rate
         ignore = self._ignore_total
 
         fftsize = max(size - ignore, 1) # no zeroes here
-        freqs = np.fft.fftshift(np.fft.fftfreq(fftsize, d=float(1 / rate)))
+        freqs = np.fft.fftshift(np.fft.fftfreq(fftsize, d=float(1 / rate))) + self._freq_offset
 
         # configure axis'
         self.axis.clear()
@@ -209,7 +206,7 @@ class PlotFFTWidget(PlotWidget):
         fft = np.abs(np.fft.fftshift(np.fft.fft(m.iqdata[ignore:], norm='ortho')))
 
         # stream through the averager
-        if self._avgdata == None:
+        if self._avgdata is None:
             self._avgdata = fft
         self._avgdata = (self._avg - 1) * self._avgdata + fft
         self._avgdata = self._avgdata / self._avg
@@ -217,3 +214,7 @@ class PlotFFTWidget(PlotWidget):
         # plot zeros and store the returned Line2D object
         self.curve.set_ydata(self._avgdata)
         self.canvas.draw()
+
+    def set_frequencyOffset(self, freq):
+        self._freq_offset = freq
+        self.initPlot()
