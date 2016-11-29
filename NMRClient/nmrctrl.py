@@ -37,6 +37,8 @@ class Command(Enum):
     SET_BWIDTH = 7
     SET_BBDELAY = 8
     SET_BCOUNT = 9
+    SET_RX_DELAY = 10
+    KEEPALIVE = 11
 
 RATES = {0: 25.0e3,   # 25ksmps
          1: 50.0e3,
@@ -66,12 +68,14 @@ class NMRCtrl(object):
         self._bbdelay = 1000
         self._bcount = 0
         self._rxsize = 1000
+        self._rxdelay = 0
         self._connected = False
         self._host = None
         self._port = None
         self._sequence = 0
         self._needs_config = True
         self._iqdata = None
+        self._socket = None
 
         # create TCP socket (Qt)
         #        self.socket = QTcpSocket(self)
@@ -79,20 +83,35 @@ class NMRCtrl(object):
         #        self.socket.readyRead.connect(self.read_data)
         #        self.socket.error.connect(self.display_error)
 
-        # create TCP socket
-        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._socket.settimeout(2)
 
     def connect(self, host:str, port:int=DEFAULT_PORT):
         try:
+            # create TCP socket
+            self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self._socket.settimeout(2)
             self._socket.connect((host, port))
-        except OSError:
-            raise NMRConnectionError("Could not connect to %s?%s." % (host, port))
-        log.info("Connected to %s:%d" % (host, port))
+        except OSError as e:
+            raise NMRConnectionError("Could not connect to %s?%s (%s)." % (host, port, repr(e)))
+
+        # try a packet
+        # try:
+        #     self._send_cmd(Command.KEEPALIVE, tryconnection=True)
+        # except TimeoutError:
+        #     log.info("Connection failed. Server not responding. Busy?")
+        #     return
+
+        # Ok, connected
         self._host = host
         self._port = port
         self._connected = True
-        self.configure()
+        try:
+            self.configure()
+        except TimeoutError:
+            log.info("Connection failed. Server not responding. Busy?")
+            self._socket = None
+            self._connected = False
+            return
+        log.info("Connected to %s:%d" % (host, port))
         # raise ConnectionError("Socket error: %s" % self._socket.errorString())
 
     def disconnect(self):
@@ -112,6 +131,7 @@ class NMRCtrl(object):
         self.set_abdelay()
         self.set_bbdelay()
         self.set_bcount()
+        self.set_rxdelay()
 
     def fire(self):
         # fire
@@ -130,8 +150,8 @@ class NMRCtrl(object):
         m.iqdata = numpy.frombuffer(self._iqdata, numpy.complex64)
         return m
 
-    def _send_cmd(self, cmd, param = 0):
-        if not self._connected:
+    def _send_cmd(self, cmd, param = 0, tryconnection=False):
+        if not self._connected and not tryconnection:
             raise NMRError("Not connected.");
         if not isinstance(cmd, Command):
             raise NMRCmdError("Invalid command: %s" % repr(cmd))
@@ -149,7 +169,10 @@ class NMRCtrl(object):
         # receive reply
         # id(uint32_t), result(uint32_t), data_len(uint32_t)
         reply = CommandReply()
-        reply_bin = self._socket.recv(12)
+        try:
+            reply_bin = self._socket.recv(12)
+        except socket.timeout:
+            raise TimeoutError("Timeout while receiving data.")
         if(len(reply_bin) != 12):
             raise NMRCmdError("Did not receive a complete reply header. (received len = %d)" % len(reply_bin));
         (reply.id, reply.resultcode, reply.data_len) = struct.unpack('<III', reply_bin)
@@ -246,9 +269,18 @@ class NMRCtrl(object):
     def set_rxsize(self, samples = None):
         if samples != None:
             self._rxsize = samples
-        log.debug("Set rxsize %d" % (self._rxsize))
+            log.debug("Set rxsize %d" % (self._rxsize))
         if self._connected:
             self._send_cmd(Command.SET_RX_SIZE, self._rxsize)
+
+    @property
+    def rxdelay(self): return self._rxdelay
+    def set_rxdelay(self, usecs = None):
+        if usecs is not None:
+            self._rxdelay = usecs
+            log.debug("Set Rx-Delay %d us." % (usecs))
+        if self._connected:
+            self._send_cmd(Command.SET_RX_DELAY, self._rxdelay)
 
 class CommandReply(object):
     def __init__(self):
@@ -266,6 +298,7 @@ class NMRNoDataError(NMRError): pass
 class NMRCmdError(NMRError): pass
 class NMRConnectionError(NMRError): pass
 class NMRConnectError(NMRError): pass
+class NMRTimeoutError(NMRError): pass
 
 if __name__ == "__main__":
     main()

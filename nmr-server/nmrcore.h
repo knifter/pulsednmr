@@ -47,6 +47,7 @@ public:
 	int setRxRate(NMRDecimationRate rate);
 	int getRxRate();
 	int setRxSize(uint32_t size);
+	int setRxDelay(uint32_t delay);
 	int getRxBuffer(void** data_target, uint32_t* len_target);
 
 	int setTxFrequency(uint32_t freq);
@@ -77,6 +78,7 @@ private:
 	uint32_t _rx_freq;
 	uint32_t _rx_size;
 	void* _rx_buffer = NULL;
+	uint32_t _rx_delay = 0;
 };
 
 

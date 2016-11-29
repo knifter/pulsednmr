@@ -33,6 +33,7 @@ class PlotWidget(QWidget):
         self.curveA = None
         self.curveB = None
         self._avgdata = None
+        self._rxdelay_us = 0
 
         self.createWidget(title)
 
@@ -73,38 +74,50 @@ class PlotWidget(QWidget):
 
         self._avgdata = None
 
-    @property
-    def _ignore_total(self):
-        return min(int(self._ignore_us * self._rate / 1E6 + self._ignore_samples), self._size)
-
     def setTitle(self, title):
         self.frame.setTitle(title)
-
-    def setSampleSize(self, size):
-        self._size = size
-
-    def setSampleRate(self, rate):
-        self._rate = rate
 
     def setAverageCount(self, cnt):
         self._avg = max(cnt, 1)
 
-    def set_rate(self, rate):
+    def setRate(self, rate):
         self._rate = int(rate)
         self.initPlot()
 
-    def set_size(self, size):
+    def setSize(self, size):
         self._size = int(size)
         self.initPlot()
 
-    def set_ignore(self, us = None, samples = None):
+    def setIgnore(self, us = None, samples = None):
         if us != None:
             self._ignore_us = us
         if samples != None:
             self._ignore_samples = samples
         log.debug("ignoring a total of %d samples (%d us + %s samples)."
-                  % (self._ignore_total, self._ignore_us, self._ignore_samples))
+                  % (self._get_ignore_samples(), self._ignore_us, self._ignore_samples))
         self.initPlot()
+    def _get_ignore_samples(self):
+        ignore_samples = int(self._ignore_us * self._rate / 1E6 + self._ignore_samples)
+        delay_samples = self._get_rxdelay_samples()
+        if delay_samples > ignore_samples:
+            return 0
+        ignore_samples -= delay_samples
+        return min(ignore_samples, self._size)
+
+    def setRxDelay(self, us = None):
+        if us is not None:
+            self._rxdelay_us = us
+        self.initPlot()
+    def _get_rxdelay_samples(self):
+        return int(self._rxdelay_us * self._rate / 1E6)
+    def _get_rxdelay_us(self):
+        return self._rxdelay_us
+
+    def startTime(self):
+        return self._get_rxdelay_us()
+    def stopTime(self):
+        return self.startTime() + (self._size - 0) * 1E6 / self._rate
+
 
 class PlotTimeWidget(PlotWidget):
     def __init__(self, parent=None, title=None):
@@ -113,25 +126,41 @@ class PlotTimeWidget(PlotWidget):
 
         self.initPlot()
 
-    def initPlot(self):
+    def initPlot(self, rescale = True):
+        super(PlotTimeWidget, self).initPlot()
+
         size = self._size
-        rate = self._rate
-        ignore = self._ignore_total
+        ignore = self._get_ignore_samples()
 
          # configure time axis
-        time = np.linspace(0.0, (size - 1) * 1E6 / rate, size)
+        time = np.linspace(self.startTime(), self.stopTime(), size)
         zeros = np.zeros(len(time))
 
         # configure axis
         self.axis.clear()
         self.axis.grid()
         self.curveA = self.axis.plot(time[0:ignore], zeros[0:ignore], '0.50')[0]
+        ignore = max(ignore, 1)
         self.curveB = self.axis.plot(time[ignore-1:], zeros[ignore-1:], 'b')[0]
-        x1, x2, y1, y2 = self.axis.axis()
-        self.axis.axis((x1, x2, -0.1, 0.4))
-        self.axis.set_xlabel('t [us]')
 
         self._avgdata = None
+
+        self.rescale()
+
+    def rescale(self, xstart=None, xstop=None, ystart=None, ystop=None):
+        if xstart is None:
+            xstart = self.startTime()
+        if xstop is None:
+            xstop = self.stopTime()
+
+        self.axis.set_xlabel('t [us]')
+        x1, x2, y1, y2 = self.axis.axis()
+        x1 = xstart
+        x2 = xstop
+        y1 = -0.1
+        y2 = 0.4
+        log.debug("Rescale xstart = %d, xstop = %d, ystart = %d, ystop = %d", x1, x2, y1, y2)
+        self.axis.axis((x1, x2, y1, y2))
 
     def updatePlot(self, m:NMRMeasurement):
         if m.rate != self._rate:
@@ -145,8 +174,8 @@ class PlotTimeWidget(PlotWidget):
             data = np.abs(m.iqdata)
         if self._mode == 'I':
             data = m.iqdata.real
-        if self._mode == 'IQ':
-            ValueError("Not supported")
+        if self._mode == 'Q':
+            data = m.iqdata.imag
 
         # stream through the averager
         if self._avgdata is None or (len(self._avgdata) != len(data)):
@@ -155,13 +184,14 @@ class PlotTimeWidget(PlotWidget):
         self._avgdata = self._avgdata / self._avg
 
         # plot zeros and store the returned Line2D object
-        ignore = self._ignore_total
+        ignore = self._get_ignore_samples()
         self.curveA.set_ydata(self._avgdata[0:ignore])
+        ignore = max(ignore, 1)
         self.curveB.set_ydata(self._avgdata[ignore-1:])
         self.canvas.draw()
 
-    def set_mode(self, mode):
-        if mode not in ['I', 'IQ', 'A']:
+    def setMode(self, mode):
+        if mode not in ['I', 'Q', 'A']:
             ValueError("Invalid mode: %s" % (mode))
         self._mode = mode
         self._avgdata = None
@@ -175,11 +205,14 @@ class PlotFFTWidget(PlotWidget):
         self._freq_offset = 0
 
         self.initPlot()
+        self.rescale()
 
     def initPlot(self):
+        super(PlotFFTWidget, self).initPlot()
+
         size = self._size
         rate = self._rate
-        ignore = self._ignore_total
+        ignore = self._get_ignore_samples()
 
         fftsize = max(size - ignore, 1) # no zeroes here
         freqs = np.fft.fftshift(np.fft.fftfreq(fftsize, d=float(1 / rate))) + self._freq_offset
@@ -189,11 +222,24 @@ class PlotFFTWidget(PlotWidget):
         self.axis.grid()
         self.curve = self.axis.plot(freqs/1E6, np.zeros(len(freqs)), 'b')[0]
 
-        x1, x2, y1, y2 = self.axis.axis()
-        self.axis.axis((x1, x2, 0, 1.1))
-        self.axis.set_xlabel('F [MHz]')
-
         self._avgdata = None
+
+        self._freqs = freqs
+        self.rescale()
+
+    def rescale(self, xstart = None, xstop = None, ystart = None, ystop = None):
+        if xstart is None:
+            xstart = min(self._freqs) / 1E6
+        if xstop is None:
+            xstop = max(self._freqs) / 1E6
+
+        x1, x2, y1, y2 = self.axis.axis()
+        x1 = xstart
+        x2 = xstop
+        y1 = 0
+        y2 = 1.1
+        self.axis.axis((x1, x2, y1, y2))
+        self.axis.set_xlabel('F [MHz]')
 
     def updatePlot(self, m: NMRMeasurement):
         if m.rate != self._rate:
@@ -202,7 +248,7 @@ class PlotFFTWidget(PlotWidget):
             self.set_size(m.size)
 
         # create FFT
-        ignore = self._ignore_total
+        ignore = self._get_ignore_samples()
         fft = np.abs(np.fft.fftshift(np.fft.fft(m.iqdata[ignore:], norm='ortho')))
 
         # stream through the averager
@@ -215,6 +261,6 @@ class PlotFFTWidget(PlotWidget):
         self.curve.set_ydata(self._avgdata)
         self.canvas.draw()
 
-    def set_frequencyOffset(self, freq):
+    def setFrequencyOffset(self, freq):
         self._freq_offset = freq
         self.initPlot()

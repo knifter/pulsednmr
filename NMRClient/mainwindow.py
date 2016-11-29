@@ -54,6 +54,8 @@ class MainWindow(QMainWindow):
         self.rxTimeValue.valueChanged.connect(self.set_rxTime)
         self.averageValue.valueChanged.connect(self.set_average)
         self.averageCheck.stateChanged.connect(self.set_average)
+        self.rxDelayCheck.stateChanged.connect(self.set_rxDelay)
+        self.rxDelayValue.valueChanged.connect(self.set_rxDelay)
         # Mode 0
         self.plotTimeCheck.stateChanged.connect(self.action_plotTimeFFTCheck)
         self.plotFFTCheck.stateChanged.connect(self.action_plotTimeFFTCheck)
@@ -75,8 +77,8 @@ class MainWindow(QMainWindow):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.fireTimer)
 
-        self.plotTimeWidget.set_ignore(samples=RXTX_OFFSET)
-        self.plotFFTWidget.set_ignore(samples=RXTX_OFFSET)
+        self.plotTimeWidget.setIgnore(samples=RXTX_OFFSET)
+        self.plotFFTWidget.setIgnore(samples=RXTX_OFFSET)
 
     def setDefaults(self):
         self.deltaValue.setValue(300)
@@ -84,6 +86,8 @@ class MainWindow(QMainWindow):
         self.rxTimeValue.setValue(2.0)
         self.averageValue.setValue(5)
         self.averageCheck.setChecked(False)
+        self.rxDelayValue.setValue(0)
+        self.rxDelayCheck.setChecked(False)
 
         self.freqValue.setValue(22)
         self.awidthValue.setValue(12)
@@ -139,15 +143,16 @@ class MainWindow(QMainWindow):
         try:
             self.nmr.connect(host, port)
             # self.config.add_connection(host=host, port=port)
-        except TimeoutError:
+        except TimeoutError as e:
             self.status("Timeout connecting to %s" % host)
         except NMRConnectionError as e:
             self.status("Connection Error: " + repr(e))
+
         if self.nmr.connected:
             self.logWidget.clear()
             self.status("Connected to %s:%d" % (host, port))
             self.setWindowTitle(WINDOW_TITLE + " (%s)" % (host))
-            self._mode_1()
+            self._mode_connected()
         else:
             self._mode_not_connected()
             self.action_Connect()
@@ -167,7 +172,7 @@ class MainWindow(QMainWindow):
     def set_freq(self, value):
         hz = int(value * 1E6)
         self.nmr.set_freq(hz)
-        self.plotFFTWidget.set_frequencyOffset(hz)
+        self.plotFFTWidget.setFrequencyOffset(hz)
 
     def set_rate(self, index):
         self.nmr.set_rate(index=index)
@@ -175,10 +180,11 @@ class MainWindow(QMainWindow):
         size = int(self.rxTimeValue.value() * rate / 1E3);
         log.debug("rate = %d, new size = %d" % (rate, size))
 
-        self.plotTimeWidget.set_rate(rate)
-        self.plotFFTWidget.set_rate(rate)
+        self.plotTimeWidget.setRate(rate)
+        self.plotFFTWidget.setRate(rate)
 
         self.set_rxSize(size)
+        self.set_rxDelay()
 
     def set_rxTime(self, time):
         size = int(time * self.nmr.rate / 1E3)
@@ -188,14 +194,14 @@ class MainWindow(QMainWindow):
     def set_rxSize(self, size):
         self.nmr.set_rxsize(size)
 
-        self.plotTimeWidget.set_size(size)
-        self.plotFFTWidget.set_size(size)
+        self.plotTimeWidget.setSize(size)
+        self.plotFFTWidget.setSize(size)
         self.rxSamplesEdit.setText(str(size))
 
     def set_awidth(self, width_us):
         self.nmr.set_awidth(width_us)
-        self.plotTimeWidget.set_ignore(us=width_us)
-        self.plotFFTWidget.set_ignore(us=width_us)
+        self.plotTimeWidget.setIgnore(us=width_us)
+        self.plotFFTWidget.setIgnore(us=width_us)
 
     def set_bwidth(self, width_us):
         self.nmr.set_bwidth(width_us)
@@ -222,17 +228,25 @@ class MainWindow(QMainWindow):
         self.plotTimeWidget.setAverageCount(self.averageValue.value())
         self.plotFFTWidget.setAverageCount(self.averageValue.value())
 
+    def set_rxDelay(self, value = None):
+        usecs = self.rxDelayValue.value() * 1000
+        if not self.rxDelayCheck.isChecked():
+            usecs = 0
+        self.nmr.set_rxdelay(usecs)
+        self.plotTimeWidget.setRxDelay(usecs)
+        self.plotFFTWidget.setRxDelay(usecs)
+
     def action_plotTimeFFTCheck(self):
         self.plotTimeWidget.setVisible(self.plotTimeCheck.isChecked())
         self.plotFFTWidget.setVisible(self.plotFFTCheck.isChecked())
 
     def action_plotTimeModeDrop(self, index):
         if index == 0:
-            self.plotTimeWidget.set_mode('A')
+            self.plotTimeWidget.setMode('A')
         if index == 1:
-            self.plotTimeWidget.set_mode('I')
+            self.plotTimeWidget.setMode('I')
         if index == 2:
-            self.plotTimeWidget.set_mode('IQ')
+            self.plotTimeWidget.setMode('Q')
 
     ### (Menu) ACTIONS ########################################################################
     def action_Connect(self):
@@ -247,25 +261,19 @@ class MainWindow(QMainWindow):
             self._mode_not_connected()
         dialog.close()
 
+    def action_Disconnect(self):
+        self.disconnect()
+
+    def action_ExportTimeData(self):
+        pass
+
+    def action_ExportFreqData(self):
+        pass
+
     ### Interface Modes #######################################################################
     def _mode_not_connected(self):
         self.controlWidget.setDisabled(True)
         self.stopTimer()
 
-    def _mode_0(self):
+    def _mode_connected(self):
         self.controlWidget.setDisabled(False)
-        #self.mode0Group.setVisible(True)
-        #self.mode1Group.setDisabled(True)
-        #self.mode2Group.setVisible(False)
-
-    def _mode_1(self):
-        self.controlWidget.setDisabled(False)
-        #self.mode0Group.setVisible(False)
-        #self.mode1Group.setDisabled(False)
-        #self.mode2Group.setVisible(False)
-
-    def _mode_2(self):
-        self.controlWidget.setDisabled(False)
-        #self.mode0Group.setVisible(False)
-        #self.mode1Group.setDisabled(False)
-        #self.mode2Group.setVisible(True)

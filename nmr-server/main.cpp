@@ -183,6 +183,14 @@ int handleConnection(int sock_client)
 				LOG("Set Rx Size %d\n", command.param);
 				reply.result = nmr->setRxSize(command.param) ? RES_ERROR : RES_OK;
 				break;
+			case CMD_SET_RX_DELAY:
+				LOG("Set Rx Delay %d\n", command.param);
+				reply.result = nmr->setRxDelay(command.param) ? RES_ERROR : RES_OK;
+				break;
+			case CMD_KEEPALIVE:
+				LOG("Keep-Alive packet received.\n");
+				reply.result = RES_OK;
+				break;
 			default:
 				WARNING("Unknown command code: %d\n", command.commandcode);
 				break;

@@ -65,16 +65,22 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_conv_1_0/system_conv_1_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fp_0_0/system_fp_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_sts_0_0/system_sts_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_1_1/system_slice_1_1.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_0_2/system_slice_0_2.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_reader_0_0/system_reader_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fifo_1_0/system_fifo_1_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fifo_generator_0_0/system_fifo_generator_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_const_1_1/system_const_1_1.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_dds_compiler_0_0/system_dds_compiler_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_constant_0_0/system_axis_constant_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xbar_0/system_xbar_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_ps_0_axi_periph_0/system_ps_0_axi_periph_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_sts_0_0/system_sts_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_1_1/system_slice_1_1.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_zeroer_0_0/system_axis_zeroer_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_const_2_0/system_const_2_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_subset_converter_0_0/system_axis_subset_converter_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_0b_0/system_slice_0b_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hdl/system.v"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xlconstant_0_0/system_xlconstant_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xlconcat_0_0/system_xlconcat_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_NMRPulseSequencer_0_0/system_NMRPulseSequencer_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_cfg_0_1/system_cfg_0_1.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fifo_2_0/system_fifo_2_0.xci"/>
@@ -82,34 +88,27 @@
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_4_0/system_slice_4_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_1_4/system_slice_1_4.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_1_3/system_slice_1_3.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_1_2/system_slice_1_2.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_const_1_1/system_const_1_1.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_dds_compiler_0_0/system_dds_compiler_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_constant_0_0/system_axis_constant_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xlconstant_0_0/system_xlconstant_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_const_2_0/system_const_2_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_subset_converter_0_0/system_axis_subset_converter_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_0b_0/system_slice_0b_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hdl/system.v"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_zeroer_0_0/system_axis_zeroer_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xlconcat_0_0/system_xlconcat_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_2_0/system_slice_2_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_1_0/system_slice_1_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_dds_0_0/system_dds_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_mult_0_0/system_mult_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_lfsr_0_0/system_lfsr_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_phase_0_0/system_phase_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fifo_0_0/system_fifo_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_const_0_0/system_const_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_dds_0_0/system_dds_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_rate_0_0/system_rate_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_bcast_0_0/system_bcast_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_subset_0_0/system_subset_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fir_0_0/system_fir_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_2_0/system_slice_2_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_1_0/system_slice_1_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_conv_0_0/system_conv_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_comb_0_0/system_comb_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_cic_1_0/system_cic_1_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_cic_0_0/system_cic_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_rate_1_0/system_rate_1_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_rate_0_0/system_rate_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_bcast_0_0/system_bcast_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fifo_generator_0_0/system_fifo_generator_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_conv_1_0/system_conv_1_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fp_0_0/system_fp_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_subset_0_0/system_subset_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fir_0_0/system_fir_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_1_2/system_slice_1_2.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_ps_0_0/system_ps_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_slice_0_1/system_slice_0_1.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_cfg_0_0/system_cfg_0_0.xci"/>
@@ -119,14 +118,15 @@
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_cntr_0_0/system_cntr_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_adc_0_0/system_adc_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_rst_0_0/system_rst_0_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_fifo_1_0/system_fifo_1_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="system_NMRPulseSequencer_0_0.xml"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="synth/system_NMRPulseSequencer_0_0.v"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="sim/system_NMRPulseSequencer_0_0.v"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="system_NMRPulseSequencer_0_0.xml"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hw_handoff/system.hwh"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hw_handoff/system_bd.tcl"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hdl/system.hwdef"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="system_ooc.xdc"/>
         <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_auto_pc_0_1/system_auto_pc_0.xci"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="system_ooc.xdc"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hdl/system.hwdef"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hw_handoff/system_bd.tcl"/>
+        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hw_handoff/system.hwh"/>
       </File>
       <File Path="$PSRCDIR/sources_1/bd/system/hdl/system_wrapper.v">
         <FileInfo>

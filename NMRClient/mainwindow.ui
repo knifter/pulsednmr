@@ -34,9 +34,39 @@
         <property name="title">
          <string>Signal</string>
         </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QSplitter" name="splitter">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>0</number>
+           </property>
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -122,13 +152,6 @@
             <item row="1" column="2">
              <widget class="QComboBox" name="rateValue"/>
             </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="rxSamplesLabel">
-              <property name="text">
-               <string>Acquisition samples</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="0" colspan="2">
              <widget class="QLabel" name="rateLabel">
               <property name="text">
@@ -136,7 +159,7 @@
               </property>
              </widget>
             </item>
-            <item row="6" column="2">
+            <item row="8" column="2">
              <widget class="QDoubleSpinBox" name="averageValue">
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -164,20 +187,10 @@
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="averageLabel">
+            <item row="5" column="0">
+             <widget class="QLabel" name="rxSamplesLabel">
               <property name="text">
-               <string>Averaging</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QCheckBox" name="averageCheck">
-              <property name="layoutDirection">
-               <enum>Qt::RightToLeft</enum>
-              </property>
-              <property name="text">
-               <string>enabled</string>
+               <string>Acquisition samples</string>
               </property>
              </widget>
             </item>
@@ -219,6 +232,48 @@
               </property>
               <property name="placeholderText">
                <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="2">
+             <widget class="QDoubleSpinBox" name="rxDelayValue">
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="suffix">
+               <string> ms</string>
+              </property>
+              <property name="decimals">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <double>5000.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
+              </property>
+              <property name="value">
+               <double>9.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QCheckBox" name="averageCheck">
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="text">
+               <string>Averaging</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QCheckBox" name="rxDelayCheck">
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="text">
+               <string>Delay</string>
               </property>
              </widget>
             </item>
@@ -265,7 +320,7 @@
               </item>
               <item>
                <property name="text">
-                <string>I+Q</string>
+                <string>Q-Phase</string>
                </property>
               </item>
              </widget>
@@ -397,7 +452,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="abdelayLabel">
               <property name="text">
-               <string>A-B delay</string>
+               <string>A-to-B delay</string>
               </property>
              </widget>
             </item>
@@ -567,10 +622,19 @@
      <string>Menu</string>
     </property>
     <addaction name="menuConnect"/>
+    <addaction name="actionDisconnect"/>
     <addaction name="separator"/>
     <addaction name="menuExit"/>
    </widget>
+   <widget class="QMenu" name="menuExport">
+    <property name="title">
+     <string>Export</string>
+    </property>
+    <addaction name="actionExportTimeData"/>
+    <addaction name="actionExportFreqData"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuExport"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="menuExit">
@@ -581,6 +645,21 @@
   <action name="menuConnect">
    <property name="text">
     <string>Connect..</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+  </action>
+  <action name="actionExportTimeData">
+   <property name="text">
+    <string>Export Time Data</string>
+   </property>
+  </action>
+  <action name="actionExportFreqData">
+   <property name="text">
+    <string>Export Frequency Data</string>
    </property>
   </action>
  </widget>

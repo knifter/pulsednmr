@@ -34,6 +34,8 @@
 #define PULSE_DLY_MAX		64000
 #define PULSE_BCNT_MIN		0
 #define PULSE_BCNT_MAX		10
+#define RX_DELAY_MIN		0
+#define	RX_DELAY_MAX		5000000 // 5 sec
 
 
 NMRCore::NMRCore()
@@ -43,7 +45,7 @@ NMRCore::NMRCore()
 	// Memory Map PL Registers
 	if((_map_fd = open(MEM_DEVICE, O_RDWR)) < 0)
 	{
-		ERROR("ERROR: opening mem-device");
+		ERROR("ERROR: opening mem-device\n");
 		return;
 	}; 
 	_rxconfig = (PL_RxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXCONFIG);
@@ -53,17 +55,17 @@ NMRCore::NMRCore()
   	// sysconf(_SC_PAGESIZE) = 4096, 16*=65536 bytes
   	if(_rxconfig == NULL)
   	{
-  		ERROR("mmap(RXCONFIG) failed.");
+  		ERROR("mmap(RXCONFIG) failed.\n");
   		return;
   	}
   	if(_status == NULL)
   	{
-  		ERROR("mmap(TXSTATUS) failed.");
+  		ERROR("mmap(TXSTATUS) failed.\n");
   		return;
   	}
   	if(_txconfig == NULL)
   	{
-  		ERROR("mmap(TXCONFIG) failed.");
+  		ERROR("mmap(TXCONFIG) failed.\n");
   		return;
   	}
 
@@ -92,6 +94,7 @@ NMRCore::NMRCore()
 	setFrequency(1E6);
 	setRxRate(RATE_2500K);
 	setRxSize(50000);
+	setRxDelay(0);
 
 	setTxAlen(100);
 	setTxBlen(100);
@@ -131,7 +134,7 @@ int NMRCore::setRxFrequency(uint32_t freq)
 	};
 
 	uint32_t pir = floor((float)freq / DAC_SAMPLE_RATE * (1<<RX_DDS_PIR_WIDTH) + 0.5);
-	DBG("setRxFrequency: %u Hz -> DDS phase-incr-reg: %u\n", freq, pir);
+	DBG("%u Hz -> DDS phase-incr-reg: %u\n", freq, pir);
 	_rxconfig->pir = pir;
 
 	return 0;
@@ -151,7 +154,7 @@ int NMRCore::setTxFrequency(uint32_t freq)
 	};
 
 	uint32_t pir = floor((float)freq / DAC_SAMPLE_RATE * (1<<TX_DDS_PIR_WIDTH) + 0.5);
-	DBG("setTxFrequency: %u Hz -> DDS phase-incr-reg: %u\n", freq, pir);
+	DBG("%u Hz -> DDS phase-incr-reg: %u\n", freq, pir);
 	_txconfig->pir = pir;
 
 	return 0;
@@ -166,7 +169,7 @@ int NMRCore::setTxAlen(uint32_t usec)
 	};
 	if(usec > PULSE_LEN_MAX | usec < PULSE_LEN_MIN)
 	{
-		ERROR("A-length %u out of range (%d, %d)", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
+		ERROR("A-length %u out of range (%d, %d)\n", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
 		return 2;
 	}
 
@@ -184,7 +187,7 @@ int NMRCore::setTxBlen(uint32_t usec)
 	};
 	if(usec > PULSE_LEN_MAX | usec < PULSE_LEN_MIN)
 	{
-		ERROR("B-length %u out of range (%d, %d)", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
+		ERROR("B-length %u out of range (%d, %d)\n", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
 		return 2;
 	}
 
@@ -202,7 +205,7 @@ int NMRCore::setTxABdly(uint32_t usec)
 	};
 	if(usec > PULSE_DLY_MAX | usec < PULSE_DLY_MIN)
 	{
-		ERROR("A-to-B-Delay %u out of range (%d, %d)", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
+		ERROR("A-to-B-Delay %u out of range (%d, %d)\n", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
 		return 2;
 	}
 
@@ -220,7 +223,7 @@ int NMRCore::setTxBBdly(uint32_t usec)
 	};
 	if(usec > PULSE_DLY_MAX | usec < PULSE_DLY_MIN)
 	{
-		ERROR("B-to-B-Delay %u out of range (%d, %d)", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
+		ERROR("B-to-B-Delay %u out of range (%d, %d)\n", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
 		return 2;
 	}
 
@@ -238,7 +241,7 @@ int NMRCore::setTxBBcnt(uint32_t count)
 	};
 	if(count > PULSE_BCNT_MAX | count < PULSE_BCNT_MIN)
 	{
-		ERROR("B-Count %u out of range (%d, %d)", count, PULSE_BCNT_MIN, PULSE_BCNT_MAX);
+		ERROR("B-Count %u out of range (%d, %d)\n", count, PULSE_BCNT_MIN, PULSE_BCNT_MAX);
 		return 2;
 	}
 
@@ -285,7 +288,7 @@ int NMRCore::setRxRate(NMRDecimationRate rate)
 		// 	_rxconfig->rate = DAC_SAMPLE_RATE/2 / 5000E3;
 		// 	break;
 		default: 
-			ERROR("Received an incorrect rate-index: %d", rate);
+			ERROR("Received an incorrect rate-index: %d\n", rate);
 			return 1;
 	}
 	return 0;
@@ -293,7 +296,7 @@ int NMRCore::setRxRate(NMRDecimationRate rate)
 
 int NMRCore::getRxRate()
 {
-	 return DAC_SAMPLE_RATE/2 / _rxconfig->rate;
+	 return DAC_SAMPLE_RATE / (2*_rxconfig->rate);
 }
 
 int NMRCore::setRxSize(uint32_t size)
@@ -316,6 +319,26 @@ int NMRCore::setRxSize(uint32_t size)
 	return 0;
 }
 
+int NMRCore::setRxDelay(uint32_t usec)
+{
+	if(!_rxconfig)
+	{
+		ERROR("_rxconfig == NULL\n");
+		return 1;
+	};
+	if(usec > RX_DELAY_MAX | usec < RX_DELAY_MIN)
+	{
+		ERROR("Rx-Delay %u us out of range (%d, %d)\n", usec, RX_DELAY_MIN, RX_DELAY_MAX);
+		return 2;
+	}
+	uint32_t samples = ((uint64_t)getRxRate() * (uint64_t)usec) / 1E6;
+	DBG("Rx-Delay %u us, %u samples.\n", usec, samples);
+	_rx_delay = samples;
+
+	return 0;
+}
+
+
 int NMRCore::singleShot()
 {
 
@@ -334,20 +357,48 @@ int NMRCore::singleShot()
 	DBG("Start Tx.\n");
 	_rxconfig->reset = RESET_RX | RESET_TX;
 
-#ifdef WAIT_RX_FOR_TX
-	// UN-Reset Tx
-	_rxconfig->reset = RESET_RX;
 
-	// Wait until TX pulse is over before enabling receiver
-	uint32_t wait_time = (_tx_size * 1E6) / DAC_SAMPLE_RATE
-	usleep(wait_time);
-	DBG("Waiting %u usec.\n", wait_time);
-
-	// enable Rx
-#endif
 	// enable Rx & Tx
 	_rxconfig->reset = RESET_NONE;
 	DBG("Start Rx.\n");
+
+	// Discard _rxdelay samples
+	uint16_t len;
+#ifdef DEBUG_READLOOP
+	DBG("RxDelay discarding %u samples.\n", _rx_delay);
+#endif // DEBUG_READLOOP
+	uint32_t needed = _rx_delay;
+	float dummy[2];
+	uint32_t check = 0;
+	while(needed)
+	{
+		// throttle polling
+		while(_status->rx_counter < 1000)
+			usleep(100);
+		
+		// rx_counter is our total number of floats waiting, twice the amount of samples
+		// read it once and cache it locally, it's updated by the PL
+		len = _status->rx_counter >> 1;
+
+		// There is probably more in the fifo then we need at some point
+		if(len > needed)
+			len = needed;
+#ifdef DEBUG_READLOOP
+		DBG(" ... %u/%u/%u samples.\n", len, needed, _rx_delay);
+#endif // DEBUG_READLOOP
+		needed -= len;
+	
+		// discard fifo values by reading into a dummy
+		while(len)
+		{
+			//dummy = *(float*)_map_rxdata; // I
+			//dummy = *(float*)_map_rxdata; // Q
+			memcpy((uint8_t*) dummy, _map_rxdata, 2*sizeof(float));
+			len--;
+			check++;
+		}
+	};
+	DBG("RxDelay: Discarded %u samples.\n", check);
 
 	// Get FIFO data into buffer
 #ifdef DEBUG_READLOOP
@@ -357,25 +408,10 @@ int NMRCore::singleShot()
 	uint64_t start = 1E6*tv.tv_sec + tv.tv_usec;
 #endif // DEBUG_READLOOP
 
-	/* transfer 10 * 5k = 50k samples, or 50k * 8 bytes */
-	// static uint8_t buffer[40000]; // 5k complex float samples
-	// for(int i = 0; i < 10; ++i)
-	// {
-	// 	// TODO: Doesnt this send 10 times the same data?
-	// 	// max rx_counter = 16386
-	// 	while(_status->rx_counter < 10000) 
-	// 		usleep(100);
-	// 	// printf("%u\n", _status->rx_counter);
-	// 	memcpy(buffer, _map_rxdata, 40000);
-	// 	// send(sock_client, buffer, 40000, MSG_NOSIGNAL);
-	// };
-
+	// Read rx_size samples into rxbuffer
 	uint32_t rx_total = 0;
-	uint16_t len;
-	uint32_t needed;
 	while(rx_total < _rx_size)
 	{
-
 		// throttle polling
 		while(_status->rx_counter < 5000)
 		{
