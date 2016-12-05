@@ -160,6 +160,8 @@ class MainWindow(QMainWindow):
     def disconnect(self):
         self.client.disconnect()
         self._mode_not_connected()
+        self.setWindowTitle(WINDOW_TITLE)
+        self.status("Disconnected.")
 
     def status(self, message, timeout=3000):
         if message == None:
@@ -274,6 +276,8 @@ class MainWindow(QMainWindow):
     def _mode_not_connected(self):
         self.controlWidget.setDisabled(True)
         self.stopTimer()
+        self.startButton.setEnabled(False)
 
     def _mode_connected(self):
         self.controlWidget.setDisabled(False)
+        self.startButton.setEnabled(True)

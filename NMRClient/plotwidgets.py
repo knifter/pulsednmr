@@ -157,8 +157,12 @@ class PlotTimeWidget(PlotWidget):
         x1, x2, y1, y2 = self.axis.axis()
         x1 = xstart
         x2 = xstop
-        y1 = -0.1
-        y2 = 0.4
+        if self._mode in ('I', 'Q'):
+            y1 = -1.1
+            y2 = 1.1
+        if self._mode is 'A':
+            y1 = -0.1
+            y2 = 0.4
         log.debug("Rescale xstart = %d, xstop = %d, ystart = %d, ystop = %d", x1, x2, y1, y2)
         self.axis.axis((x1, x2, y1, y2))
 
@@ -221,6 +225,13 @@ class PlotFFTWidget(PlotWidget):
         self.axis.clear()
         self.axis.grid()
         self.curve = self.axis.plot(freqs/1E6, np.zeros(len(freqs)), 'b')[0]
+
+        # create vertical line
+        vertlinepos = [self._freq_offset/1E6, self._freq_offset/1E6]
+        self.vertLine = self.axis.plot(vertlinepos, [-100, 100], 'y--')[0]
+        self.vertLine.set_color(color='r')
+        self.vertLine.set_linestyle('--')
+        self.vertLine.set_linewidth(2.0)
 
         self._avgdata = None
 
