@@ -22,13 +22,13 @@ typedef struct {
 }  PL_RxConfigRegister;
 
 typedef struct {
-	uint32_t pir;
-	uint16_t a_len;
-	uint16_t b_len; 
-	uint16_t ab_dly;
-	uint16_t bb_dly;
-	uint16_t bb_cnt;
-	uint16_t _unused;
+	uint32_t pir;		//   0..31
+	uint16_t a_len; 	//  32..47
+	uint16_t b_len; 	//  48..63
+	uint32_t ab_dly;	//  64..95
+	uint32_t bb_dly;	//  96..127
+	uint16_t bb_cnt;	// 128..143
+	uint16_t _unused;	// 144..159
 } PL_TxConfigRegister;
  
 

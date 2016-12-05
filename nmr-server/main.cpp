@@ -45,13 +45,16 @@ int main(int argc, char *argv[])
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	addr.sin_port = htons(1001);
+	addr.sin_port = htons(SERVER_PORT);
 
 	if(bind(sock_server, (struct sockaddr *)&addr, sizeof(addr)) < 0)
 	{
 		ERROR("Cannot bind server socket: %s\n", strerror(errno));
 		return EXIT_FAILURE;
 	}
+
+	LOG("Sending test pulse...");
+	nmr->singleShot();
 
 	listen(sock_server, 1024);
 
