@@ -3,6 +3,7 @@
 
 module axis_lfsr #
 (
+  parameter integer LFSR_WIDTH = 64,
   parameter integer AXIS_TDATA_WIDTH = 64
 )
 (
@@ -16,7 +17,8 @@ module axis_lfsr #
   output wire                        m_axis_tvalid
 );
 
-  reg [AXIS_TDATA_WIDTH-1:0] int_lfsr_reg, int_lfsr_next;
+  //reg [AXIS_TDATA_WIDTH-1:0] int_lfsr_reg, int_lfsr_next;
+  reg [LFSR_WIDTH-1:0] int_lfsr_reg, int_lfsr_next;
   reg int_enbl_reg, int_enbl_next;
 
   always @(posedge aclk)
@@ -49,7 +51,7 @@ module axis_lfsr #
     end
   end
 
-  assign m_axis_tdata = int_lfsr_reg;
+  assign m_axis_tdata = int_lfsr_reg[AXIS_TDATA_WIDTH-1:0];
   assign m_axis_tvalid = int_enbl_reg;
 
 endmodule
