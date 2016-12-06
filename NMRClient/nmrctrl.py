@@ -152,12 +152,12 @@ class NMRCtrl(object):
 
     def _send_cmd(self, cmd, param = 0, tryconnection=False):
         if not self._connected and not tryconnection:
-            raise NMRError("Not connected.");
+            raise ConnectionError("Not connected.");
         if not isinstance(cmd, Command):
-            raise NMRCmdError("Invalid command: %s" % repr(cmd))
+            raise ValueError("Invalid command: %s" % repr(cmd))
         param = int(param)
         if(param > (1<<28-1)):
-            raise NMRCmdError("Command parameter too big: %d" % param)
+            raise ValueError("Command parameter too big: %d" % param)
 
         # send command
         # id(uint32_t), cmd(uint32_t), param(uint32_t), data_len(uint32_t)
@@ -174,12 +174,12 @@ class NMRCtrl(object):
         except socket.timeout:
             raise TimeoutError("Timeout while receiving data.")
         if(len(reply_bin) != 12):
-            raise NMRCmdError("Did not receive a complete reply header. (received len = %d)" % len(reply_bin));
+            raise ConnectionError("Did not receive a complete reply header. (received len = %d)" % len(reply_bin));
         (reply.id, reply.resultcode, reply.data_len) = struct.unpack('<III', reply_bin)
         if(reply.id != self._sequence):
-            raise NMRCmdError("Reply sequence does not match request sequence. Out of sync!")
+            raise ConnectionError("Reply sequence does not match request sequence. Out of sync!")
         if(reply.resultcode != 0):
-            raise NMRCmdError("Result = %d != OK" % reply.resultcode)
+            raise ConnectionError("Result = %d != OK" % reply.resultcode)
         if(reply.data_len):
             bread = 0
             reply.data = bytearray()

@@ -72,6 +72,7 @@ class MainWindow(QMainWindow):
         # Other
         self.menuConnect.triggered.connect(self.action_Connect)
         self.startButton.clicked.connect(self.startButtonClicked)
+        self.menuExit.triggered.connect(self.close)
 
         # create timer for the repetitions
         self.timer = QTimer(self)
@@ -119,11 +120,14 @@ class MainWindow(QMainWindow):
         self.started = True
 
     def fireTimer(self):
-        self.nmr.fire()
-        if self.plotTimeCheck.isChecked():
-            self.plotTimeWidget.updatePlot(self.nmr.measurement)
-        if self.plotFFTCheck.isChecked():
-            self.plotFFTWidget.updatePlot(self.nmr.measurement)
+        try:
+            self.nmr.fire()
+            if self.plotTimeCheck.isChecked():
+                self.plotTimeWidget.updatePlot(self.nmr.measurement)
+            if self.plotFFTCheck.isChecked():
+                self.plotFFTWidget.updatePlot(self.nmr.measurement)
+        except (ConnectionAbortedError, ConnectionError):
+            self.disconnect()
 
     def stopTimer(self):
         self.timer.stop()
@@ -158,7 +162,10 @@ class MainWindow(QMainWindow):
             self.action_Connect()
 
     def disconnect(self):
-        self.client.disconnect()
+        try:
+            self.nmr.disconnect()
+        except:
+            pass
         self._mode_not_connected()
         self.setWindowTitle(WINDOW_TITLE)
         self.status("Disconnected.")
