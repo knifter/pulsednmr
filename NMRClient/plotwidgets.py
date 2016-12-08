@@ -143,7 +143,7 @@ class PlotTimeWidget(PlotWidget):
         ignore = max(ignore, 1)
         self.curveB = self.axis.plot(time[ignore-1:], zeros[ignore-1:], 'b')[0]
 
-        self._avgdata = None
+        self._avgdata = zeros
 
         self.rescale()
 
@@ -201,6 +201,12 @@ class PlotTimeWidget(PlotWidget):
         self._avgdata = None
         # self.initPlot()
 
+    def getData(self):
+        if(self._avgdata is None):
+            raise ValueError("No measurement data present yet.")
+        Xdata = np.linspace(self.startTime(), self.stopTime(), self._size)
+        Ydata = self._avgdata
+        return (Xdata, Ydata)
 
 class PlotFFTWidget(PlotWidget):
     def __init__(self, parent=None, title=None):
@@ -219,12 +225,13 @@ class PlotFFTWidget(PlotWidget):
         ignore = self._get_ignore_samples()
 
         fftsize = max(size - ignore, 1) # no zeroes here
-        freqs = np.fft.fftshift(np.fft.fftfreq(fftsize, d=float(1 / rate))) + self._freq_offset
+        freqs = (np.fft.fftshift(np.fft.fftfreq(fftsize, d=float(1 / rate))) + self._freq_offset) / 1E6
+        zeros = np.zeros(len(freqs))
 
-        # configure axis'
+        # configure axis
         self.axis.clear()
         self.axis.grid()
-        self.curve = self.axis.plot(freqs/1E6, np.zeros(len(freqs)), 'b')[0]
+        self.curve = self.axis.plot(freqs, zeros, 'b')[0]
 
         # create vertical line
         vertlinepos = [self._freq_offset/1E6, self._freq_offset/1E6]
@@ -233,16 +240,16 @@ class PlotFFTWidget(PlotWidget):
         self.vertLine.set_linestyle('--')
         self.vertLine.set_linewidth(2.0)
 
-        self._avgdata = None
+        self._avgdata = zeros
 
         self._freqs = freqs
         self.rescale()
 
     def rescale(self, xstart = None, xstop = None, ystart = None, ystop = None):
         if xstart is None:
-            xstart = min(self._freqs) / 1E6
+            xstart = min(self._freqs)
         if xstop is None:
-            xstop = max(self._freqs) / 1E6
+            xstop = max(self._freqs)
 
         x1, x2, y1, y2 = self.axis.axis()
         x1 = xstart
@@ -275,3 +282,10 @@ class PlotFFTWidget(PlotWidget):
     def setFrequencyOffset(self, freq):
         self._freq_offset = freq
         self.initPlot()
+
+    def getData(self):
+        if(self._avgdata is None):
+            raise ValueError("No measurement data present yet.")
+        Xdata = self._freqs
+        Ydata = self._avgdata
+        return (Xdata, Ydata)

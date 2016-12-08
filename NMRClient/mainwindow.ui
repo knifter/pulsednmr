@@ -630,8 +630,8 @@
     <property name="title">
      <string>Export</string>
     </property>
-    <addaction name="actionExportTimeData"/>
-    <addaction name="actionExportFreqData"/>
+    <addaction name="menuExportTimeData"/>
+    <addaction name="menuExportFreqData"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuExport"/>
@@ -652,12 +652,12 @@
     <string>Disconnect</string>
    </property>
   </action>
-  <action name="actionExportTimeData">
+  <action name="menuExportTimeData">
    <property name="text">
     <string>Export Time Data</string>
    </property>
   </action>
-  <action name="actionExportFreqData">
+  <action name="menuExportFreqData">
    <property name="text">
     <string>Export Frequency Data</string>
    </property>

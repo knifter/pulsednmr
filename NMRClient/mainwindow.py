@@ -1,10 +1,11 @@
 
 from PyQt5.QtCore import QTimer
 # from PyQt5.QtNetwork import QAbstractSocket, QTcpSocket
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.uic import loadUi
 
 import logging
+import datetime
 
 from connectdialog import ConnectDialog
 from nmrctrl import NMRConnectionError, RATES
@@ -22,6 +23,8 @@ class MainWindow(QMainWindow):
 
         self.application = app
         self._log = None
+        self._lastTimeDataFilename = None
+        self._lastFFTDataFilename = None
 
         self.createForm()
         self.setDefaults()
@@ -73,6 +76,8 @@ class MainWindow(QMainWindow):
         self.menuConnect.triggered.connect(self.action_Connect)
         self.startButton.clicked.connect(self.startButtonClicked)
         self.menuExit.triggered.connect(self.close)
+        self.menuExportTimeData.triggered.connect(self.action_ExportTimeData)
+        self.menuExportFreqData.triggered.connect(self.action_ExportFreqData)
 
         # create timer for the repetitions
         self.timer = QTimer(self)
@@ -274,10 +279,56 @@ class MainWindow(QMainWindow):
         self.disconnect()
 
     def action_ExportTimeData(self):
-        pass
+        (Xdata, Ydata) = self.plotTimeWidget.getData()
+        if len(Xdata) != len(Ydata):
+            raise ValueError("X and Y Dimensions do not agree.")
+        (filename, selectedFilter) = QFileDialog.getSaveFileName(self, "Save CSV", self._lastTimeDataFilename, "CSV-files (*.csv)");
+        if filename == '' or filename is None:
+            return
+
+        # Save header
+        f = open(filename, "w")
+        f.write("# NMR Time Data Export\n")
+        f.write("# Date: %s\n" % str(datetime.datetime.now()))
+        f.write("# A-Width: %d us\n" % self.nmr.awidth)
+        f.write("# B-Width: %d us\n" % self.nmr.bwidth)
+        f.write("# A-to-A-Delay: %d ms\n" % self.deltaValue.value())
+        f.write("# A-to-B Delay: %d ms\n" % (self.nmr.abdelay / 1000))
+        f.write("# B-to-B Delay: %d ms\n" % (self.nmr.bbdelay / 1000))
+        f.write("# B Count: %d\n" % self.nmr.bcount)
+        f.write("\n# Data: Time, Value\n")
+        for xval, yval in zip(Xdata, Ydata):
+            f.write("%2.6f, %1.6f\n" %(xval, yval))
+        f.close()
+
+        self.status("Time Data exproted to %s" % (filename))
+        self._lastTimeDataFilename = filename
 
     def action_ExportFreqData(self):
-        pass
+        (Xdata, Ydata) = self.plotFFTWidget.getData()
+        if len(Xdata) != len(Ydata):
+            raise ValueError("X and Y Dimensions do not agree.")
+        (filename, selectedFilter) = QFileDialog.getSaveFileName(self, "Save CSV", self._lastFFTDataFilename, "CSV-files (*.csv)");
+        if filename == '' or filename is None:
+            return
+
+        # Save header
+        f = open(filename, "w")
+        f.write("# NMR Frequency Data Export\n")
+        f.write("# Date: %s\n" % str(datetime.datetime.now()))
+        f.write("# A-Width: %d us\n" % self.nmr.awidth)
+        f.write("# B-Width: %d us\n" % self.nmr.bwidth)
+        f.write("# A-to-A-Delay: %d ms\n" % self.deltaValue.value())
+        f.write("# A-to-B Delay: %d ms\n" % (self.nmr.abdelay / 1000))
+        f.write("# B-to-B Delay: %d ms\n" % (self.nmr.bbdelay / 1000))
+        f.write("# B Count: %d\n" % self.nmr.bcount)
+        f.write("\n# Data: Time, Value\n")
+        for xval, yval in zip(Xdata, Ydata):
+            f.write("%2.6f, %1.6f\n" %(xval, yval))
+        f.close()
+
+        self.status("Time Data exproted to %s" % (filename))
+        self._lastFFTDataFilename = filename
 
     ### Interface Modes #######################################################################
     def _mode_not_connected(self):

@@ -238,7 +238,7 @@ class NMRCtrl(object):
             self._send_cmd(Command.SET_BWIDTH, self._bwidth)
 
     @property
-    def abdelay(self): return self._abdelayh
+    def abdelay(self): return self._abdelay
     def set_abdelay(self, usecs = None):
         if usecs != None:
             log.debug("Set AB-Delay %d us." % (usecs))
