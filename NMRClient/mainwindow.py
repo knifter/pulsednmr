@@ -1,8 +1,9 @@
 
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, Qt
 # from PyQt5.QtNetwork import QAbstractSocket, QTcpSocket
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.uic import loadUi
+from PyQt5.QtGui import QPalette
 
 import logging
 import datetime
@@ -185,10 +186,12 @@ class MainWindow(QMainWindow):
     ### (UI) ACTIONS ########################################################################
     def set_freq(self, value):
         hz = int(value * 1E6)
+        self.checkInputs()
         self.nmr.set_freq(hz)
         self.plotFFTWidget.setFrequencyOffset(hz)
 
     def set_rate(self, index):
+        self.checkInputs()
         self.nmr.set_rate(index=index)
         rate = self.nmr.rate
         size = int(self.rxTimeValue.value() * rate / 1E3);
@@ -201,11 +204,13 @@ class MainWindow(QMainWindow):
         self.set_rxDelay()
 
     def set_rxTime(self, time):
+        self.checkInputs()
         size = int(time * self.nmr.rate / 1E3)
 
         self.set_rxSize(size)
 
     def set_rxSize(self, size):
+        self.checkInputs()
         self.nmr.set_rxsize(size)
 
         self.plotTimeWidget.setSize(size)
@@ -213,28 +218,35 @@ class MainWindow(QMainWindow):
         self.rxSamplesEdit.setText(str(size))
 
     def set_awidth(self, width_us):
+        self.checkInputs()
         self.nmr.set_awidth(width_us)
         self.plotTimeWidget.setIgnore(us=width_us)
         self.plotFFTWidget.setIgnore(us=width_us)
 
     def set_bwidth(self, width_us):
+        self.checkInputs()
         self.nmr.set_bwidth(width_us)
 
     def set_abdelay(self, delay_ms):
+        self.checkInputs()
         self.nmr.set_abdelay(1000 * delay_ms)
 
     def set_bbdelay(self, delay_ms):
+        self.checkInputs()
         self.nmr.set_bbdelay(1000 * delay_ms)
 
     def set_bcount(self, cnt):
+        self.checkInputs()
         self.nmr.set_bcount(cnt)
 
     def set_delta(self, ms):
+        self.checkInputs()
         if self.started:
             self.timer.stop()
             self.timer.start(ms)
 
     def set_average(self, value = None):
+        self.checkInputs()
         if not self.averageCheck.isChecked():
             self.plotTimeWidget.setAverageCount(1)
             self.plotFFTWidget.setAverageCount(1)
@@ -243,6 +255,7 @@ class MainWindow(QMainWindow):
         self.plotFFTWidget.setAverageCount(self.averageValue.value())
 
     def set_rxDelay(self, value = None):
+        self.checkInputs()
         usecs = self.rxDelayValue.value() * 1000
         if not self.rxDelayCheck.isChecked():
             usecs = 0
@@ -250,6 +263,50 @@ class MainWindow(QMainWindow):
         self.plotTimeWidget.setRxDelay(usecs)
         self.plotFFTWidget.setRxDelay(usecs)
 
+    def checkInputs(self):
+        # find values, all in us
+        awidth = self.awidthValue.value()
+        bwidth = self.awidthValue.value()
+        aadelay = self.deltaValue.value()*1E3
+        abdelay = self.abdelayValue.value()*1E3
+        bbdelay = self.bbdelayValue.value()*1E3
+        bcount = self.bcountValue.value()
+        rxdelay = self.rxDelayValue.value()*1E3*self.rxDelayCheck.isChecked()
+        rxtime = self.rxTimeValue.value()*1E3
+
+        if bcount == 0:
+            pulses_len = awidth
+        else:
+            pulses_len = abdelay + bbdelay*(bcount - 1) + bwidth
+        acq_len = rxdelay + rxtime
+        cycle_len = max(pulses_len, acq_len)
+
+        # print("pulses %d us" % pulses_len)
+        # print("acq    %d us" % acq_len)
+
+        # A-to-A Delay should be more as the total pulse length
+        if cycle_len > aadelay:
+            setColor(self.deltaValue, 'rd')
+        else:
+            setColor(self.deltaValue, 'bl')
+
+        # Alen < A-B-Delay
+        if awidth > abdelay:
+            setColor(self.awidthValue, 'rd')
+            setColor(self.abdelayValue, 'rd')
+        else:
+            setColor(self.awidthValue, 'bl')
+            setColor(self.abdelayValue, 'bl')
+
+        # Blen < B-B Delay
+        if bwidth > bbdelay:
+            setColor(self.bwidthValue, 'rd')
+            setColor(self.bbdelayValue, 'rd')
+        else:
+            setColor(self.bwidthValue, 'bl')
+            setColor(self.bbdelayValue, 'bl')
+
+    ### (Menu) ACTIONS ########################################################################
     def action_plotTimeFFTCheck(self):
         self.plotTimeWidget.setVisible(self.plotTimeCheck.isChecked())
         self.plotFFTWidget.setVisible(self.plotFFTCheck.isChecked())
@@ -262,7 +319,6 @@ class MainWindow(QMainWindow):
         if index == 2:
             self.plotTimeWidget.setMode('Q')
 
-    ### (Menu) ACTIONS ########################################################################
     def action_Connect(self):
         # open pop-up
         dialog = ConnectDialog()
@@ -339,3 +395,11 @@ class MainWindow(QMainWindow):
     def _mode_connected(self):
         self.controlWidget.setDisabled(False)
         self.startButton.setEnabled(True)
+
+def setColor(widget, color = 'bl'):
+    pal = widget.palette()
+    if color == 'rd':
+        pal.setColor(QPalette.Text, Qt.red)
+    if color == 'bl':
+        pal.setColor(QPalette.Text, Qt.black)
+    widget.setPalette(pal)
