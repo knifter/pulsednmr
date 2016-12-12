@@ -306,6 +306,12 @@ class MainWindow(QMainWindow):
             setColor(self.bwidthValue, 'bl')
             setColor(self.bbdelayValue, 'bl')
 
+        # disable B boxes when bcount < 1
+        ben = (bcount != 0)
+        self.abdelayValue.setEnabled(ben)
+        self.bwidthValue.setEnabled(ben)
+        self.bbdelayValue.setEnabled(ben)
+
     ### (Menu) ACTIONS ########################################################################
     def action_plotTimeFFTCheck(self):
         self.plotTimeWidget.setVisible(self.plotTimeCheck.isChecked())
