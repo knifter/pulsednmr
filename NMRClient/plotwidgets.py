@@ -143,7 +143,7 @@ class PlotTimeWidget(PlotWidget):
         ignore = max(ignore, 1)
         self.curveB = self.axis.plot(time[ignore-1:], zeros[ignore-1:], 'b')[0]
 
-        self._avgdata = zeros
+        self._avgdata = None
 
         self.rescale()
 

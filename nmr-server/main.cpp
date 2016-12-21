@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
 	char buffer[65536];
 	int i, size, yes = 1;
 
-	nmr = new NMRCore();
-
 	LOG("NMR Server Daemon version %s\n", VERSION);
+
+	nmr = new NMRCore();
 
 	// Get a server socket
 	int sock_server;

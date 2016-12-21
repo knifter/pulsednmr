@@ -11,6 +11,7 @@ import datetime
 from connectdialog import ConnectDialog
 from nmrctrl import NMRConnectionError, RATES
 
+
 LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.gui'
 WINDOW_TITLE = "NMR Control"
