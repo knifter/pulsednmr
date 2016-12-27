@@ -79,8 +79,18 @@ NMRCore::NMRCore()
 
   	// Configure FCLK0 (143 MHz)
   	printf("Configuring PLL for 143 MHz.\n");
-  	slcr[2] = 0xDF0D;
-  	slcr[92] = (slcr[92] & ~0x03F03F30) | 0x00100700;
+#define SLCR_UNLOCK		2
+#define FPGA0_CLK_CTRL		92
+  	slcr[SLCR_UNLOCK] 		= 0xDF0D; // @=8, SLCR_UNLOCK
+  	slcr[FPGA0_CLK_CTRL] 	= (slcr[FPGA0_CLK_CTRL] & ~0x03F03F30) | 0x00100700;
+  	// FPGA0_CLK_CTRL:
+  	// 	31:26, 6 = 0
+  	// 	25:20, 6 = DIVISOR1
+  	// 	19:14, 6 = 0
+  	// 	13:08, 6 = DIVISOR0
+  	// 	07:06, 2 = 0
+  	// 	05:04, 2 = SRCSEL: 0x: IO PLL, 10: ARM PLL, 11: DDR PLL
+  	// 	03:00, 4 = 0
 
   	// Alignment checking
 #ifdef DEBUG_ALIGNMENT
