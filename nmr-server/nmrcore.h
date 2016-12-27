@@ -68,16 +68,16 @@ private:
 
 	// mappings
 	uint32_t _map_fd;
-	PL_RxConfigRegister* _rxconfig;
-	PL_StatusRegister* 	 _status;
-	PL_TxConfigRegister* _txconfig;
-	void	 *_map_rxdata = NULL;
-	uint16_t *_map_txdata = NULL;
+	volatile PL_RxConfigRegister* 	_rxconfig;
+	volatile PL_StatusRegister* 	_status;
+	volatile PL_TxConfigRegister* 	_txconfig;
+	//volatile void	 *_map_rxdata = NULL;
+	volatile uint64_t *_map_rxdata;
 
 	// member vars
 	uint32_t _rx_freq;
 	uint32_t _rx_size;
-	void* _rx_buffer = NULL;
+	uint64_t* _rx_buffer = NULL;
 	uint32_t _rx_delay = 0;
 };
 
