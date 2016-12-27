@@ -21,6 +21,7 @@
 #define MMAP_RXSTATUS 		0x40001000
 #define MMAP_TXCONFIG 		0x40002000
 #define MMAP_RXDATA 		0x40010000
+#define MMAP_SLCR			0xF8000000		// ?
 #define DAC_SAMPLE_RATE     125000000		// 125 MSPS
 #define TX_BUFSIZE          50000           // Configures buffer size (PL)
 #define RX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
@@ -29,13 +30,13 @@
 #define FREQ_MAX            (DAC_SAMPLE_RATE/2)
 
 #define PULSE_LEN_MIN		0
-#define PULSE_LEN_MAX		1000
-#define PULSE_DLY_MIN		100
-#define PULSE_DLY_MAX		64000
+#define PULSE_LEN_MAX		(64000)			// >100 uS
+#define PULSE_DLY_MIN		100				// >100 uS
+#define PULSE_DLY_MAX		((int)2E6)			// >2E6 uS
 #define PULSE_BCNT_MIN		0
 #define PULSE_BCNT_MAX		10
 #define RX_DELAY_MIN		0
-#define	RX_DELAY_MAX		5000000 // 5 sec
+#define	RX_DELAY_MAX		5000000 		// 5 sec
 
 
 NMRCore::NMRCore()
@@ -47,12 +48,19 @@ NMRCore::NMRCore()
 	{
 		ERROR("ERROR: opening mem-device\n");
 		return;
-	}; 
+	};
+	volatile uint32_t *slcr;
+	slcr = (uint32_t*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_SLCR);
 	_rxconfig = (PL_RxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXCONFIG);
 	_status =   (PL_StatusRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXSTATUS);
 	_txconfig = (PL_TxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_TXCONFIG);
-	_map_rxdata = mmap(NULL, 16*sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXDATA);
+	_map_rxdata = (volatile uint64_t*) mmap(NULL, 16*sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXDATA);
   	// sysconf(_SC_PAGESIZE) = 4096, 16*=65536 bytes
+  	if(slcr == NULL)
+  	{
+  		ERROR("mmap(SLCR) failed.\n");
+  		return;
+  	}
   	if(_rxconfig == NULL)
   	{
   		ERROR("mmap(RXCONFIG) failed.\n");
@@ -68,6 +76,11 @@ NMRCore::NMRCore()
   		ERROR("mmap(TXCONFIG) failed.\n");
   		return;
   	}
+
+  	// Configure FCLK0 (143 MHz)
+  	printf("Configuring PLL for 143 MHz.\n");
+  	slcr[2] = 0xDF0D;
+  	slcr[92] = (slcr[92] & ~0x03F03F30) | 0x00100700;
 
   	// Alignment checking
 #ifdef DEBUG_ALIGNMENT
@@ -307,7 +320,7 @@ int NMRCore::setRxSize(uint32_t size)
 	// We need <size> complex floats
 	uint32_t bsize = size * 2 * sizeof(float);
 	DBG("Reserving %u bytes for a %u sample Rx Buffer.\n", bsize, size);
-	_rx_buffer = malloc(bsize);
+	_rx_buffer = (uint64_t*) malloc(bsize);
 	if(_rx_buffer == NULL)
 	{
 		ERROR("Failed to allocate RxBuffer of %u bytes for %u samples.", bsize, size);
@@ -338,7 +351,6 @@ int NMRCore::setRxDelay(uint32_t usec)
 	return 0;
 }
 
-
 int NMRCore::singleShot()
 {
 
@@ -368,7 +380,7 @@ int NMRCore::singleShot()
 	DBG("RxDelay discarding %u samples.\n", _rx_delay);
 #endif // DEBUG_READLOOP
 	uint32_t needed = _rx_delay;
-	float dummy[2];
+	uint64_t dummy;
 	uint32_t check = 0;
 	while(needed)
 	{
@@ -386,17 +398,13 @@ int NMRCore::singleShot()
 #ifdef DEBUG_READLOOP
 		DBG(" ... %u/%u/%u samples.\n", len, needed, _rx_delay);
 #endif // DEBUG_READLOOP
-		needed -= len;
 	
 		// discard fifo values by reading into a dummy
-		while(len)
-		{
-			//dummy = *(float*)_map_rxdata; // I
-			//dummy = *(float*)_map_rxdata; // Q
-			memcpy((uint8_t*) dummy, _map_rxdata, 2*sizeof(float));
-			len--;
-			check++;
-		}
+        for(int j = 0; j < len; ++j) 
+        	dummy = *_map_rxdata;
+
+		needed -= len;
+		check += len;
 	};
 	DBG("RxDelay: Discarded %u samples.\n", check);
 
@@ -413,7 +421,7 @@ int NMRCore::singleShot()
 	while(rx_total < _rx_size)
 	{
 		// throttle polling
-		while(_status->rx_counter < 5000)
+		while(_status->rx_counter < 10000)
 		{
 			usleep(100);
 		};
@@ -421,16 +429,16 @@ int NMRCore::singleShot()
 		// rx_counter is our total number of floats waiting, twice the amount of samples
 		// read it once and cache it locally, it's updated by the PL
 		len = _status->rx_counter >> 1;
-		// now len is the amount of 'samples', complex floats waiting (even)
 
-		// read min(len, needed)
+		// now len is the amount of 'samples', complex floats waiting (even)
 		needed = _rx_size - rx_total;
 #ifdef DEBUG_READLOOP
 		DBG("%d float pairs waiting. %d still needed.\n", len, needed);
 #endif
 		if(len > needed)
 			len = needed;
-		memcpy((uint8_t*)_rx_buffer + rx_total*2*sizeof(float), _map_rxdata, len*2*sizeof(float));
+    for(int j = 0; j < needed; ++j) 
+     	_rx_buffer[j] = *_map_rxdata;
 		rx_total += len;
 	};
 #ifdef DEBUG_READLOOP
