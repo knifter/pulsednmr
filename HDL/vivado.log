@@ -2,581 +2,107 @@
 # Vivado v2016.3 (64-bit)
 # SW Build 1682563 on Mon Oct 10 19:07:27 MDT 2016
 # IP Build 1681267 on Mon Oct 10 21:28:31 MDT 2016
-# Start of session at: Tue Nov 08 16:41:57 2016
-# Process ID: 7112
+# Start of session at: Tue Dec 06 15:39:29 2016
+# Process ID: 15300
 # Current directory: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent11924 D:\Dropbox\Projects\NatPract-NMR\trunk\HDL\pulsed_nmr.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent3596 D:\Dropbox\Projects\NatPract-NMR\trunk\HDL\pulsed_nmr.xpr
 # Log file: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/vivado.log
 # Journal file: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL\vivado.jou
 #-----------------------------------------------------------
 start_gui
 open_project D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.xpr
-INFO: [Project 1-313] Project file moved from 'D:/Dropbox/Projects/NatPract-NMR/trunk/HDL.new' since last save.
-CRITICAL WARNING: [Project 1-19] Could not find the file 'D:/Dropbox/Projects/NatPract-NMR/trunk/red-pitaya-notes/cfg/clocks.xdc'.
-CRITICAL WARNING: [Project 1-19] Could not find the file 'D:/Dropbox/Projects/NatPract-NMR/trunk/red-pitaya-notes/cfg/ports.xdc'.
 Scanning sources...
 Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/Dropbox/Projects/NatPract-NMR/trunk/HDL/cores'.
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Xilinx/Vivado/2016.3/data/ip'.
-open_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 868.195 ; gain = 184.227
-add_files -fileset constrs_1 -norecurse {D:/Dropbox/Projects/NatPract-NMR/red-pitaya-notes/cfg/clocks.xdc D:/Dropbox/Projects/NatPract-NMR/red-pitaya-notes/cfg/ports.xdc}
-import_files -fileset constrs_1 -force {D:/Dropbox/Projects/NatPract-NMR/red-pitaya-notes/cfg/clocks.xdc D:/Dropbox/Projects/NatPract-NMR/red-pitaya-notes/cfg/ports.xdc}
-file mkdir D:/Dropbox/Projects/NatPract-NMR/trunk/red-pitaya-notes/cfg
-remove_files  -fileset constrs_1 D:/Dropbox/Projects/NatPract-NMR/trunk/red-pitaya-notes/cfg/ports.xdc
-remove_files  -fileset constrs_1 D:/Dropbox/Projects/NatPract-NMR/trunk/red-pitaya-notes/cfg/clocks.xdc
-launch_runs impl_1 -to_step write_bitstream -jobs 4
-Adding cell -- pavel-demin:user:axis_red_pitaya_adc:1.0 - adc_0
+WARNING: [IP_Flow 19-3664] IP 'system_ps_0_0' generated file not found 'd:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_ps_0_0/hdl/verilog/system_ps_0_0.hwdef'. Please regenerate to continue.
+open_project: Time (s): cpu = 00:00:18 ; elapsed = 00:00:14 . Memory (MB): peak = 893.895 ; gain = 271.668
+reset_run synth_1
+launch_runs synth_1 -jobs 4
 Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0
-Adding cell -- pavel-demin:user:axis_red_pitaya_dac:1.0 - dac_0
 Adding cell -- pavel-demin:user:axi_sts_register:1.0 - sts_0
 Adding cell -- xilinx.com:ip:c_counter_binary:12.0 - cntr_0
+Adding cell -- xilinx.com:ip:xlconcat:2.1 - xlconcat_0
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - xlconstant_0
+Adding cell -- xilinx.com:ip:xlconcat:2.1 - xlconcat_1
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - xlconstant_2
+Adding cell -- pavel-demin:user:axis_red_pitaya_adc:1.0 - adc_0
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - const_0
+Adding cell -- xilinx.com:ip:axis_clock_converter:1.1 - fifo_0
+Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - axis_subset_converter_0
 Adding cell -- xilinx.com:ip:clk_wiz:5.3 - pll_0
-Adding cell -- pavel-demin:user:axi_bram_writer:1.0 - dummy_writer
-Adding cell -- xilinx.com:ip:xlslice:1.0 - cfg_slice_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - cfg_slice_1
-Adding cell -- xilinx.com:ip:xlslice:1.0 - rst_slice_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - rst_slice_1
+Adding cell -- pavel-demin:user:axis_constant:1.0 - axis_constant_0
+Adding cell -- xilinx.com:ip:axis_clock_converter:1.1 - fifo_0
+Adding cell -- xilinx.com:ip:axis_dwidth_converter:1.1 - axis_dwidth_converter_0
+Adding cell -- xilinx.com:ip:axis_combiner:1.1 - axis_combiner_0
+Adding cell -- pavel-demin:user:axis_red_pitaya_dac:1.0 - dac_0
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - xlconstant_1
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - xlconstant_0
 Adding cell -- pavel-demin:user:axi_cfg_register:1.0 - cfg_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_3
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_1
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_4
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_2
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0b
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0a
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_3456
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_12
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0b1
 Adding cell -- xilinx.com:ip:proc_sys_reset:5.0 - rst_0
 Adding cell -- xilinx.com:ip:processing_system7:5.5 - ps_0
 Adding cell -- xilinx.com:ip:axi_crossbar:2.1 - xbar
 Adding cell -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc
 Adding cell -- pavel-demin:user:axis_constant:1.0 - axis_constant_0
 Adding cell -- xilinx.com:ip:dds_compiler:6.0 - dds_compiler_0
-Adding cell -- xilinx.com:ip:axis_clock_converter:1.1 - fifo_2
-Adding cell -- xilinx.com:ip:xlconstant:1.1 - const_2
-Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - axis_subset_converter_0
-Adding cell -- xilinx.com:ip:xlconstant:1.1 - const_0
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - const_3
+Adding cell -- pavel-demin:user:axis_zeroer:1.0 - axis_zeroer_0
+Adding cell -- xilinx.com:module_ref:NMRPulseSequencer:1.0 - NMRPulseSequencer_0
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_pir
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_alen
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_blen
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_abdly
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_bbdly
+Adding cell -- pavel-demin:user:axi_cfg_register:1.0 - cfg_0
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_bbcnt
 Adding cell -- pavel-demin:user:axis_constant:1.0 - phase_0
-Adding cell -- pavel-demin:user:axis_lfsr:1.0 - lfsr_0
-Adding cell -- pavel-demin:user:axis_variable:1.0 - rate_0
-Adding cell -- pavel-demin:user:axis_variable:1.0 - rate_1
 Adding cell -- pavel-demin:user:axis_fifo:1.0 - fifo_1
 Adding cell -- pavel-demin:user:axi_axis_reader:1.0 - reader_0
-Adding cell -- xilinx.com:ip:axis_broadcaster:1.1 - bcast_0
-Adding cell -- xilinx.com:ip:cic_compiler:4.0 - cic_0
-Adding cell -- xilinx.com:ip:cic_compiler:4.0 - cic_1
-Adding cell -- xilinx.com:ip:axis_combiner:1.1 - comb_0
 Adding cell -- xilinx.com:ip:axis_dwidth_converter:1.1 - conv_0
 Adding cell -- xilinx.com:ip:axis_dwidth_converter:1.1 - conv_1
 Adding cell -- xilinx.com:ip:dds_compiler:6.0 - dds_0
-Adding cell -- xilinx.com:ip:axis_clock_converter:1.1 - fifo_0
 Adding cell -- xilinx.com:ip:fifo_generator:13.1 - fifo_generator_0
 INFO: [xilinx.com:ip:fifo_generator:13.1-5968] /rx_0/fifo_generator_0Executing the post_config_ip from bd
 Adding cell -- xilinx.com:ip:fir_compiler:7.2 - fir_0
 Adding cell -- xilinx.com:ip:floating_point:7.1 - fp_0
-Adding cell -- xilinx.com:ip:cmpy:6.0 - mult_0
 Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - subset_0
+Adding cell -- xilinx.com:ip:system_ila:1.0 - system_ila_0
+Adding cell -- xilinx.com:ip:cmpy:6.0 - mult_0
+Adding cell -- pavel-demin:user:axis_lfsr:1.0 - lfsr_0
+Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - axis_subset_converter_1
+Adding cell -- xilinx.com:ip:axis_broadcaster:1.1 - bcast_0
+Adding cell -- xilinx.com:ip:cic_compiler:4.0 - cic_0
+Adding cell -- xilinx.com:ip:cic_compiler:4.0 - cic_1
+Adding cell -- xilinx.com:ip:axis_combiner:1.1 - comb_0
+Adding cell -- pavel-demin:user:axis_variable:1.0 - rate_1
+Adding cell -- pavel-demin:user:axis_variable:1.0 - rate_0
 Successfully read diagram <system> from BD file <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd>
 INFO: [BD 41-1662] The design 'system.bd' is already validated. Therefore parameter propagation will not be re-run.
-WARNING: [BD 41-235] Width mismatch when connecting pin: '/rx_0/mult_0/s_axis_a_tdata'(32) to net 'fifo_0_M_AXIS_TDATA'(16) - Only lower order bits will be connected.
-WARNING: [BD 41-235] Width mismatch when connecting pin: '/rx_0/mult_0/s_axis_ctrl_tdata'(8) to net 'lfsr_0_M_AXIS_TDATA'(64) - Only lower order bits will be connected.
-WARNING: [BD 41-235] Width mismatch when connecting pin: '/rx_0/fifo_0/s_axis_tdata'(16) to net 'Conn1_TDATA'(32) - Only lower order bits will be connected.
-CRITICAL WARNING: [BD 41-1228] Width mismatch when connecting input pin '/sts_0/sts_data'(32) to net 'rx_0_rd_data_count'(15) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
 Verilog Output written to : D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.v
 Verilog Output written to : D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system_wrapper.v
-WARNING: [xilinx.com:ip:processing_system7:5.5-1] system_ps_0_0: The Zynq BFM requires an AXI BFM license to run. Please ensure that you have purchased and setup the AXI BFM license prior to running simulation with this block. Please contact your Xilinx sales office for more information on purchasing this license
 INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/rst_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block adc_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/adc_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block cntr_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block slice_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block pll_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block dac_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/cfg_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/rst_slice_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/rst_slice_1 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/cfg_slice_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/cfg_slice_1 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_3 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_4 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_2 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/const_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/pll_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/dac_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/cfg_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0a .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_3456 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_12 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/const_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/fifo_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/phase_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/dds_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/lfsr_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mult_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/bcast_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/rate_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/rate_1 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_1 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/comb_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/conv_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fir_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/subset_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fp_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/conv_1 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_generator_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_1 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/reader_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_1 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block sts_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0_axi_periph/xbar .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/axis_constant_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/dds_compiler_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/fifo_2 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/const_2 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/axis_subset_converter_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block dummy_writer .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0_axi_periph/s00_couplers/auto_pc .
-Exporting to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hw_handoff/system.hwh
-Generated Block Design Tcl file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hw_handoff/system_bd.tcl
-Generated Hardware Definition File D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.hwdef
-[Tue Nov 08 16:45:00 2016] Launched synth_1...
-Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/synth_1/runme.log
-[Tue Nov 08 16:45:01 2016] Launched impl_1...
-Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/runme.log
-launch_runs: Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1052.637 ; gain = 157.617
-open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
-Adding cell -- pavel-demin:user:axis_red_pitaya_adc:1.0 - adc_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0
-Adding cell -- pavel-demin:user:axis_red_pitaya_dac:1.0 - dac_0
-Adding cell -- pavel-demin:user:axi_sts_register:1.0 - sts_0
-Adding cell -- xilinx.com:ip:c_counter_binary:12.0 - cntr_0
-Adding cell -- xilinx.com:ip:clk_wiz:5.3 - pll_0
-Adding cell -- pavel-demin:user:axi_bram_writer:1.0 - dummy_writer
-Adding cell -- xilinx.com:ip:xlslice:1.0 - cfg_slice_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - cfg_slice_1
-Adding cell -- xilinx.com:ip:xlslice:1.0 - rst_slice_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - rst_slice_1
-Adding cell -- pavel-demin:user:axi_cfg_register:1.0 - cfg_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_3
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_1
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_4
-Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_2
-Adding cell -- xilinx.com:ip:proc_sys_reset:5.0 - rst_0
-Adding cell -- xilinx.com:ip:processing_system7:5.5 - ps_0
-Adding cell -- xilinx.com:ip:axi_crossbar:2.1 - xbar
-Adding cell -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc
-Adding cell -- pavel-demin:user:axis_constant:1.0 - axis_constant_0
-Adding cell -- xilinx.com:ip:dds_compiler:6.0 - dds_compiler_0
-Adding cell -- xilinx.com:ip:axis_clock_converter:1.1 - fifo_2
-Adding cell -- xilinx.com:ip:xlconstant:1.1 - const_2
-Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - axis_subset_converter_0
-Adding cell -- xilinx.com:ip:xlconstant:1.1 - const_0
-Adding cell -- pavel-demin:user:axis_constant:1.0 - phase_0
-Adding cell -- pavel-demin:user:axis_lfsr:1.0 - lfsr_0
-Adding cell -- pavel-demin:user:axis_variable:1.0 - rate_0
-Adding cell -- pavel-demin:user:axis_variable:1.0 - rate_1
-Adding cell -- pavel-demin:user:axis_fifo:1.0 - fifo_1
-Adding cell -- pavel-demin:user:axi_axis_reader:1.0 - reader_0
-Adding cell -- xilinx.com:ip:axis_broadcaster:1.1 - bcast_0
-Adding cell -- xilinx.com:ip:cic_compiler:4.0 - cic_0
-Adding cell -- xilinx.com:ip:cic_compiler:4.0 - cic_1
-Adding cell -- xilinx.com:ip:axis_combiner:1.1 - comb_0
-Adding cell -- xilinx.com:ip:axis_dwidth_converter:1.1 - conv_0
-Adding cell -- xilinx.com:ip:axis_dwidth_converter:1.1 - conv_1
-Adding cell -- xilinx.com:ip:dds_compiler:6.0 - dds_0
-Adding cell -- xilinx.com:ip:axis_clock_converter:1.1 - fifo_0
-Adding cell -- xilinx.com:ip:fifo_generator:13.1 - fifo_generator_0
-INFO: [xilinx.com:ip:fifo_generator:13.1-5968] /rx_0/fifo_generator_0Executing the post_config_ip from bd
-Adding cell -- xilinx.com:ip:fir_compiler:7.2 - fir_0
-Adding cell -- xilinx.com:ip:floating_point:7.1 - fp_0
-Adding cell -- xilinx.com:ip:cmpy:6.0 - mult_0
-Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - subset_0
-Successfully read diagram <system> from BD file <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd>
-open_bd_design: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 1184.652 ; gain = 93.809
-set_property location {1 98 115} [get_bd_cells ConfigReg/cfg_0]
-set_property location {1 153 42} [get_bd_cells ConfigReg/cfg_0]
-set_property name PIR [get_bd_pins ConfigReg/FTW]
-startgroup
-set_property location {742 436} [get_bd_pins ConfigReg/TxSize]
-endgroup
-startgroup
-set_property location {2 358 442} [get_bd_cells ConfigReg/cfg_slice_1]
-set_property location {3 558 442} [get_bd_cells ConfigReg/slice_1]
-endgroup
-startgroup
-set_property location {3 554 177} [get_bd_cells ConfigReg/slice_3]
-set_property location {2 354 177} [get_bd_cells ConfigReg/rst_slice_0]
-endgroup
-copy_bd_objs ConfigReg  [get_bd_cells {ConfigReg/slice_3}]
-set_property location {3 522 251} [get_bd_cells ConfigReg/slice_5]
-delete_bd_objs [get_bd_cells ConfigReg/slice_5]
-delete_bd_objs [get_bd_nets ConfigReg/rst_slice_1_Dout]
-startgroup
-set_property -dict [list CONFIG.DIN_TO {1} CONFIG.DIN_FROM {1} CONFIG.DIN_FROM {1} CONFIG.DOUT_WIDTH {1}] [get_bd_cells ConfigReg/slice_0]
-endgroup
-connect_bd_net [get_bd_pins ConfigReg/slice_0/Din] [get_bd_pins ConfigReg/rst_slice_0/Dout]
-set_property location {3 553 242} [get_bd_cells ConfigReg/slice_0]
-set_property location {2 355 -5} [get_bd_cells ConfigReg/rst_slice_0]
-set_property location {3 554 -59} [get_bd_cells ConfigReg/slice_3]
-set_property location {3 531 0} [get_bd_cells ConfigReg/slice_0]
-set_property location {678 -79} [get_bd_pins ConfigReg/RxReset]
-set_property location {2 331 146} [get_bd_cells ConfigReg/cfg_slice_0]
-set_property location {3 544 251} [get_bd_cells ConfigReg/slice_4]
-set_property location {3 554 152} [get_bd_cells ConfigReg/slice_2]
-set_property location {3 550 72} [get_bd_cells ConfigReg/slice_0]
-set_property location {3 532 -2} [get_bd_cells ConfigReg/slice_3]
-set_property location {2 344 168} [get_bd_cells ConfigReg/cfg_slice_0]
-set_property location {3 541 172} [get_bd_cells ConfigReg/slice_2]
-set_property location {706 172} [get_bd_pins ConfigReg/RxRate]
-set_property location {720 243} [get_bd_pins ConfigReg/PIR]
-set_property location {726 254} [get_bd_pins ConfigReg/PIR]
-set_property location {727 78} [get_bd_pins ConfigReg/TxReset]
-set_property name RxPIR [get_bd_pins ConfigReg/PIR]
-set_property name cfg_rx_0 [get_bd_cells ConfigReg/cfg_slice_0]
-delete_bd_objs [get_bd_cells ConfigReg/rst_slice_1]
-startgroup
-set_property -dict [list CONFIG.CFG_DATA_WIDTH {256}] [get_bd_cells ConfigReg/cfg_0]
-endgroup
-set_property name cfg_tx_0 [get_bd_cells ConfigReg/cfg_slice_1]
-delete_bd_objs [get_bd_nets ConfigReg/slice_1_Dout] [get_bd_pins ConfigReg/TxSize]
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {256} CONFIG.DIN_TO {0} CONFIG.DIN_FROM {7}] [get_bd_cells ConfigReg/rst_slice_0]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {256} CONFIG.DIN_TO {8} CONFIG.DIN_FROM {127} CONFIG.DOUT_WIDTH {120}] [get_bd_cells ConfigReg/cfg_rx_0]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {120} CONFIG.DIN_TO {0} CONFIG.DIN_FROM {15} CONFIG.DIN_FROM {15} CONFIG.DOUT_WIDTH {16}] [get_bd_cells ConfigReg/slice_2]
-endgroup
-set_property name slice_0_15 [get_bd_cells ConfigReg/slice_2]
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {120} CONFIG.DIN_TO {16} CONFIG.DIN_FROM {47} CONFIG.DOUT_WIDTH {32}] [get_bd_cells ConfigReg/slice_4]
-endgroup
-set_property name slice_0b [get_bd_cells ConfigReg/slice_0]
-set_property name slice_0a [get_bd_cells ConfigReg/slice_3]
-set_property name slice_12 [get_bd_cells ConfigReg/slice_0_15]
-set_property name slice_3456 [get_bd_cells ConfigReg/slice_4]
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {256} CONFIG.DIN_TO {128} CONFIG.DIN_FROM {255} CONFIG.DIN_FROM {255} CONFIG.DOUT_WIDTH {128}] [get_bd_cells ConfigReg/cfg_tx_0]
-endgroup
-create_bd_pin -dir O -from 31 -to 0 ConfigReg/TxPIR
-set_property location {701 438} [get_bd_pins ConfigReg/TxPIR]
-create_bd_pin -dir O -from 15 -to 0 ConfigReg/TxAlen
-create_bd_pin -dir O -from 15 -to 0 ConfigReg/TxBlen
-set_property location {747 529} [get_bd_pins ConfigReg/TxBlen]
-set_property location {731 486} [get_bd_pins ConfigReg/TxAlen]
-set_property location {734 554} [get_bd_pins ConfigReg/TxBlen]
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {127} CONFIG.DIN_FROM {31} CONFIG.DIN_TO {0} CONFIG.DOUT_WIDTH {32}] [get_bd_cells ConfigReg/slice_1]
-endgroup
-connect_bd_net [get_bd_pins ConfigReg/TxPIR] [get_bd_pins ConfigReg/slice_1/Dout]
-copy_bd_objs ConfigReg  [get_bd_cells {ConfigReg/slice_1}]
-set_property location {3 530 513} [get_bd_cells ConfigReg/slice_2]
-set_property location {3 543 440} [get_bd_cells ConfigReg/slice_1]
-copy_bd_objs ConfigReg  [get_bd_cells {ConfigReg/slice_1}]
-set_property location {3 554 649} [get_bd_cells ConfigReg/slice_3]
-copy_bd_objs ConfigReg  [get_bd_cells {ConfigReg/slice_1}]
-set_property location {3 533 745} [get_bd_cells ConfigReg/slice_4]
-set_property location {3 540 596} [get_bd_cells ConfigReg/slice_3]
-set_property location {3 554 678} [get_bd_cells ConfigReg/slice_4]
-set_property location {725 599} [get_bd_pins ConfigReg/TxBlen]
-set_property location {735 525} [get_bd_pins ConfigReg/TxAlen]
-connect_bd_net [get_bd_pins ConfigReg/slice_2/Din] [get_bd_pins ConfigReg/cfg_tx_0/Dout]
-connect_bd_net [get_bd_pins ConfigReg/slice_3/Din] [get_bd_pins ConfigReg/cfg_tx_0/Dout]
-connect_bd_net [get_bd_pins ConfigReg/slice_4/Din] [get_bd_pins ConfigReg/slice_3/Din]
-connect_bd_net [get_bd_pins ConfigReg/TxAlen] [get_bd_pins ConfigReg/slice_2/Dout]
-connect_bd_net [get_bd_pins ConfigReg/TxBlen] [get_bd_pins ConfigReg/slice_3/Dout]
-create_bd_pin -dir O -from 15 -to 0 ConfigReg/TxABdly
-set_property location {729 683} [get_bd_pins ConfigReg/TxABdly]
-copy_bd_objs ConfigReg  [get_bd_pins {ConfigReg/TxABdly}]
-set_property location {782 754} [get_bd_pins ConfigReg/TxABdly1]
-set_property name TxBBdly [get_bd_pins ConfigReg/TxABdly1]
-copy_bd_objs ConfigReg  [get_bd_pins {ConfigReg/TxBBdly}]
-set_property location {751 833} [get_bd_pins ConfigReg/TxBBdly1]
-set_property name TxBBcnt [get_bd_pins ConfigReg/TxBBdly1]
-startgroup
-set_property -dict [list CONFIG.DIN_TO {32} CONFIG.DIN_FROM {47} CONFIG.DIN_FROM {47} CONFIG.DOUT_WIDTH {16}] [get_bd_cells ConfigReg/slice_2]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_TO {48} CONFIG.DIN_FROM {63} CONFIG.DIN_FROM {63} CONFIG.DOUT_WIDTH {16}] [get_bd_cells ConfigReg/slice_3]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_TO {64} CONFIG.DIN_FROM {79} CONFIG.DIN_FROM {79} CONFIG.DOUT_WIDTH {16}] [get_bd_cells ConfigReg/slice_4]
-endgroup
-connect_bd_net [get_bd_pins ConfigReg/TxABdly] [get_bd_pins ConfigReg/slice_4/Dout]
-copy_bd_objs ConfigReg  [get_bd_cells {ConfigReg/slice_4}]
-copy_bd_objs ConfigReg  [get_bd_cells {ConfigReg/slice_4}]
-startgroup
-set_property location {3 557 840} [get_bd_cells ConfigReg/slice_6]
-set_property location {3 557 760} [get_bd_cells ConfigReg/slice_5]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_TO {80} CONFIG.DIN_FROM {95} CONFIG.DIN_FROM {95} CONFIG.DOUT_WIDTH {16}] [get_bd_cells ConfigReg/slice_5]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_TO {96} CONFIG.DIN_FROM {111} CONFIG.DIN_FROM {111} CONFIG.DOUT_WIDTH {16}] [get_bd_cells ConfigReg/slice_6]
-endgroup
-set_property location {737 758} [get_bd_pins ConfigReg/TxBBdly]
-set_property location {729 844} [get_bd_pins ConfigReg/TxBBcnt]
-connect_bd_net [get_bd_pins ConfigReg/TxBBdly] [get_bd_pins ConfigReg/slice_5/Dout]
-connect_bd_net [get_bd_pins ConfigReg/TxBBcnt] [get_bd_pins ConfigReg/slice_6/Dout]
-connect_bd_net [get_bd_pins ConfigReg/slice_5/Din] [get_bd_pins ConfigReg/slice_4/Din]
-connect_bd_net [get_bd_pins ConfigReg/slice_6/Din] [get_bd_pins ConfigReg/slice_5/Din]
-set_property location {2 364 444} [get_bd_cells ConfigReg/cfg_tx_0]
-save_bd_design
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_ed573ca3.ui> 
-set_property name PIR [get_bd_pins tx_0/TxFTW]
-set_property location {-160 61} [get_bd_pins tx_0/aclk]
-set_property location {-173 183} [get_bd_pins tx_0/s_axis_aresetn]
-set_property name clk125 [get_bd_pins tx_0/m_axis_aclk]
-set_property location {1.5 296 74} [get_bd_cells tx_0/axis_constant_0]
-set_property location {0.5 73 82} [get_bd_cells tx_0/axis_constant_0]
-set_property location {1.5 379 124} [get_bd_cells tx_0/fifo_2]
-set_property location {3.5 654 127} [get_bd_cells tx_0/dds_compiler_0]
-set_property location {4 739 135} [get_bd_cells tx_0/dds_compiler_0]
-set_property location {4 591 141} [get_bd_cells tx_0/dds_compiler_0]
-set_property location {3.5 543 120} [get_bd_cells tx_0/dds_compiler_0]
-set_property location {4.5 726 124} [get_bd_cells tx_0/dds_compiler_0]
-regenerate_bd_layout -hierarchy [get_bd_cell tx_0]
-set_property location {-85 -12} [get_bd_pins tx_0/s_axis_aresetn]
-set_property name s_axis_aclk125 [get_bd_pins rx_0/s_axis_aclk]
-set_property name S_AXI_SAMP [get_bd_intf_pins rx_0/S_AXI]
-S_AXI_SAMP
-set_property name clk125 [get_bd_pins rx_0/s_axis_aclk125]
-set_property name S_AXIS_ADC [get_bd_intf_pins rx_0/S_AXIS]
-S_AXIS_ADC
-set_property location {-72 523} [get_bd_pins rx_0/RxRate]
-set_property location {-67 576} [get_bd_pins rx_0/RxReset]
-set_property name PIR [get_bd_pins rx_0/RxFTW]
-set_property name aclk [get_bd_pins rx_0/m_axis_aclk]
-undo
-INFO: [Common 17-17] undo 'set_property name aclk [get_bd_pins rx_0/m_axis_aclk]'
-set_property name s_axi_clk125 [get_bd_pins rx_0/clk125]
-set_property name s_axis_clk125 [get_bd_pins tx_0/clk125]
-set_property location {-75 274} [get_bd_pins tx_0/s_axis_clk125]
-group_bd_cells cic_block_0 [get_bd_cells rx_0/bcast_0] [get_bd_cells rx_0/cic_0] [get_bd_cells rx_0/cic_1] [get_bd_cells rx_0/comb_0]
-set_property location {5.5 1497 388} [get_bd_cells rx_0/cic_block_0]
-move_bd_cells [get_bd_cells rx_0/cic_block_0] [get_bd_cells rx_0/rate_0]
-move_bd_cells [get_bd_cells rx_0/cic_block_0] [get_bd_cells rx_0/rate_1]
-move_bd_cells [get_bd_cells rx_0] [get_bd_cells rx_0/cic_block_0/rate_0]
-move_bd_cells [get_bd_cells rx_0/cic_block_0] [get_bd_cells rx_0/rate_0]
-set_property location {2 498 340} [get_bd_cells rx_0/cic_block_0/cic_1]
-set_property location {2 515 183} [get_bd_cells rx_0/cic_block_0/cic_0]
-set_property location {2 495 195} [get_bd_cells rx_0/cic_block_0/cic_0]
-set_property location {0.5 -201 249} [get_bd_cells rx_0/cic_block_0/bcast_0]
-set_property location {2 213 41} [get_bd_cells rx_0/cic_block_0/rate_0]
-set_property location {2 164 454} [get_bd_cells rx_0/cic_block_0/rate_1]
-set_property location {2 71 255} [get_bd_cells rx_0/cic_block_0/bcast_0]
-set_property location {3 814 273} [get_bd_cells rx_0/cic_block_0/comb_0]
-set_property location {4.5 1376 422} [get_bd_cells rx_0/cic_block_0]
-regenerate_bd_layout -hierarchy [get_bd_cell rx_0]
-set_property location {6 1293 672} [get_bd_cells rx_0/subset_0]
-undo
-INFO: [Common 17-17] undo 'set_property location {6 1293 672} [get_bd_cells rx_0/subset_0]'
-regenerate_bd_layout -hierarchy [get_bd_cell rx_0]
-set_property name s_axis_clk125 [get_bd_pins rx_0/s_axi_clk125]
-set_property location {-59 315} [get_bd_pins rx_0/RxRate]
-set_property location {-50 540} [get_bd_pins rx_0/RxReset]
-set_property name aclk [get_bd_pins rx_0/m_axis_aclk]
-set_property name aresetn [get_bd_pins rx_0/m_axis_aresetn]
-set_property name cic_0 [get_bd_cells rx_0/cic_block_0]
-set_property location {-64 305} [get_bd_pins rx_0/RxRate]
-group_bd_cells complex_mult_0 [get_bd_cells rx_0/lfsr_0] [get_bd_cells rx_0/mult_0]
-set_property location {3 701 251} [get_bd_cells rx_0/complex_mult_0]
-set_property location {3 685 254} [get_bd_cells rx_0/complex_mult_0]
-set_property location {3 688 266} [get_bd_cells rx_0/complex_mult_0]
-set_property location {-21 500} [get_bd_pins rx_0/aclk]
-set_property location {2 413 219} [get_bd_cells rx_0/fifo_0]
-set_property location {2 393 209} [get_bd_cells rx_0/fifo_0]
-set_property location {-228 -35} [get_bd_intf_pins rx_0/S_AXI_SAMP]
-set_property location {12 2927 106} [get_bd_cells rx_0/fifo_generator_0]
-set_property location {11 2714 97} [get_bd_cells rx_0/fifo_generator_0]
-set_property location {11.5 2981 233} [get_bd_cells rx_0/reader_0]
-set_property location {-222 227} [get_bd_pins rx_0/s_axis_clk125]
-set_property location {-157 170} [get_bd_intf_pins rx_0/S_AXIS_ADC]
-set_property location {1 67 196} [get_bd_cells rx_0/const_0]
-set_property location {1 28 106} [get_bd_cells rx_0/const_0]
-set_property location {1 94 111} [get_bd_cells rx_0/const_0]
-set_property location {11 2675 338} [get_bd_cells rx_0/reader_0]
-set_property location {2876 111} [get_bd_pins rx_0/rd_data_count]
-set_property location {3175 92} [get_bd_pins rx_0/rd_data_count]
-disconnect_bd_net /RxFTW [get_bd_pins tx_0/PIR]
-connect_bd_net [get_bd_pins tx_0/PIR] [get_bd_pins ConfigReg/TxPIR] -boundary_type upper
-disconnect_bd_net /tx_0/m_axis_aclk_1 [get_bd_pins tx_0/dds_compiler_0/aclk]
-copy_bd_objs tx_0  [get_bd_cells {tx_0/fifo_2}]
-set_property name fifo_0 [get_bd_cells tx_0/fifo_3]
-delete_bd_objs [get_bd_intf_nets tx_0/dds_compiler_0_M_AXIS_DATA]
-set_property location {4.5 1015 171} [get_bd_cells tx_0/axis_subset_converter_0]
-set_property location {3.5 786 273} [get_bd_cells tx_0/fifo_0]
-connect_bd_intf_net [get_bd_intf_pins tx_0/axis_subset_converter_0/S_AXIS] [get_bd_intf_pins tx_0/fifo_0/M_AXIS]
-set_property location {4 802 172} [get_bd_cells tx_0/fifo_0]
-connect_bd_net [get_bd_pins tx_0/s_axis_clk125] [get_bd_pins tx_0/fifo_0/m_axis_aclk]
-disconnect_bd_net /tx_0/m_axis_aclk_1 [get_bd_pins tx_0/fifo_2/m_axis_aclk]
-delete_bd_objs [get_bd_nets tx_0/const_2_dout]
-set_property location {4 757 319} [get_bd_cells tx_0/const_2]
-set_property location {3 597 225} [get_bd_cells tx_0/const_2]
-connect_bd_net [get_bd_pins tx_0/const_2/dout] [get_bd_pins tx_0/fifo_0/m_axis_aresetn]
-connect_bd_net [get_bd_pins tx_0/axis_subset_converter_0/aresetn] [get_bd_pins tx_0/const_2/dout]
-set_property location {3 532 341} [get_bd_cells tx_0/const_2]
-set_property location {4 792 154} [get_bd_cells tx_0/fifo_0]
-set_property location {3 541 112} [get_bd_cells tx_0/dds_compiler_0]
-connect_bd_intf_net [get_bd_intf_pins tx_0/dds_compiler_0/M_AXIS_DATA] [get_bd_intf_pins tx_0/fifo_0/S_AXIS]
-connect_bd_net [get_bd_pins tx_0/s_axis_aresetn] [get_bd_pins tx_0/fifo_0/s_axis_aresetn]
-connect_bd_net [get_bd_pins tx_0/aclk] [get_bd_pins tx_0/fifo_0/s_axis_aclk]
-set_property location {-130 -108} [get_bd_pins tx_0/s_axis_aresetn]
-set_property location {-111 -56} [get_bd_pins tx_0/aclk]
-set_property location {-145 415} [get_bd_pins tx_0/RxReset]
-set_property name clk125 [get_bd_pins tx_0/s_axis_clk125]
-delete_bd_objs [get_bd_intf_nets tx_0/axis_constant_0_M_AXIS] [get_bd_intf_nets tx_0/fifo_2_M_AXIS] [get_bd_cells tx_0/fifo_2]
-connect_bd_intf_net [get_bd_intf_pins tx_0/axis_constant_0/M_AXIS] [get_bd_intf_pins tx_0/dds_compiler_0/S_AXIS_PHASE]
-connect_bd_net [get_bd_pins tx_0/aclk] [get_bd_pins tx_0/dds_compiler_0/aclk]
-set_property location {-126 -150} [get_bd_pins tx_0/aclk]
-set_property location {-113 -69} [get_bd_pins tx_0/aclk]
-set_property location {1 56 123} [get_bd_cells tx_0/axis_constant_0]
-set_property location {1 56 100} [get_bd_cells tx_0/axis_constant_0]
-set_property location {1.5 358 109} [get_bd_cells tx_0/dds_compiler_0]
-set_property location {3.5 607 144} [get_bd_cells tx_0/fifo_0]
-set_property location {4 557 152} [get_bd_cells tx_0/fifo_0]
-set_property location {4.5 928 169} [get_bd_cells tx_0/axis_subset_converter_0]
-set_property location {5 869 170} [get_bd_cells tx_0/axis_subset_converter_0]
-set_property location {2.5 326 127} [get_bd_cells tx_0/dds_compiler_0]
-set_property location {2 325 113} [get_bd_cells tx_0/dds_compiler_0]
-startgroup
-set_property -dict [list CONFIG.Parameter_Entry {Hardware_Parameters} CONFIG.Phase_Width {32} CONFIG.Noise_Shaping {None} CONFIG.Output_Width {16} CONFIG.Latency {13} CONFIG.Output_Frequency1 {0}] [get_bd_cells tx_0/dds_compiler_0]
-endgroup
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:axi_clock_converter:2.1 tx_0/axi_clock_converter_0
-endgroup
-delete_bd_objs [get_bd_cells tx_0/axi_clock_converter_0]
-save_bd_design
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_fc31a665.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_149a5424.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_ed573ca3.ui> 
-validate_bd_design
-INFO: [Common 17-365] Interrupt caught but 'validate_bd_design' cannot be canceled. Please wait for command to finish.
-WARNING: [#UNDEF] When using EMIO pins for SPI_0 tie SSIN High in the PL bitstream
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/complex_mult_0/mult_0 S_AXIS_B-TDATA: Validating field: real(24:0): fix24_23 against /rx_0/complex_mult_0 S_AXIS_B-TDATA: chan_0_cosine(24:0): fix24_23.
-INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/complex_mult_0/mult_0 S_AXIS_B-TDATA: Validating field: imag(48:24): fix24_23 against /rx_0/complex_mult_0 S_AXIS_B-TDATA: chan_0_sine(48:24): fix24_23.
-INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/fifo_0/S_AXIS(2) and /adc_0/M_AXIS(4)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/complex_mult_0/mult_0/S_AXIS_A(4) and /rx_0/fifo_0/M_AXIS(2)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/complex_mult_0/mult_0/S_AXIS_CTRL(1) and /rx_0/complex_mult_0/lfsr_0/M_AXIS(8)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /tx_0/axis_subset_converter_0/S_AXIS(3) and /tx_0/fifo_0/M_AXIS(2)
-validate_bd_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1364.723 ; gain = 0.000
-INFO: [Common 17-681] Processing pending cancel.
-delete_bd_objs [get_bd_intf_nets tx_0/fifo_0_M_AXIS] [get_bd_intf_nets tx_0/axis_subset_converter_0_M_AXIS] [get_bd_cells tx_0/axis_subset_converter_0]
-connect_bd_intf_net [get_bd_intf_pins tx_0/M_AXIS] [get_bd_intf_pins tx_0/fifo_0/M_AXIS]
-validate_bd_design
-WARNING: [#UNDEF] When using EMIO pins for SPI_0 tie SSIN High in the PL bitstream
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/complex_mult_0/mult_0 S_AXIS_B-TDATA: Validating field: real(24:0): fix24_23 against /rx_0/complex_mult_0 S_AXIS_B-TDATA: chan_0_cosine(24:0): fix24_23.
-INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/complex_mult_0/mult_0 S_AXIS_B-TDATA: Validating field: imag(48:24): fix24_23 against /rx_0/complex_mult_0 S_AXIS_B-TDATA: chan_0_sine(48:24): fix24_23.
-INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/fifo_0/S_AXIS(2) and /adc_0/M_AXIS(4)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/complex_mult_0/mult_0/S_AXIS_A(4) and /rx_0/fifo_0/M_AXIS(2)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/complex_mult_0/mult_0/S_AXIS_CTRL(1) and /rx_0/complex_mult_0/lfsr_0/M_AXIS(8)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /dac_0/S_AXIS(4) and /tx_0/fifo_0/M_AXIS(2)
-validate_bd_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1384.852 ; gain = 0.000
-set_property name S_AXI_OUT [get_bd_intf_pins rx_0/S_AXI_SAMP]
-S_AXI_OUT
-save_bd_design
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_fc31a665.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_149a5424.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_ed573ca3.ui> 
-reset_run synth_1
-launch_runs impl_1 -to_step write_bitstream -jobs 4
-WARNING: [#UNDEF] When using EMIO pins for SPI_0 tie SSIN High in the PL bitstream
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/complex_mult_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/complex_mult_0/mult_0 S_AXIS_B-TDATA: Validating field: real(24:0): fix24_23 against /rx_0/complex_mult_0 S_AXIS_B-TDATA: chan_0_cosine(24:0): fix24_23.
-INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/complex_mult_0/mult_0 S_AXIS_B-TDATA: Validating field: imag(48:24): fix24_23 against /rx_0/complex_mult_0 S_AXIS_B-TDATA: chan_0_sine(48:24): fix24_23.
-INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/fifo_0/S_AXIS(2) and /adc_0/M_AXIS(4)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/complex_mult_0/mult_0/S_AXIS_A(4) and /rx_0/fifo_0/M_AXIS(2)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /rx_0/complex_mult_0/mult_0/S_AXIS_CTRL(1) and /rx_0/complex_mult_0/lfsr_0/M_AXIS(8)
-CRITICAL WARNING: [BD 41-237] Bus Interface property TDATA_NUM_BYTES does not match between /dac_0/S_AXIS(4) and /tx_0/fifo_0/M_AXIS(2)
-WARNING: [BD 41-235] Width mismatch when connecting pin: '/rx_0/complex_mult_0/mult_0/s_axis_ctrl_tdata'(8) to net 'lfsr_0_M_AXIS_TDATA'(64) - Only lower order bits will be connected.
-WARNING: [BD 41-235] Width mismatch when connecting pin: '/rx_0/complex_mult_0/mult_0/s_axis_a_tdata'(32) to net 'fifo_0_M_AXIS_TDATA'(16) - Only lower order bits will be connected.
-WARNING: [BD 41-235] Width mismatch when connecting pin: '/rx_0/fifo_0/s_axis_tdata'(16) to net 'Conn1_TDATA'(32) - Only lower order bits will be connected.
-CRITICAL WARNING: [BD 41-1228] Width mismatch when connecting input pin '/ConfigReg/slice_1/Din'(127) to net 'cfg_slice_1_Dout'(128) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
-CRITICAL WARNING: [BD 41-1228] Width mismatch when connecting input pin '/ConfigReg/slice_2/Din'(127) to net 'cfg_slice_1_Dout'(128) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
-CRITICAL WARNING: [BD 41-1228] Width mismatch when connecting input pin '/ConfigReg/slice_3/Din'(127) to net 'cfg_slice_1_Dout'(128) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
-CRITICAL WARNING: [BD 41-1228] Width mismatch when connecting input pin '/ConfigReg/slice_4/Din'(127) to net 'cfg_slice_1_Dout'(128) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
-CRITICAL WARNING: [BD 41-1228] Width mismatch when connecting input pin '/ConfigReg/slice_5/Din'(127) to net 'cfg_slice_1_Dout'(128) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
-CRITICAL WARNING: [BD 41-1228] Width mismatch when connecting input pin '/ConfigReg/slice_6/Din'(127) to net 'cfg_slice_1_Dout'(128) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
-WARNING: [BD 41-235] Width mismatch when connecting pin: '/dac_0/s_axis_tdata'(32) to net 'tx_0_M_AXIS_TDATA'(16) - Only lower order bits will be connected.
-CRITICAL WARNING: [BD 41-1228] Width mismatch when connecting input pin '/sts_0/sts_data'(32) to net 'rx_0_rd_data_count'(15) - Only lower order bits will be connected, and other input bits of this pin will be left unconnected.
-Verilog Output written to : D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.v
-Verilog Output written to : D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system_wrapper.v
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_fc31a665.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_149a5424.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_ed573ca3.ui> 
-INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/rst_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block adc_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block cntr_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block slice_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block pll_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block dac_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/cfg_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/rst_slice_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/cfg_rx_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/cfg_tx_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_0a .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_3456 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_12 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/const_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/phase_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/dds_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/complex_mult_0/lfsr_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/complex_mult_0/mult_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/lfsr_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/mult_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/bcast_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/rate_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/rate_1 .
@@ -591,229 +117,928 @@ INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/conv_1 
 INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_generator_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_1 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/reader_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_0b .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0b .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_pir .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block sts_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0_axi_periph/xbar .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/axis_constant_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/dds_compiler_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/const_2 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block dummy_writer .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_2 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_3 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_4 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_5 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block ConfigReg/slice_6 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/fifo_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_alen .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_blen .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_abdly .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_bbdly .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_bbcnt .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/fifo_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/cfg_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/NMRPulseSequencer_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconcat_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconstant_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0b1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/const_3 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/axis_zeroer_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_dwidth_converter_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/xlconstant_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconcat_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconstant_2 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/axis_subset_converter_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/axis_subset_converter_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_combiner_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_constant_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/xlconstant_0 .
+Exporting to file d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hw_handoff/system_system_ila_0_0.hwh
+Generated Block Design Tcl file d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hw_handoff/system_system_ila_0_0_bd.tcl
+Generated Hardware Definition File d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hdl/system_system_ila_0_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/system_ila_0 .
 INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0_axi_periph/s00_couplers/auto_pc .
 Exporting to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hw_handoff/system.hwh
 Generated Block Design Tcl file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hw_handoff/system_bd.tcl
 Generated Hardware Definition File D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.hwdef
-[Tue Nov 08 19:44:42 2016] Launched synth_1...
+INFO: [HDL 9-2216] Analyzing Verilog file "D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system_wrapper.v" into library work [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system_wrapper.v:1]
+INFO: [HDL 9-2216] Analyzing Verilog file "D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.v" into library work [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.v:1]
+[Tue Dec 06 15:41:32 2016] Launched synth_1...
 Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/synth_1/runme.log
-[Tue Nov 08 19:44:42 2016] Launched impl_1...
+launch_runs: Time (s): cpu = 00:00:38 ; elapsed = 00:00:42 . Memory (MB): peak = 1204.801 ; gain = 304.289
+launch_runs impl_1 -jobs 4
+[Tue Dec 06 15:54:53 2016] Launched impl_1...
 Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/runme.log
-launch_runs: Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 1457.391 ; gain = 52.121
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {128} CONFIG.DIN_TO {0} CONFIG.DIN_FROM {31}] [get_bd_cells ConfigReg/slice_1]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {128} CONFIG.DIN_TO {32} CONFIG.DIN_FROM {47}] [get_bd_cells ConfigReg/slice_2]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {128} CONFIG.DIN_TO {48} CONFIG.DIN_FROM {63}] [get_bd_cells ConfigReg/slice_3]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {128} CONFIG.DIN_TO {64} CONFIG.DIN_FROM {79}] [get_bd_cells ConfigReg/slice_4]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {128} CONFIG.DIN_TO {80} CONFIG.DIN_FROM {95}] [get_bd_cells ConfigReg/slice_5]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {128} CONFIG.DIN_TO {96} CONFIG.DIN_FROM {111}] [get_bd_cells ConfigReg/slice_6]
-endgroup
-copy_bd_objs ConfigReg  [get_bd_cells {ConfigReg/cfg_0}]
-set_property location {1 167 658} [get_bd_cells ConfigReg/cfg_1]
-set_property -dict [list CONFIG.CFG_DATA_WIDTH {128}] [get_bd_cells ConfigReg/cfg_1]
-delete_bd_objs [get_bd_cells ConfigReg/cfg_tx_0]
-connect_bd_net [get_bd_pins ConfigReg/cfg_1/cfg_data] [get_bd_pins ConfigReg/slice_1/Din]
-set_property location {2 281 649} [get_bd_cells ConfigReg/cfg_1]
-set_property name PIR [get_bd_cells ConfigReg/slice_1]
-set_property name slice_pir [get_bd_cells ConfigReg/PIR]
-set_property name slice_alen [get_bd_cells ConfigReg/slice_2]
-set_property name slice_blen [get_bd_cells ConfigReg/slice_3]
-set_property name slice_abdly [get_bd_cells ConfigReg/slice_4]
-set_property name slice_bbdly [get_bd_cells ConfigReg/slice_5]
-set_property name slice_bbcnt [get_bd_cells ConfigReg/slice_6]
-copy_bd_objs tx_0  [get_bd_cells {ConfigReg/slice_pir ConfigReg/slice_alen ConfigReg/slice_blen ConfigReg/cfg_1 ConfigReg/slice_abdly ConfigReg/slice_bbdly ConfigReg/slice_bbcnt}]
-undo
-INFO: [Common 17-17] undo 'copy_bd_objs tx_0  [get_bd_cells {ConfigReg/slice_pir ConfigReg/slice_alen ConfigReg/slice_blen ConfigReg/cfg_1 ConfigReg/slice_abdly ConfigReg/slice_bbdly ConfigReg/slice_bbcnt}]'
-move_bd_cells [get_bd_cells tx_0] [get_bd_cells ConfigReg/slice_pir]
-move_bd_cells [get_bd_cells tx_0] [get_bd_cells ConfigReg/slice_alen]
-move_bd_cells [get_bd_cells /] [get_bd_cells ConfigReg/slice_blen]
-move_bd_cells [get_bd_cells tx_0] [get_bd_cells slice_blen]
-move_bd_cells [get_bd_cells /] [get_bd_cells ConfigReg/slice_abdly]
-move_bd_cells [get_bd_cells tx_0] [get_bd_cells slice_abdly]
-move_bd_cells [get_bd_cells tx_0] [get_bd_cells ConfigReg/slice_bbdly]
-move_bd_cells [get_bd_cells tx_0] [get_bd_cells ConfigReg/slice_bbcnt]
-move_bd_cells [get_bd_cells tx_0] [get_bd_cells ConfigReg/cfg_1]
-set_property location {1 -66 -344} [get_bd_cells tx_0/cfg_1]
-set_property location {2 326 -349} [get_bd_cells tx_0/slice_abdly]
-set_property location {2 349 -242} [get_bd_cells tx_0/slice_abdly]
-set_property location {2 384 -417} [get_bd_cells tx_0/slice_pir]
-set_property location {2 350 -317} [get_bd_cells tx_0/slice_alen]
-set_property location {2 318 -265} [get_bd_cells tx_0/slice_blen]
-set_property location {2 361 -139} [get_bd_cells tx_0/slice_bbdly]
-set_property location {2 331 -100} [get_bd_cells tx_0/slice_bbcnt]
-set_property location {1 30 104} [get_bd_cells tx_0/axis_constant_0]
-set_property location {1 -10 89} [get_bd_cells tx_0/axis_constant_0]
-connect_bd_net [get_bd_pins tx_0/aclk] [get_bd_pins tx_0/cfg_1/aclk]
-connect_bd_net [get_bd_pins tx_0/s_axis_aresetn] [get_bd_pins tx_0/cfg_1/aresetn]
-set_property location {2.5 565 -502} [get_bd_cells tx_0/axis_constant_0]
-save_bd_design
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_fc31a665.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_149a5424.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_ed573ca3.ui> 
-startgroup
-create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 tx_0/S_AXI_CFG
-connect_bd_intf_net [get_bd_intf_pins tx_0/S_AXI_CFG] [get_bd_intf_pins tx_0/cfg_1/S_AXI]
-endgroup
-set_property name tx_cfg_0 [get_bd_cells tx_0/cfg_1]
-save_bd_design
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_fc31a665.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_149a5424.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_ed573ca3.ui> 
-delete_bd_objs [get_bd_intf_nets PS_M03_AXI] [get_bd_cells dummy_writer]
-connect_bd_intf_net -boundary_type upper [get_bd_intf_pins tx_0/S_AXI_CFG] [get_bd_intf_pins PS/M03_AXI]
-set_property name cfg_slice_0 [get_bd_cells ConfigReg/cfg_rx_0]
-startgroup
-set_property -dict [list CONFIG.CFG_DATA_WIDTH {128}] [get_bd_cells ConfigReg/cfg_0]
-endgroup
-delete_bd_objs [get_bd_cells ConfigReg/cfg_slice_0]
-connect_bd_net [get_bd_pins ConfigReg/cfg_0/cfg_data] [get_bd_pins ConfigReg/slice_3456/Din]
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {128} CONFIG.DIN_TO {1} CONFIG.DIN_FROM {1}] [get_bd_cells ConfigReg/slice_0b]
-endgroup
-startgroup
-set_property -dict [list CONFIG.DIN_WIDTH {128} CONFIG.DIN_TO {0} CONFIG.DIN_FROM {0}] [get_bd_cells ConfigReg/slice_0a]
-endgroup
-delete_bd_objs [get_bd_cells ConfigReg/rst_slice_0]
-connect_bd_net [get_bd_pins ConfigReg/cfg_0/cfg_data] [get_bd_pins ConfigReg/slice_0a/Din]
-set_property location {2 636 889} [get_bd_cells ConfigReg]
-set_property name RxConfigReg [get_bd_cells ConfigReg]
-save_bd_design
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_fc31a665.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_149a5424.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_990c94fd.ui> 
-group_bd_cells TxConfigReg [get_bd_cells tx_0/slice_pir] [get_bd_cells tx_0/slice_alen] [get_bd_cells tx_0/slice_blen] [get_bd_cells tx_0/slice_abdly] [get_bd_cells tx_0/slice_bbdly] [get_bd_cells tx_0/tx_cfg_0] [get_bd_cells tx_0/slice_bbcnt]
-set_property location {1 -20 -360} [get_bd_cells tx_0/TxConfigReg]
-set_property location {1 -30 -329} [get_bd_cells tx_0/TxConfigReg]
-startgroup
-create_bd_pin -dir O -from 15 -to 0 tx_0/TxConfigReg/Dout_1
-connect_bd_net [get_bd_pins tx_0/TxConfigReg/Dout_1] [get_bd_pins tx_0/TxConfigReg/slice_abdly/Dout]
-endgroup
-set_property name ABdly [get_bd_pins tx_0/TxConfigReg/Dout_1]
-startgroup
-create_bd_pin -dir O -from 15 -to 0 tx_0/TxConfigReg/Alen
-connect_bd_net [get_bd_pins tx_0/TxConfigReg/Alen] [get_bd_pins tx_0/TxConfigReg/slice_alen/Dout]
-endgroup
-startgroup
-create_bd_pin -dir O -from 15 -to 0 tx_0/TxConfigReg/BBcnt
-connect_bd_net [get_bd_pins tx_0/TxConfigReg/BBcnt] [get_bd_pins tx_0/TxConfigReg/slice_bbcnt/Dout]
-endgroup
-startgroup
-create_bd_pin -dir O -from 15 -to 0 tx_0/TxConfigReg/BBdly
-connect_bd_net [get_bd_pins tx_0/TxConfigReg/BBdly] [get_bd_pins tx_0/TxConfigReg/slice_bbdly/Dout]
-endgroup
-startgroup
-create_bd_pin -dir O -from 15 -to 0 tx_0/TxConfigReg/Blen
-connect_bd_net [get_bd_pins tx_0/TxConfigReg/Blen] [get_bd_pins tx_0/TxConfigReg/slice_blen/Dout]
-endgroup
-set_property location {477 434} [get_bd_pins tx_0/TxConfigReg/Blen]
-set_property location {2 363 -68} [get_bd_cells tx_0/TxConfigReg/slice_pir]
-set_property location {2 343 -2} [get_bd_cells tx_0/TxConfigReg/slice_alen]
-set_property location {2 361 133} [get_bd_cells tx_0/TxConfigReg/slice_abdly]
-set_property location {2 364 56} [get_bd_cells tx_0/TxConfigReg/slice_blen]
-set_property location {2 344 178} [get_bd_cells tx_0/TxConfigReg/slice_bbdly]
-regenerate_bd_layout -hierarchy [get_bd_cell tx_0/TxConfigReg]
-set_property location {1 -30 99} [get_bd_cells tx_0/axis_constant_0]
-set_property location {1 16 96} [get_bd_cells tx_0/axis_constant_0]
-set_property name PIR [get_bd_pins tx_0/TxConfigReg/Dout]
-startgroup
-set_property -dict [list CONFIG.Noise_Shaping {Taylor_Series_Corrected} CONFIG.Phase_Width {30} CONFIG.Output_Width {16} CONFIG.Latency {14}] [get_bd_cells tx_0/dds_compiler_0]
-endgroup
-assign_bd_address [get_bd_addr_segs {tx_0/TxConfigReg/tx_cfg_0/s_axi/reg0 }]
-</tx_0/TxConfigReg/tx_cfg_0/s_axi/reg0> is being mapped into </PS/ps_0/Data> at <0x60000000 [ 512M ]>
-set_property range 4K [get_bd_addr_segs {PS/ps_0/Data/SEG_tx_cfg_0_reg0}]
-set_property name cfg_0 [get_bd_cells tx_0/TxConfigReg/tx_cfg_0]
-CRITICAL WARNING: [BD 41-1294] requested address <0x40001000 [ 4K ]> conflicts with peripheral </sts_0/s_axi/reg0> mapped into segment </PS/ps_0/Data/SEG_sts_0_reg0> at <0x40001000 [ 4K ]>.
-set_property offset 0x40001000 [get_bd_addr_segs {PS/ps_0/Data/SEG_tx_cfg_0_reg0}]
-ERROR: [BD 41-70] Exec TCL: The proposed address 0x40001000 [ 4K ] conflicts with peripheral /sts_0/s_axi/reg0 mapped into segment /PS/ps_0/Data/SEG_sts_0_reg0 at 0x40001000 [ 4K ]..
-WARNING: [BD 41-1642] Cannot set the parameter 'offset' on '/PS/ps_0/Data/SEG_tx_cfg_0_reg0' - Parameter does not exist. 
-ERROR: [Common 17-39] 'set_property' failed due to earlier errors.
-set_property offset 0x40002000 [get_bd_addr_segs {PS/ps_0/Data/SEG_sts_0_reg0}]
-set_property offset 0x40020000 [get_bd_addr_segs {PS/ps_0/Data/SEG_tx_cfg_0_reg0}]
-set_property offset 0x40021000 [get_bd_addr_segs {PS/ps_0/Data/SEG_tx_cfg_0_reg0}]
-set_property offset 0x40001000 [get_bd_addr_segs {PS/ps_0/Data/SEG_tx_cfg_0_reg0}]
-set_property offset 0x40003000 [get_bd_addr_segs {PS/ps_0/Data/SEG_sts_0_reg0}]
-set_property offset 0x40002000 [get_bd_addr_segs {PS/ps_0/Data/SEG_tx_cfg_0_reg0}]
-set_property offset 0x40001000 [get_bd_addr_segs {PS/ps_0/Data/SEG_sts_0_reg0}]
-save_bd_design
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_fc31a665.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_149a5424.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b3a1e083.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_990c94fd.ui> 
-set_property location {-246 -355} [get_bd_intf_pins tx_0/S_AXI_CFG]
-startgroup
-set_property -dict [list CONFIG.Has_ARESETn {true}] [get_bd_cells tx_0/dds_compiler_0]
-endgroup
-ipx::edit_ip_in_project -upgrade true -name axis_red_pitaya_dac_v1_0_project -directory D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.tmp/axis_red_pitaya_dac_v1_0_project d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/cores/axis_red_pitaya_dac_v1_0/component.xml
-INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
-Current project path is 'd:/dropbox/projects/natpract-nmr/trunk/hdl/pulsed_nmr.tmp/axis_red_pitaya_dac_v1_0_project'
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Xilinx/Vivado/2016.3/data/ip'.
-create_project: Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1493.586 ; gain = 0.000
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/Dropbox/Projects/NatPract-NMR/trunk/HDL/cores'.
-INFO: [IP_Flow 19-795] Syncing license key meta-data
-INFO: [IP_Flow 19-793] Syncing display name meta-data
-INFO: [IP_Flow 19-792] Syncing company URL meta-data
-INFO: [IP_Flow 19-798] Syncing taxonomy meta-data
-ipx::edit_ip_in_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 1493.586 ; gain = 0.000
-close_project
-****** Webtalk v2016.3 (64-bit)
-  **** SW Build 1682563 on Mon Oct 10 19:07:27 MDT 2016
-  **** IP Build 1681267 on Mon Oct 10 21:28:31 MDT 2016
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Tue Dec 06 16:22:56 2016] Launched impl_1...
+Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Netlist 29-17] Analyzing 627 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2016.3
+INFO: [Device 21-403] Loading part xc7z010clg400-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/.Xil/Vivado-15300-U031014/dcp/system_wrapper_early.xdc]
+INFO: [Timing 38-35] Done setting XDC timing constraints. [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_pll_0_0/system_pll_0_0.xdc:57]
+INFO: [Timing 38-2] Deriving generated clocks [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_pll_0_0/system_pll_0_0.xdc:57]
+get_clocks: Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1981.219 ; gain = 509.902
+Finished Parsing XDC File [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/.Xil/Vivado-15300-U031014/dcp/system_wrapper_early.xdc]
+Parsing XDC File [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/.Xil/Vivado-15300-U031014/dcp/system_wrapper.xdc]
+Finished Parsing XDC File [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/.Xil/Vivado-15300-U031014/dcp/system_wrapper.xdc]
+Parsing XDC File [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/.Xil/Vivado-15300-U031014/dcp/system_wrapper_late.xdc]
+Finished Parsing XDC File [D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/.Xil/Vivado-15300-U031014/dcp/system_wrapper_late.xdc]
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 2006.844 ; gain = 20.258
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 2006.844 ; gain = 20.258
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 108 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRLC32E, SRL16E): 72 instances
+  RAM16X1D => RAM32X1D (RAMD32, RAMD32): 24 instances
+  RAM32M => RAM32M (RAMS32, RAMS32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32): 12 instances
+
+open_run: Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 2142.133 ; gain = 883.117
+open_report: Time (s): cpu = 00:00:13 ; elapsed = 00:00:09 . Memory (MB): peak = 2160.875 ; gain = 18.742
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2016.3
+  **** Build date : Oct 10 2016-19:47:06
     ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 
-source d:/dropbox/projects/natpract-nmr/trunk/hdl/pulsed_nmr.tmp/axis_red_pitaya_dac_v1_0_project/axis_red_pitaya_dac_v1_0_project.hw/webtalk/labtool_webtalk.tcl -notrace
-INFO: [Common 17-186] 'd:/dropbox/projects/natpract-nmr/trunk/hdl/pulsed_nmr.tmp/axis_red_pitaya_dac_v1_0_project/axis_red_pitaya_dac_v1_0_project.hw/webtalk/usage_statistics_ext_labtool.xml' has been successfully sent to Xilinx on Wed Nov 09 10:24:07 2016. For additional details about this file, please refer to the WebTalk help file at D:/Xilinx/Vivado/2016.3/doc/webtalk_introduction.html.
-INFO: [Common 17-206] Exiting Webtalk at Wed Nov 09 10:24:07 2016...
-close_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 1604.801 ; gain = 0.000
-set_property name M_AXIS_DAC [get_bd_intf_pins tx_0/M_AXIS]
-M_AXIS_DAC
-set_property screensize {243 160} [get_bd_cells tx_0]
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210249A0658C
+set_property PROGRAM.FILE {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/system_wrapper.bit} [lindex [get_hw_devices xc7z010_1] 0]
+set_property PROBES.FILE {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices xc7z010_1] 0]
+current_hw_device [lindex [get_hw_devices xc7z010_1] 0]
+refresh_hw_device [lindex [get_hw_devices xc7z010_1] 0]
+INFO: [Labtools 27-1434] Device xc7z010 (JTAG device index = 1) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3123] The debug hub core was not detected at User Scan Chain 1 or 3.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active OR
+2. Manually launch hw_server with -e "set xsdb-user-bscan <C_USER_SCAN_CHAIN scan_chain_number>" to detect the debug hub at User Scan Chain of 2 or 4. To determine the user scan chain setting, open the implemented design and use: get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub].
+WARNING: [Labtools 27-1974] Mismatch between the design programmed into the device xc7z010_1 and the probes file(s) D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/debug_nets.ltx.
+The device design has 0 ILA core(s) and 0 VIO core(s). The probes file(s) have 1 ILA core(s) and 0 VIO core(s).
+Resolution: 
+1. Reprogram device with the correct programming file and associated probes file(s) OR
+2. Goto device properties and associate the correct probes file(s) with the programming file already programmed in the device.
+set_property PROBES.FILE {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices xc7z010_1] 0]
+set_property PROGRAM.FILE {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/system_wrapper.bit} [lindex [get_hw_devices xc7z010_1] 0]
+program_hw_devices [lindex [get_hw_devices xc7z010_1] 0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7z010_1] 0]
+INFO: [Labtools 27-2302] Device xc7z010 (JTAG device index = 1) is programmed with a design that has 1 ILA core(s).
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:34:52
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:34:52
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:39:45
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:39:45
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:39:49
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:39:49
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:39:52
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:39:52
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:39:55
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:39:55
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:39:59
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:39:59
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:02
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:02
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:06
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:06
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:09
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:09
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:13
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:13
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:16
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:16
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:20
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:20
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:23
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:23
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:26
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:26
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:30
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:30
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:33
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:33
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:37
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:37
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:40
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:40
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:44
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:44
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:47
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:47
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:50
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:50
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:54
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:54
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:40:57
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:40:57
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:01
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:01
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:04
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:04
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:07
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:07
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:11
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:11
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:14
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:14
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:18
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:18
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:21
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:21
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:25
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:25
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:28
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:28
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:31
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:31
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:35
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:35
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:38
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:38
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:42
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:42
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:45
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:45
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:49
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:49
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:52
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:52
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:56
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:56
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:41:59
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:41:59
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:02
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:02
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:06
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:06
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:09
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:09
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:13
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:13
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:16
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:16
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:20
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:20
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:23
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:23
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:26
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:26
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:30
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:30
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:33
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:33
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:37
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:37
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:40
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:40
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:44
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:44
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:47
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:47
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:50
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:50
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:54
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:54
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:42:57
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:42:57
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:43:01
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:43:01
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:43:04
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:43:04
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 16:43:08
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 16:43:08
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0
+Adding cell -- pavel-demin:user:axi_sts_register:1.0 - sts_0
+Adding cell -- xilinx.com:ip:c_counter_binary:12.0 - cntr_0
+Adding cell -- xilinx.com:ip:xlconcat:2.1 - xlconcat_0
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - xlconstant_0
+Adding cell -- xilinx.com:ip:xlconcat:2.1 - xlconcat_1
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - xlconstant_2
+Adding cell -- pavel-demin:user:axis_red_pitaya_adc:1.0 - adc_0
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - const_0
+Adding cell -- xilinx.com:ip:axis_clock_converter:1.1 - fifo_0
+Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - axis_subset_converter_0
+Adding cell -- xilinx.com:ip:clk_wiz:5.3 - pll_0
+Adding cell -- pavel-demin:user:axis_constant:1.0 - axis_constant_0
+Adding cell -- xilinx.com:ip:axis_clock_converter:1.1 - fifo_0
+Adding cell -- xilinx.com:ip:axis_dwidth_converter:1.1 - axis_dwidth_converter_0
+Adding cell -- xilinx.com:ip:axis_combiner:1.1 - axis_combiner_0
+Adding cell -- pavel-demin:user:axis_red_pitaya_dac:1.0 - dac_0
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - xlconstant_1
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - xlconstant_0
+Adding cell -- pavel-demin:user:axi_cfg_register:1.0 - cfg_0
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0b
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0a
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_3456
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_12
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_0b1
+Adding cell -- xilinx.com:ip:proc_sys_reset:5.0 - rst_0
+Adding cell -- xilinx.com:ip:processing_system7:5.5 - ps_0
+Adding cell -- xilinx.com:ip:axi_crossbar:2.1 - xbar
+Adding cell -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc
+Adding cell -- pavel-demin:user:axis_constant:1.0 - axis_constant_0
+Adding cell -- xilinx.com:ip:dds_compiler:6.0 - dds_compiler_0
+Adding cell -- xilinx.com:ip:xlconstant:1.1 - const_3
+Adding cell -- pavel-demin:user:axis_zeroer:1.0 - axis_zeroer_0
+Adding cell -- xilinx.com:module_ref:NMRPulseSequencer:1.0 - NMRPulseSequencer_0
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_pir
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_alen
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_blen
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_abdly
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_bbdly
+Adding cell -- pavel-demin:user:axi_cfg_register:1.0 - cfg_0
+Adding cell -- xilinx.com:ip:xlslice:1.0 - slice_bbcnt
+Adding cell -- pavel-demin:user:axis_constant:1.0 - phase_0
+Adding cell -- pavel-demin:user:axis_fifo:1.0 - fifo_1
+Adding cell -- pavel-demin:user:axi_axis_reader:1.0 - reader_0
+Adding cell -- xilinx.com:ip:axis_dwidth_converter:1.1 - conv_0
+Adding cell -- xilinx.com:ip:axis_dwidth_converter:1.1 - conv_1
+Adding cell -- xilinx.com:ip:dds_compiler:6.0 - dds_0
+Adding cell -- xilinx.com:ip:fifo_generator:13.1 - fifo_generator_0
+INFO: [xilinx.com:ip:fifo_generator:13.1-5968] /rx_0/fifo_generator_0Executing the post_config_ip from bd
+Adding cell -- xilinx.com:ip:fir_compiler:7.2 - fir_0
+Adding cell -- xilinx.com:ip:floating_point:7.1 - fp_0
+Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - subset_0
+Adding cell -- xilinx.com:ip:system_ila:1.0 - system_ila_0
+Adding cell -- xilinx.com:ip:cmpy:6.0 - mult_0
+Adding cell -- pavel-demin:user:axis_lfsr:1.0 - lfsr_0
+Adding cell -- xilinx.com:ip:axis_subset_converter:1.1 - axis_subset_converter_1
+Adding cell -- xilinx.com:ip:axis_broadcaster:1.1 - bcast_0
+Adding cell -- xilinx.com:ip:cic_compiler:4.0 - cic_0
+Adding cell -- xilinx.com:ip:cic_compiler:4.0 - cic_1
+Adding cell -- xilinx.com:ip:axis_combiner:1.1 - comb_0
+Adding cell -- pavel-demin:user:axis_variable:1.0 - rate_1
+Adding cell -- pavel-demin:user:axis_variable:1.0 - rate_0
+Successfully read diagram <system> from BD file <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd>
+open_bd_design: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2459.332 ; gain = 27.234
+ERROR: [Ipptcl 7-32] Invalid text 'stc1'.
+ERROR: [Common 17-39] 'get_textspec' failed due to earlier errors.
+ERROR: [IP_Flow 19-3554] GUI update of parameter PARAM_VALUE.C_MON_TYPE failed.ERROR: [Common 17-39] 'get_textspec' failed due to earlier errors.
+
+startgroup
+set_property -dict [list CONFIG.C_DATA_DEPTH {8192} CONFIG.C_TRIGIN_EN {true} CONFIG.C_MON_TYPE {MIX} CONFIG.C_BRAM_CNT {3}] [get_bd_cells rx_0/system_ila_0]
+WARNING: [IP_Flow 19-3374] An attempt to modify the value of disabled parameter 'C_BRAM_CNT' from '15.5' to '3' has been ignored for IP 'rx_0/system_ila_0'
+endgroup
+connect_bd_net [get_bd_pins rx_0/system_ila_0/TRIG_IN_trig] [get_bd_pins tx_0/NMRPulseSequencer_0/start_seq]
+WARNING: [BD 41-1306] The connection to interface pin /rx_0/system_ila_0/TRIG_IN_trig is being overridden by the user. This pin will not be connected as a part of interface connection TRIG_IN
 save_bd_design
 Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
 Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
 Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_fc31a665.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_149a5424.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b3a1e083.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_ae70d12.ui> 
-Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_990c94fd.ui> 
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+WARNING: [#UNDEF] When using EMIO pins for SPI_0 tie SSIN High in the PL bitstream
+INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/mixer_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/mixer_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/mixer_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/mixer_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/mixer_0/mult_0 S_AXIS_B-TDATA: Validating field: real(24:0): fix24_23 against /rx_0/mixer_0 S_AXIS_LO-TDATA: chan_0_cosine(24:0): fix24_23.
+INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/mixer_0/mult_0 S_AXIS_B-TDATA: Validating field: imag(48:24): fix24_23 against /rx_0/mixer_0 S_AXIS_LO-TDATA: chan_0_sine(48:24): fix24_23.
+INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+WARNING: [BD 41-237] Bus Interface property LAYERED_METADATA does not match between /DAC/fifo_0/S_AXIS(xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type automatic dependency {} format long minimum {} maximum {}} value 14} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} array_type {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value chan} size {attribs {resolve_type generated dependency chan_size format long minimum {} maximum {}} value 1} stride {attribs {resolve_type generated dependency chan_stride format long minimum {} maximum {}} value 16} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type automatic dependency {} format long minimum {} maximum {}} value 14} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} struct {field_cosine {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value cosine} enabled {attribs {resolve_type generated dependency cosine_enabled format bool minimum {} maximum {}} value false} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type generated dependency cosine_width format long minimum {} maximum {}} value 0} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} real {fixed {fractwidth {attribs {resolve_type generated dependency cosine_fractwidth format long minimum {} maximum {}} value 13} signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value true}}}}} field_sine {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value sine} enabled {attribs {resolve_type generated dependency sine_enabled format bool minimum {} maximum {}} value true} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type generated dependency sine_width format long minimum {} maximum {}} value 14} bitoffset {attribs {resolve_type generated dependency sine_offset format long minimum {} maximum {}} value 0} real {fixed {fractwidth {attribs {resolve_type generated dependency sine_fractwidth format long minimum {} maximum {}} value 13} signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value true}}}}}}}}}} TDATA_WIDTH 16 TUSER {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type automatic dependency {} format long minimum {} maximum {}} value 0} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} struct {field_chanid {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value chanid} enabled {attribs {resolve_type generated dependency chanid_enabled format bool minimum {} maximum {}} value false} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type generated dependency chanid_width format long minimum {} maximum {}} value 0} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} field_user {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value user} enabled {attribs {resolve_type generated dependency user_enabled format bool minimum {} maximum {}} value false} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type generated dependency user_width format long minimum {} maximum {}} value 0} bitoffset {attribs {resolve_type generated dependency user_offset format long minimum {} maximum {}} value 0}}}}}} TUSER_WIDTH 0}) and /tx_0/axis_zeroer_0/M_AXIS(undef)
+Verilog Output written to : D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.v
+Verilog Output written to : D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system_wrapper.v
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
+INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/rst_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/adc_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block cntr_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block slice_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/pll_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/dac_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/cfg_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0a .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_3456 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_12 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/const_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/fifo_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/phase_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/dds_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/lfsr_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/mult_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/bcast_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/rate_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/rate_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/cic_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/cic_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/comb_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/conv_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fir_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/subset_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fp_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/conv_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_generator_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/reader_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0b .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_pir .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block sts_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0_axi_periph/xbar .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/axis_constant_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/dds_compiler_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_alen .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_blen .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_abdly .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_bbdly .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_bbcnt .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/fifo_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/cfg_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/NMRPulseSequencer_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconcat_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconstant_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0b1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/const_3 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/axis_zeroer_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_dwidth_converter_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/xlconstant_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconcat_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconstant_2 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/axis_subset_converter_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/axis_subset_converter_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_combiner_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_constant_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/xlconstant_0 .
+Exporting to file d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hw_handoff/system_system_ila_0_0.hwh
+Generated Block Design Tcl file d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hw_handoff/system_system_ila_0_0_bd.tcl
+Generated Hardware Definition File d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hdl/system_system_ila_0_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/system_ila_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0_axi_periph/s00_couplers/auto_pc .
+Exporting to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hw_handoff/system.hwh
+Generated Block Design Tcl file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hw_handoff/system_bd.tcl
+Generated Hardware Definition File D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.hwdef
+[Tue Dec 06 16:47:56 2016] Launched synth_1...
+Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/synth_1/runme.log
+[Tue Dec 06 16:47:56 2016] Launched impl_1...
+Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 2637.410 ; gain = 70.805
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:03:31
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:03:31
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+set_property PROBES.FILE {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices xc7z010_1] 0]
+set_property PROGRAM.FILE {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/system_wrapper.bit} [lindex [get_hw_devices xc7z010_1] 0]
+program_hw_devices [lindex [get_hw_devices xc7z010_1] 0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7z010_1] 0]
+INFO: [Labtools 27-2302] Device xc7z010 (JTAG device index = 1) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+set_property CONTROL.TRIGGER_MODE TRIG_IN_ONLY [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:04:01
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:04:07
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:04:50
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:04:50
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:05:10
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:05:14
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:05:22
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:05:23
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}] -trigger_now
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:05:26
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:05:26
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:05:33
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:05:34
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_intf_nets {rx_0/mixer_0/axis_subset_converter_1_M_AXIS }]
+true
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_intf_nets {rx_0/mixer_0/lfsr_0_M_AXIS }]
+true
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_intf_nets {rx_0/mixer_0/mult_0_M_AXIS_DOUT }]
+true
+startgroup
+apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
+                                                          [get_bd_intf_nets rx_0/mixer_0/axis_subset_converter_1_M_AXIS] {AXIS_SIGNALS "Data" CLK_SRC "/PS/ps_0/FCLK_CLK0" SYSTEM_ILA "Auto" APC_EN "1" } \
+                                                          [get_bd_intf_nets rx_0/mixer_0/lfsr_0_M_AXIS] {AXIS_SIGNALS "Data" CLK_SRC "/PS/ps_0/FCLK_CLK0" SYSTEM_ILA "Auto" APC_EN "0" } \
+                                                         ]
+Debug Automation : Re-customizing System ILA block '/rx_0/system_ila_0' to mode MIX, with 2 new slot interface pins and 0 new probe pins. Also setting parameters on this block, corresponding to newly enabled interface pins and probe pins as specified via Debug Automation.
+Debug Automation : Connecting source reset pin /PS/rst_0/peripheral_aresetn to the following sink reset pins :
+/rx_0/system_ila_0/resetn
+Debug Automation : Connecting interface connection /rx_0/mixer_0/axis_subset_converter_1_M_AXIS, to System ILA slot interface pin /rx_0/system_ila_0/SLOT_1_AXIS for debug.
+Debug Automation : Connecting interface connection /rx_0/mixer_0/lfsr_0_M_AXIS, to System ILA slot interface pin /rx_0/system_ila_0/SLOT_2_AXIS for debug.
+endgroup
+set_property HDL_ATTRIBUTE.DEBUG true [get_bd_intf_nets {rx_0/mixer_0/dds_0_M_AXIS_DATA }]
+true
+startgroup
+apply_bd_automation -rule xilinx.com:bd_rule:debug -dict [list \
+                                                          [get_bd_intf_nets rx_0/mixer_0/dds_0_M_AXIS_DATA] {AXIS_SIGNALS "Data" CLK_SRC "/PS/ps_0/FCLK_CLK0" SYSTEM_ILA "Auto" APC_EN "0" } \
+                                                         ]
+Debug Automation : Re-customizing System ILA block '/rx_0/system_ila_0' to mode MIX, with 1 new slot interface pins and 0 new probe pins. Also setting parameters on this block, corresponding to newly enabled interface pins and probe pins as specified via Debug Automation.
+Debug Automation : Connecting interface connection /rx_0/mixer_0/dds_0_M_AXIS_DATA, to System ILA slot interface pin /rx_0/system_ila_0/SLOT_3_AXIS for debug.
+endgroup
+set_property location {4 175 649} [get_bd_cells rx_0/system_ila_0]
+set_property name DBG_A [get_bd_intf_pins rx_0/mixer_0/M_AXIS]
+DBG_A
+set_property name DBG_CTRL [get_bd_intf_nets rx_0/mixer_0/lfsr_0_M_AXIS]
+DBG_CTRL
+set_property name DBG_CTRL [get_bd_intf_pins rx_0/mixer_0/M_AXIS1]
+DBG_CTRL
+set_property name AXIS [get_bd_intf_nets rx_0/mixer_0/DBG_CTRL]
+AXIS
+set_property name lfsr_0_M_AXIS [get_bd_intf_nets rx_0/mixer_0/AXIS]
+lfsr_0_M_AXIS
+save_bd_design
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b93db51.ui> 
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+WARNING: [BD 41-1781] Updates have been made to one or more nets/interface connections marked for debug.
+Debug nets, which are already connected to System ILA IP core in the block-design, will be automatically available for debug in Hardware Manager.
+For unconnected Debug nets, please open synthesized design and use 'Set Up Debug' wizard to insert, modify or delete Debug Cores. Failure to do so could result in critical warnings and errors in the implementation flow.
+WARNING: [#UNDEF] When using EMIO pins for SPI_0 tie SSIN High in the PL bitstream
+INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/mixer_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/mixer_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/mixer_0/mult_0 APortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cmpy:6.0-913] /rx_0/mixer_0/mult_0 BPortWidth has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/mixer_0/mult_0 S_AXIS_B-TDATA: Validating field: real(24:0): fix24_23 against /rx_0/mixer_0 S_AXIS_LO-TDATA: chan_0_cosine(24:0): fix24_23.
+INFO: [xilinx.com:ip:cmpy:6.0-308] /rx_0/mixer_0/mult_0 S_AXIS_B-TDATA: Validating field: imag(48:24): fix24_23 against /rx_0/mixer_0 S_AXIS_LO-TDATA: chan_0_sine(48:24): fix24_23.
+INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:fir_compiler:7.2-913] /rx_0/fir_0 Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 A_Precision_Type has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Exponent_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:floating_point:7.1-913] /rx_0/fp_0 C_A_Fraction_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_0 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+INFO: [xilinx.com:ip:cic_compiler:4.0-913] /rx_0/cic_0/cic_1 Input_Data_Width has been set to manual on the GUI. It will not be updated during validation with a propagated value.
+WARNING: [BD 41-237] Bus Interface property LAYERED_METADATA does not match between /DAC/fifo_0/S_AXIS(xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type automatic dependency {} format long minimum {} maximum {}} value 14} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} array_type {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value chan} size {attribs {resolve_type generated dependency chan_size format long minimum {} maximum {}} value 1} stride {attribs {resolve_type generated dependency chan_stride format long minimum {} maximum {}} value 16} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type automatic dependency {} format long minimum {} maximum {}} value 14} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} struct {field_cosine {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value cosine} enabled {attribs {resolve_type generated dependency cosine_enabled format bool minimum {} maximum {}} value false} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type generated dependency cosine_width format long minimum {} maximum {}} value 0} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} real {fixed {fractwidth {attribs {resolve_type generated dependency cosine_fractwidth format long minimum {} maximum {}} value 13} signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value true}}}}} field_sine {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value sine} enabled {attribs {resolve_type generated dependency sine_enabled format bool minimum {} maximum {}} value true} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type generated dependency sine_width format long minimum {} maximum {}} value 14} bitoffset {attribs {resolve_type generated dependency sine_offset format long minimum {} maximum {}} value 0} real {fixed {fractwidth {attribs {resolve_type generated dependency sine_fractwidth format long minimum {} maximum {}} value 13} signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value true}}}}}}}}}} TDATA_WIDTH 16 TUSER {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type automatic dependency {} format long minimum {} maximum {}} value 0} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} struct {field_chanid {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value chanid} enabled {attribs {resolve_type generated dependency chanid_enabled format bool minimum {} maximum {}} value false} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type generated dependency chanid_width format long minimum {} maximum {}} value 0} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} field_user {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value user} enabled {attribs {resolve_type generated dependency user_enabled format bool minimum {} maximum {}} value false} datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type generated dependency user_width format long minimum {} maximum {}} value 0} bitoffset {attribs {resolve_type generated dependency user_offset format long minimum {} maximum {}} value 0}}}}}} TUSER_WIDTH 0}) and /tx_0/axis_zeroer_0/M_AXIS(undef)
+CRITICAL WARNING: [BD 41-120] Mismatch in sizes when expanding bus interface connection Conn3 for logical port TDATA. Connection may be incorrect or missing.
+Verilog Output written to : D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.v
+Verilog Output written to : D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system_wrapper.v
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b93db51.ui> 
+INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/rst_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/adc_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block cntr_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block slice_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/pll_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/dac_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/cfg_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0a .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_3456 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_12 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/const_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/fifo_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/phase_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/dds_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/lfsr_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/mult_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/bcast_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/rate_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/rate_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/cic_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/cic_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/cic_0/comb_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/conv_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fir_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/subset_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fp_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/conv_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_generator_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/fifo_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/reader_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0b .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_pir .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block sts_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0_axi_periph/xbar .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/axis_constant_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/dds_compiler_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_alen .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_blen .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_abdly .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_bbdly .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/slice_bbcnt .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/fifo_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/TxConfigReg/cfg_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/NMRPulseSequencer_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconcat_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconstant_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block RxConfigReg/slice_0b1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/const_3 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block tx_0/axis_zeroer_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_dwidth_converter_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/xlconstant_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconcat_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block xlconstant_2 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ADC/axis_subset_converter_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/mixer_0/axis_subset_converter_1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_combiner_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/axis_constant_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block DAC/xlconstant_0 .
+Exporting to file d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hw_handoff/system_system_ila_0_0.hwh
+Generated Block Design Tcl file d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hw_handoff/system_system_ila_0_0_bd.tcl
+Generated Hardware Definition File d:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ip/system_system_ila_0_0/bd_0/hdl/system_system_ila_0_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rx_0/system_ila_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block PS/ps_0_axi_periph/s00_couplers/auto_pc .
+Exporting to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hw_handoff/system.hwh
+Generated Block Design Tcl file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hw_handoff/system_bd.tcl
+Generated Hardware Definition File D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/hdl/system.hwdef
+[Tue Dec 06 17:15:53 2016] Launched synth_1...
+Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/synth_1/runme.log
+[Tue Dec 06 17:15:53 2016] Launched impl_1...
+Run output will be captured here: D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 2756.715 ; gain = 96.199
+ERROR: [Ipptcl 7-32] Invalid text 'stc1'.
+ERROR: [Common 17-39] 'get_textspec' failed due to earlier errors.
+ERROR: [IP_Flow 19-3554] GUI update of parameter PARAM_VALUE.C_MON_TYPE failed.ERROR: [Common 17-39] 'get_textspec' failed due to earlier errors.
+
+set_property PROBES.FILE {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices xc7z010_1] 0]
+set_property PROGRAM.FILE {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.runs/impl_1/system_wrapper.bit} [lindex [get_hw_devices xc7z010_1] 0]
+program_hw_devices [lindex [get_hw_devices xc7z010_1] 0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7z010_1] 0]
+INFO: [Labtools 27-2302] Device xc7z010 (JTAG device index = 1) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:31:42
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:31:50
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {system_i/rx_0/system_ila_0/inst/net_slot_1_axis_tdata} {system_i/rx_0/system_ila_0/inst/net_slot_3_axis_tdata} }
+add_wave -into {hw_ila_data_1.wcfg} -radix unsigned { {system_i/rx_0/system_ila_0/inst/net_slot_0_axis_tdata} }
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:35:59
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:35:59
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+set_property name DBG_RF [get_bd_intf_pins rx_0/mixer_0/DBG_A]
+DBG_RF
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {system_i/rx_0/system_ila_0/inst/net_slot_1_axis_tdata} }
+set_property NAME.CUSTOM RF16 [get_hw_probes system_i/rx_0/system_ila_0/inst/net_slot_1_axis_tdata] 
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {system_i/rx_0/system_ila_0/inst/net_slot_3_axis_tdata} }
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:43:32
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:43:32
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:52:10
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:52:11
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2016-Dec-06 17:54:54
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7z010_1] -filter {CELL_NAME=~"system_i/rx_0/system_ila_0/inst/ila_lib"}]]
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2016-Dec-06 17:54:54
+INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.hw/backup/hw_ila_data_1.ila. Use Tcl command 'import_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+add_wave -into {hw_ila_data_1.wcfg} -radix hex { {system_i/rx_0/system_ila_0/inst/net_slot_3_axis_tready} {system_i/rx_0/system_ila_0/inst/net_slot_3_axis_tvalid} {system_i/rx_0/system_ila_0/inst/net_slot_3_axis_tlast} }
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+ERROR: [Labtools 27-2269] No devices detected on target localhost:3121/xilinx_tcf/Digilent/210249A0658C.
+Check cable connectivity and that the target board is powered up then
+use the disconnect_hw_server and connect_hw_server to re-register this hardware target.
+open_bd_design {D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd}
+set_property location {3.5 929 337} [get_bd_cells rx_0]
+save_bd_design
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/system.bd> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_c954508f.ui> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b78cb2a6.ui> 
+Wrote  : <D:/Dropbox/Projects/NatPract-NMR/trunk/HDL/pulsed_nmr.srcs/sources_1/bd/system/ui/bd_b93db51.ui> 
 exit
-INFO: [Common 17-206] Exiting Vivado at Wed Nov 09 14:54:38 2016...
+INFO: [Common 17-206] Exiting Vivado at Thu Dec 08 18:22:05 2016...

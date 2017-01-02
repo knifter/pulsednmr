@@ -250,40 +250,6 @@ CONFIG.DOUT_WIDTH {32} \
   connect_bd_net -net slice_blen_Dout [get_bd_pins Blen] [get_bd_pins slice_blen/Dout]
   connect_bd_net -net slice_pir_Dout [get_bd_pins PIR] [get_bd_pins slice_pir/Dout]
 
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /tx_0/TxConfigReg] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.6.5b  2016-09-06 bk=1.3687 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port S_AXI -pg 1 -y 40 -defaultsOSRD
-preplace port aclk -pg 1 -y 60 -defaultsOSRD
-preplace port aresetn -pg 1 -y 80 -defaultsOSRD
-preplace portBus Alen -pg 1 -y 120 -defaultsOSRD
-preplace portBus BBdly -pg 1 -y 280 -defaultsOSRD
-preplace portBus Blen -pg 1 -y 360 -defaultsOSRD
-preplace portBus BBcnt -pg 1 -y 200 -defaultsOSRD
-preplace portBus PIR -pg 1 -y 440 -defaultsOSRD
-preplace portBus ABdly -pg 1 -y 40 -defaultsOSRD
-preplace inst slice_alen -pg 1 -lvl 2 -y 120 -defaultsOSRD
-preplace inst slice_bbcnt -pg 1 -lvl 2 -y 200 -defaultsOSRD
-preplace inst cfg_0 -pg 1 -lvl 1 -y 60 -defaultsOSRD
-preplace inst slice_abdly -pg 1 -lvl 2 -y 40 -defaultsOSRD
-preplace inst slice_blen -pg 1 -lvl 2 -y 360 -defaultsOSRD
-preplace inst slice_bbdly -pg 1 -lvl 2 -y 280 -defaultsOSRD
-preplace inst slice_pir -pg 1 -lvl 2 -y 440 -defaultsOSRD
-preplace netloc slice_pir_Dout 1 2 1 NJ
-preplace netloc slice_bbcnt_Dout 1 2 1 NJ
-preplace netloc Din_1 1 1 1 240
-preplace netloc slice_blen_Dout 1 2 1 NJ
-preplace netloc slice_bbdly_Dout 1 2 1 NJ
-preplace netloc S_AXI_CFG_1 1 0 1 NJ
-preplace netloc slice_alen_Dout 1 2 1 NJ
-preplace netloc slice_abdly_Dout 1 2 1 NJ
-preplace netloc aclk_1 1 0 1 NJ
-preplace netloc s_axis_aresetn_1 1 0 1 NJ
-levelinfo -pg 1 0 130 340 460 -top 0 -bot 490
-",
-}
-
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -345,10 +311,6 @@ CONFIG.TDATA_REMAP {16'b0000000000000000,tdata[15:0]} \
 CONFIG.AXIS_TDATA_WIDTH {8} \
  ] $lfsr_0
 
-  set_property -dict [ list \
-CONFIG.TDATA_NUM_BYTES {1} \
- ] [get_bd_intf_pins /rx_0/mixer_0/lfsr_0/M_AXIS]
-
   # Create instance: mult_0, and set properties
   set mult_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:cmpy:6.0 mult_0 ]
   set_property -dict [ list \
@@ -385,17 +347,17 @@ preplace port M_AXIS_DOUT -pg 1 -y 180 -defaultsOSRD
 preplace port aclk -pg 1 -y 80 -defaultsOSRD
 preplace port S_AXIS_LO -pg 1 -y 270 -defaultsOSRD
 preplace port aresetn -pg 1 -y 140 -defaultsOSRD
-preplace inst mult_0 -pg 1 -lvl 2 -y 220 -defaultsOSRD
-preplace inst axis_subset_converter_1 -pg 1 -lvl 1 -y 20 -defaultsOSRD
-preplace inst lfsr_0 -pg 1 -lvl 1 -y 290 -defaultsOSRD
-preplace netloc axis_subset_converter_1_M_AXIS 1 1 1 230
-preplace netloc S_AXIS_A_1 1 0 1 N
-preplace netloc mult_0_M_AXIS_DOUT 1 2 1 610
-preplace netloc m_axis_aresetn_1 1 0 1 -180J
-preplace netloc m_axis_aclk_1 1 0 2 -190 230 230
-preplace netloc lfsr_0_M_AXIS 1 1 1 N
-preplace netloc dds_0_M_AXIS_DATA 1 0 2 -170J 210 NJ
-levelinfo -pg 1 -210 30 430 630 -top -70 -bot 420
+preplace inst mult_0 -pg 1 -lvl 2 -y 280 -defaultsOSRD
+preplace inst axis_subset_converter_1 -pg 1 -lvl 1 -y 40 -defaultsOSRD
+preplace inst lfsr_0 -pg 1 -lvl 1 -y 350 -defaultsOSRD
+preplace netloc axis_subset_converter_1_M_AXIS 1 1 1 50
+preplace netloc S_AXIS_A_1 1 0 1 -290
+preplace netloc mult_0_M_AXIS_DOUT 1 2 1 550
+preplace netloc m_axis_aresetn_1 1 0 1 -280J
+preplace netloc m_axis_aclk_1 1 0 2 -290 410 60
+preplace netloc lfsr_0_M_AXIS 1 1 1 50
+preplace netloc dds_0_M_AXIS_DATA 1 0 2 NJ 270 NJ
+levelinfo -pg 1 -310 -80 413 650 -top -70 -bot 430
 ",
 }
 
@@ -554,17 +516,17 @@ preplace inst cic_0 -pg 1 -lvl 2 -y 230 -defaultsOSRD
 preplace inst cic_1 -pg 1 -lvl 2 -y 430 -defaultsOSRD
 preplace inst comb_0 -pg 1 -lvl 3 -y 270 -defaultsOSRD
 preplace netloc comb_0_M_AXIS 1 3 1 N
-preplace netloc rate_0_M_AXIS 1 1 1 350
-preplace netloc cic_1_M_AXIS_DATA 1 2 1 720
-preplace netloc cic_0_M_AXIS_DATA 1 2 1 710
+preplace netloc rate_0_M_AXIS 1 1 1 310
 preplace netloc mult_0_M_AXIS_DOUT 1 0 1 -360J
-preplace netloc m_axis_aresetn_1 1 0 3 -340 260 330 320 730J
-preplace netloc m_axis_aclk_1 1 0 3 -350 240 350 310 710J
+preplace netloc cic_1_M_AXIS_DATA 1 2 1 750
+preplace netloc cic_0_M_AXIS_DATA 1 2 1 740
+preplace netloc m_axis_aresetn_1 1 0 3 -340 260 300 320 760J
+preplace netloc m_axis_aclk_1 1 0 3 -350 440 310 310 740J
 preplace netloc cfg_data_1 1 0 1 -330
-preplace netloc bcast_0_M01_AXIS 1 1 1 320
-preplace netloc bcast_0_M00_AXIS 1 1 1 340
-preplace netloc rate_1_M_AXIS 1 1 1 360
-levelinfo -pg 1 -380 150 570 920 1080 -top -20 -bot 740
+preplace netloc bcast_0_M01_AXIS 1 1 1 290
+preplace netloc bcast_0_M00_AXIS 1 1 1 290
+preplace netloc rate_1_M_AXIS 1 1 1 320
+levelinfo -pg 1 -380 150 600 950 1140 -top -20 -bot 740
 ",
 }
 
@@ -700,46 +662,6 @@ CONFIG.Spurious_Free_Dynamic_Range {138} \
   connect_bd_net -net const_3_dout [get_bd_pins const_3/dout] [get_bd_pins dds_compiler_0/aresetn]
   connect_bd_net -net pulse_on_in_1 [get_bd_pins pulse_on_in] [get_bd_pins NMRPulseSequencer_0/pulse_on_in]
   connect_bd_net -net s_axis_aresetn_1 [get_bd_pins s_axis_aresetn] [get_bd_pins TxConfigReg/aresetn]
-
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /tx_0] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.6.5b  2016-09-06 bk=1.3687 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port M_AXIS_DAC0 -pg 1 -y 90 -defaultsOSRD
-preplace port sync -pg 1 -y -230 -defaultsOSRD
-preplace port TxReset -pg 1 -y -340 -defaultsOSRD
-preplace port aclk -pg 1 -y -70 -defaultsOSRD
-preplace port pulse_on_in -pg 1 -y -320 -defaultsOSRD
-preplace port S_AXI_CFG -pg 1 -y -220 -defaultsOSRD
-preplace port pulse_on -pg 1 -y -210 -defaultsOSRD
-preplace portBus s_axis_aresetn -pg 1 -y -110 -defaultsOSRD
-preplace inst dds_compiler_0 -pg 1 -lvl 3 -y 80 -defaultsOSRD
-preplace inst axis_zeroer_0 -pg 1 -lvl 4 -y 120 -defaultsOSRD
-preplace inst NMRPulseSequencer_0 -pg 1 -lvl 3 -y -210 -defaultsOSRD
-preplace inst axis_constant_0 -pg 1 -lvl 2 -y 0 -defaultsOSRD
-preplace inst const_3 -pg 1 -lvl 2 -y 110 -defaultsOSRD
-preplace inst TxConfigReg -pg 1 -lvl 1 -y -200 -defaultsOSRD
-preplace netloc Conn1 1 4 3 NJ 120 NJ 120 1310J
-preplace netloc TxConfigReg_PIR 1 1 1 -160J
-preplace netloc const_3_dout 1 2 1 180
-preplace netloc pulse_on_in_1 1 0 3 NJ -320 NJ -320 190
-preplace netloc NMRPulseSequencer_0_pulse_on 1 3 4 NJ -210 NJ -210 NJ -210 NJ
-preplace netloc TxConfigReg_ABdly 1 1 2 N -230 200J
-preplace netloc TxConfigReg_Alen 1 1 2 N -210 170J
-preplace netloc NMRPulseSequencer_0_pulse_on_outn 1 3 1 520
-preplace netloc RxReset_1 1 0 3 NJ -340 NJ -340 200
-preplace netloc axis_constant_0_M_AXIS 1 2 1 160
-preplace netloc TxConfigReg_Blen 1 1 2 N -150 190J
-preplace netloc S_AXI_CFG_1 1 0 1 N
-preplace netloc TxConfigReg_BBcnt 1 1 2 N -190 170J
-preplace netloc dds_compiler_0_M_AXIS_DATA 1 3 1 500
-preplace netloc NMRPulseSequencer_0_start_seq 1 3 4 NJ -230 NJ -230 NJ -230 NJ
-preplace netloc TxConfigReg_BBdly 1 1 2 N -170 160J
-preplace netloc aclk_1 1 0 4 -360 -70 -150J -70 180 -70 510J
-preplace netloc s_axis_aresetn_1 1 0 1 -350J
-levelinfo -pg 1 -380 -250 50 370 720 1030 1290 1470 -top -560 -bot 510
-",
-}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -958,39 +880,39 @@ preplace portBus rd_data_count -pg 1 -y 90 -defaultsOSRD
 preplace portBus RxRate -pg 1 -y 300 -defaultsOSRD
 preplace portBus PIR -pg 1 -y 370 -defaultsOSRD
 preplace portBus aresetn -pg 1 -y 430 -defaultsOSRD
-preplace inst mixer_0 -pg 1 -lvl 4 -y 376 -defaultsOSRD
+preplace inst mixer_0 -pg 1 -lvl 3 -y 440 -defaultsOSRD
 preplace inst phase_0 -pg 1 -lvl 1 -y 400 -defaultsOSRD
-preplace inst fir_0 -pg 1 -lvl 7 -y 360 -defaultsOSRD
-preplace inst subset_0 -pg 1 -lvl 8 -y 360 -defaultsOSRD
-preplace inst reader_0 -pg 1 -lvl 12 -y 340 -defaultsOSRD
-preplace inst dds_0 -pg 1 -lvl 2 -y 470 -defaultsOSRD
-preplace inst fp_0 -pg 1 -lvl 9 -y 340 -defaultsOSRD
-preplace inst conv_0 -pg 1 -lvl 6 -y 370 -defaultsOSRD
-preplace inst cic_0 -pg 1 -lvl 5 -y 370 -defaultsOSRD
-preplace inst conv_1 -pg 1 -lvl 10 -y 270 -defaultsOSRD
-preplace inst fifo_generator_0 -pg 1 -lvl 12 -y 100 -defaultsOSRD
-preplace inst fifo_1 -pg 1 -lvl 11 -y 100 -defaultsOSRD
-preplace netloc Conn1 1 0 4 NJ 340 NJ 340 NJ 340 -550J
-preplace netloc Conn2 1 0 12 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 2730J
-preplace netloc subset_0_M_AXIS 1 8 1 1490
-preplace netloc fifo_1_M_AXIS 1 11 1 2690
-preplace netloc fifo_generator_0_rd_data_count 1 12 1 3120
-preplace netloc conv_0_M_AXIS 1 6 1 N
-preplace netloc comb_0_M_AXIS 1 5 1 250
-preplace netloc mult_0_M_AXIS_DOUT 1 4 1 -140
-preplace netloc m_axis_aresetn_1 1 0 12 -1130J 250 N 250 NJ 250 -560 250 -150 250 240 250 630 250 1030 250 1480 440 2020 370 NJ 370 N
-preplace netloc m_axis_aclk_1 1 0 12 -1140 110 -880 110 N 110 -540 110 -130 110 260 110 640 110 1050 110 1500 110 2020 110 2380 30 2700
-preplace netloc cfg_data_1 1 0 1 -1150J
-preplace netloc srst_1 1 0 12 NJ 540 NJ 540 NJ 540 NJ 540 NJ 540 NJ 540 NJ 540 NJ 540 NJ 540 NJ 540 NJ 540 2740J
-preplace netloc conv_1_M_AXIS 1 10 1 2390
-preplace netloc slice_2_Dout 1 0 5 -1120J 290 NJ 290 NJ 290 NJ 290 -160J
-preplace netloc dds_0_M_AXIS_DATA 1 2 2 N 470 -550J
-preplace netloc fp_0_M_AXIS_RESULT 1 9 1 2010
-preplace netloc fir_0_M_AXIS_DATA 1 7 1 1040
-preplace netloc phase_0_M_AXIS 1 1 1 -890
-preplace netloc fifo_1_FIFO_WRITE 1 11 1 2710J
-preplace netloc fifo_1_FIFO_READ 1 11 1 2720J
-levelinfo -pg 1 -1170 -1000 -740 -580 -320 70 470 899 1347 1817 2287 2577 2947 3140 -top -200 -bot 670
+preplace inst fir_0 -pg 1 -lvl 6 -y 360 -defaultsOSRD
+preplace inst subset_0 -pg 1 -lvl 7 -y 360 -defaultsOSRD
+preplace inst reader_0 -pg 1 -lvl 11 -y 400 -defaultsOSRD
+preplace inst dds_0 -pg 1 -lvl 2 -y 490 -defaultsOSRD
+preplace inst fp_0 -pg 1 -lvl 8 -y 340 -defaultsOSRD
+preplace inst conv_0 -pg 1 -lvl 5 -y 370 -defaultsOSRD
+preplace inst cic_0 -pg 1 -lvl 4 -y 360 -defaultsOSRD
+preplace inst conv_1 -pg 1 -lvl 9 -y 270 -defaultsOSRD
+preplace inst fifo_generator_0 -pg 1 -lvl 11 -y 130 -defaultsOSRD
+preplace inst fifo_1 -pg 1 -lvl 10 -y 160 -defaultsOSRD
+preplace netloc Conn1 1 0 3 NJ 340 NJ 340 -610J
+preplace netloc Conn2 1 0 11 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 2910J
+preplace netloc subset_0_M_AXIS 1 7 1 1690
+preplace netloc fifo_1_M_AXIS 1 10 1 2860
+preplace netloc fifo_generator_0_rd_data_count 1 11 1 3310
+preplace netloc conv_0_M_AXIS 1 5 1 770
+preplace netloc comb_0_M_AXIS 1 4 1 400
+preplace netloc mult_0_M_AXIS_DOUT 1 3 1 30
+preplace netloc m_axis_aresetn_1 1 0 11 -1170J 550 NJ 550 -600J 550 40 550 400 550 790 550 1240 550 1700 550 2160 550 NJ 550 2890J
+preplace netloc m_axis_aclk_1 1 0 11 -1150 170 -900 170 -600 170 40 170 410 170 780 170 1250 170 1700 170 2160 170 2590 90 2870
+preplace netloc cfg_data_1 1 0 1 -1140J
+preplace netloc srst_1 1 0 11 -1160J 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 2900J
+preplace netloc conv_1_M_AXIS 1 9 1 2600
+preplace netloc slice_2_Dout 1 0 4 NJ 300 NJ 300 NJ 300 20J
+preplace netloc dds_0_M_AXIS_DATA 1 2 1 -610
+preplace netloc fp_0_M_AXIS_RESULT 1 8 1 2150
+preplace netloc fir_0_M_AXIS_DATA 1 6 1 1240
+preplace netloc phase_0_M_AXIS 1 1 1 -910
+preplace netloc fifo_1_FIFO_WRITE 1 10 1 2880J
+preplace netloc fifo_1_FIFO_READ 1 10 1 2890J
+levelinfo -pg 1 -1190 -1020 -740 -103 281 674 1103 1551 2021 2491 2742 3132 3330 -top -200 -bot 1480
 ",
 }
 
@@ -2552,10 +2474,6 @@ CONFIG.TDATA_NUM_BYTES {2} \
 CONFIG.AXIS_TDATA_WIDTH {16} \
  ] $axis_constant_0
 
-  set_property -dict [ list \
-CONFIG.TDATA_NUM_BYTES {2} \
- ] [get_bd_intf_pins /DAC/axis_constant_0/M_AXIS]
-
   # Create instance: axis_dwidth_converter_0, and set properties
   set axis_dwidth_converter_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_dwidth_converter:1.1 axis_dwidth_converter_0 ]
   set_property -dict [ list \
@@ -2628,48 +2546,6 @@ CONFIG.CONST_WIDTH {16} \
   connect_bd_net -net rst_0_peripheral_aresetn [get_bd_pins s_axis_aresetn] [get_bd_pins fifo_0/s_axis_aresetn]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins axis_constant_0/cfg_data] [get_bd_pins xlconstant_0/dout]
   connect_bd_net -net xlconstant_1_dout [get_bd_pins axis_combiner_0/aresetn] [get_bd_pins axis_dwidth_converter_0/aresetn] [get_bd_pins fifo_0/m_axis_aresetn] [get_bd_pins xlconstant_1/dout]
-
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /DAC] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.6.5b  2016-09-06 bk=1.3687 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port S_AXIS_DAC0 -pg 1 -y 40 -defaultsOSRD
-preplace port S_AXIS_DAC1 -pg 1 -y 200 -defaultsOSRD
-preplace port clk125 -pg 1 -y 120 -defaultsOSRD
-preplace port dac_clk -pg 1 -y 100 -defaultsOSRD
-preplace port s_axis_aclk -pg 1 -y 100 -defaultsOSRD
-preplace port s_axis_aresetn -pg 1 -y 60 -defaultsOSRD
-preplace port dac_sel -pg 1 -y 140 -defaultsOSRD
-preplace port dac_wrt -pg 1 -y 160 -defaultsOSRD
-preplace port dac_rst -pg 1 -y 120 -defaultsOSRD
-preplace portBus dac_dat -pg 1 -y 180 -defaultsOSRD
-preplace inst axis_combiner_0 -pg 1 -lvl 3 -y 110 -defaultsOSRD
-preplace inst xlconstant_0 -pg 1 -lvl 1 -y 260 -defaultsOSRD
-preplace inst xlconstant_1 -pg 1 -lvl 1 -y 450 -defaultsOSRD
-preplace inst axis_dwidth_converter_0 -pg 1 -lvl 3 -y 360 -defaultsOSRD
-preplace inst axis_constant_0 -pg 1 -lvl 2 -y 250 -defaultsOSRD
-preplace inst pll_0 -pg 1 -lvl 3 -y 250 -defaultsOSRD
-preplace inst fifo_0 -pg 1 -lvl 2 -y 80 -defaultsOSRD
-preplace inst dac_0 -pg 1 -lvl 4 -y 160 -defaultsOSRD
-preplace netloc xlconstant_1_dout 1 1 2 20 450 260
-preplace netloc dac_0_dac_dat 1 4 1 800J
-preplace netloc pll_0_locked 1 3 1 560
-preplace netloc pll_0_clk_out1 1 3 1 550
-preplace netloc axis_combiner_0_M_AXIS 1 3 1 540
-preplace netloc fifo_0_M_AXIS 1 2 1 N
-preplace netloc axis_constant_0_M_AXIS 1 2 1 240
-preplace netloc dac_0_dac_wrt 1 4 1 790J
-preplace netloc dac_0_dac_clk 1 4 1 760J
-preplace netloc rst_0_peripheral_aresetn 1 0 2 NJ 60 N
-preplace netloc adc_0_adc_clk 1 0 4 N 120 10 360 250 190 540J
-preplace netloc xlconstant_0_dout 1 1 1 N
-preplace netloc ps_0_FCLK_CLK0 1 0 2 NJ 100 N
-preplace netloc tx_0_M_AXIS 1 0 2 NJ 40 N
-preplace netloc dac_0_dac_sel 1 4 1 780J
-preplace netloc dac_0_dac_rst 1 4 1 770J
-levelinfo -pg 1 -150 -60 130 400 660 820 -top -50 -bot 500
-",
-}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2758,40 +2634,6 @@ CONFIG.TDATA_NUM_BYTES {2} \
   connect_bd_net -net const_0_dout [get_bd_pins axis_subset_converter_0/aresetn] [get_bd_pins const_0/dout] [get_bd_pins fifo_0/s_axis_aresetn]
   connect_bd_net -net ps_0_FCLK_CLK0 [get_bd_pins m_axis_aclk] [get_bd_pins fifo_0/m_axis_aclk]
   connect_bd_net -net rst_0_peripheral_aresetn [get_bd_pins m_axis_aresetn] [get_bd_pins fifo_0/m_axis_aresetn]
-
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /ADC] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.6.5b  2016-09-06 bk=1.3687 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port adc_clk_n -pg 1 -y 70 -defaultsOSRD
-preplace port M_AXIS_ADC0 -pg 1 -y 80 -defaultsOSRD
-preplace port adc_clk_p -pg 1 -y 50 -defaultsOSRD
-preplace port M_AXIS_ADC1 -pg 1 -y 10 -defaultsOSRD
-preplace port clk125 -pg 1 -y 100 -defaultsOSRD
-preplace port m_axis_aresetn -pg 1 -y 330 -defaultsOSRD
-preplace port m_axis_aclk -pg 1 -y 350 -defaultsOSRD
-preplace port adc_csn -pg 1 -y 120 -defaultsOSRD
-preplace portBus adc_dat_a -pg 1 -y 90 -defaultsOSRD
-preplace portBus adc_dat_b -pg 1 -y 110 -defaultsOSRD
-preplace inst adc_0 -pg 1 -lvl 1 -y 80 -defaultsOSRD
-preplace inst axis_subset_converter_0 -pg 1 -lvl 2 -y 30 -defaultsOSRD
-preplace inst const_0 -pg 1 -lvl 1 -y 250 -defaultsOSRD
-preplace inst fifo_0 -pg 1 -lvl 3 -y 80 -defaultsOSRD
-preplace netloc axis_subset_converter_0_M_AXIS 1 2 1 690
-preplace netloc const_0_dout 1 1 2 360J 250 690
-preplace netloc fifo_0_M_AXIS 1 3 1 N
-preplace netloc adc_dat_a_i_1 1 0 1 NJ
-preplace netloc adc_clk_n_i_1 1 0 1 NJ
-preplace netloc adc_0_M_AXIS 1 1 1 340
-preplace netloc rst_0_peripheral_aresetn 1 0 3 NJ 330 NJ 330 710
-preplace netloc adc_0_adc_clk 1 1 3 350 100 700 -10 980
-preplace netloc ps_0_FCLK_CLK0 1 0 3 NJ 350 NJ 350 720
-preplace netloc adc_0_adc_csn 1 1 3 330 -40 NJ -40 990J
-preplace netloc adc_dat_b_i_1 1 0 1 NJ
-preplace netloc adc_clk_p_i_1 1 0 1 NJ
-levelinfo -pg 1 -40 220 560 870 1010 -top -50 -bot 390
-",
-}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2992,54 +2834,54 @@ preplace portBus dac_pwm_o -pg 1 -y 40 -defaultsOSRD
 preplace portBus adc_dat_a_i -pg 1 -y 210 -defaultsOSRD
 preplace portBus dac_dat_o -pg 1 -y 780 -defaultsOSRD
 preplace inst PS -pg 1 -lvl 1 -y 830 -defaultsOSRD -resize 335 190
-preplace inst DAC -pg 1 -lvl 5 -y 640 -defaultsOSRD
-preplace inst xlconstant_0 -pg 1 -lvl 4 -y 990 -defaultsOSRD
+preplace inst DAC -pg 1 -lvl 6 -y 640 -defaultsOSRD
+preplace inst xlconstant_0 -pg 1 -lvl 5 -y 990 -defaultsOSRD
 preplace inst cntr_0 -pg 1 -lvl 3 -y 890 -defaultsOSRD
-preplace inst tx_0 -pg 1 -lvl 4 -y 450 -defaultsOSRD -resize 243 160
+preplace inst tx_0 -pg 1 -lvl 5 -y 450 -defaultsOSRD -resize 243 160
 preplace inst xlconstant_2 -pg 1 -lvl 1 -y 570 -defaultsOSRD
-preplace inst xlconcat_0 -pg 1 -lvl 5 -y 940 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 6 -y 940 -defaultsOSRD
 preplace inst xlconcat_1 -pg 1 -lvl 2 -y 560 -defaultsOSRD
 preplace inst RxConfigReg -pg 1 -lvl 3 -y 210 -defaultsOSRD
-preplace inst slice_0 -pg 1 -lvl 4 -y 900 -defaultsOSRD
+preplace inst slice_0 -pg 1 -lvl 5 -y 900 -defaultsOSRD
 preplace inst ADC -pg 1 -lvl 1 -y 230 -defaultsOSRD
 preplace inst sts_0 -pg 1 -lvl 3 -y 550 -defaultsOSRD
-preplace inst rx_0 -pg 1 -lvl 4 -y 140 -defaultsOSRD
-preplace netloc RxConfigReg_TxForceOn 1 3 1 960
+preplace inst rx_0 -pg 1 -lvl 4 -y 340 -defaultsOSRD
+preplace netloc RxConfigReg_TxForceOn 1 3 2 730 490 N
 preplace netloc xlconstant_2_dout 1 1 1 N
-preplace netloc tx_0_pulse_on 1 4 2 1350 450 1660J
-preplace netloc dac_0_dac_dat 1 5 1 1620J
-preplace netloc cntr_0_Q 1 3 1 980J
-preplace netloc rx_0_rd_data_count 1 1 4 470 630 NJ 630 NJ 630 1320
-preplace netloc xlconcat_1_dout 1 2 1 700
-preplace netloc fifo_0_M_AXIS 1 1 3 470 100 NJ 100 NJ
-preplace netloc adc_dat_a_i_1 1 0 1 -10J
-preplace netloc adc_clk_n_i_1 1 0 1 -10J
-preplace netloc ps_0_axi_periph_M02_AXI 1 1 3 NJ 838 NJ 838 950
-preplace netloc ps_0_axi_periph_M01_AXI 1 1 2 NJ 822 740
-preplace netloc rst_0_peripheral_aresetn 1 0 5 -10 660 450 660 730J 660 990J 660 NJ
-preplace netloc dac_0_dac_wrt 1 5 1 1630J
-preplace netloc dac_0_dac_clk 1 5 1 1650J
-preplace netloc adc_0_adc_clk 1 1 4 N 240 710J 640 NJ 640 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 1 2 NJ 806 690
-preplace netloc xlconstant_0_dout 1 4 1 1330
-preplace netloc xlconcat_0_dout 1 5 1 NJ
-preplace netloc cfg_data1_1 1 3 1 1010
-preplace netloc RxFTW 1 3 1 970
-preplace netloc ps_0_FCLK_CLK0 1 0 5 0 680 440 680 720 680 980 680 NJ
-preplace netloc S_AXI_CFG_1 1 1 3 460J 410 NJ 410 N
-preplace netloc srst_1 1 3 1 960
-preplace netloc ps_0_DDR 1 1 5 NJ 774 NJ 774 NJ 774 NJ 774 1610J
-preplace netloc aresetn_1 1 3 1 1000
-preplace netloc adc_0_adc_csn 1 1 5 470J 300 NJ 300 NJ 300 NJ 300 1670J
-preplace netloc adc_dat_b_i_1 1 0 1 -10J
-preplace netloc ps_0_FIXED_IO 1 1 5 NJ 790 NJ 790 NJ 790 NJ 790 1600J
-preplace netloc slice_0_Dout 1 4 1 1330
-preplace netloc tx_0_M_AXIS 1 4 1 1330
-preplace netloc tx_0_start_seq 1 4 2 1340 470 1650J
-preplace netloc dac_0_dac_sel 1 5 1 NJ
-preplace netloc dac_0_dac_rst 1 5 1 1640J
-preplace netloc adc_clk_p_i_1 1 0 1 -10J
-levelinfo -pg 1 -30 250 600 850 1170 1480 1690 -top -320 -bot 1350
+preplace netloc tx_0_pulse_on 1 5 2 1470 450 1770J
+preplace netloc dac_0_dac_dat 1 6 1 1730J
+preplace netloc cntr_0_Q 1 3 2 NJ 890 1100
+preplace netloc rx_0_rd_data_count 1 1 4 280 630 NJ 630 NJ 630 1080
+preplace netloc xlconcat_1_dout 1 2 1 480
+preplace netloc fifo_0_M_AXIS 1 1 3 280 300 NJ 300 NJ
+preplace netloc adc_dat_a_i_1 1 0 1 -140J
+preplace netloc adc_clk_n_i_1 1 0 1 -140J
+preplace netloc ps_0_axi_periph_M02_AXI 1 1 3 NJ 838 NJ 838 740
+preplace netloc ps_0_axi_periph_M01_AXI 1 1 2 NJ 822 520
+preplace netloc rst_0_peripheral_aresetn 1 0 6 -140 660 260 660 510J 660 780J 660 1120J 660 NJ
+preplace netloc dac_0_dac_wrt 1 6 1 1740J
+preplace netloc dac_0_dac_clk 1 6 1 1760J
+preplace netloc adc_0_adc_clk 1 1 5 NJ 240 490J 640 NJ 640 NJ 640 NJ
+preplace netloc ps_0_axi_periph_M00_AXI 1 1 2 NJ 806 470
+preplace netloc xlconstant_0_dout 1 5 1 1460
+preplace netloc xlconcat_0_dout 1 6 1 NJ
+preplace netloc cfg_data1_1 1 3 1 750
+preplace netloc RxFTW 1 3 1 760
+preplace netloc ps_0_FCLK_CLK0 1 0 6 -130 680 250 680 500 680 770 680 1110J 680 NJ
+preplace netloc S_AXI_CFG_1 1 1 4 270J 450 NJ 450 NJ 450 1090J
+preplace netloc srst_1 1 3 1 790
+preplace netloc ps_0_DDR 1 1 6 NJ 774 NJ 774 NJ 774 NJ 774 NJ 774 1720J
+preplace netloc aresetn_1 1 3 2 N 170 1100
+preplace netloc adc_0_adc_csn 1 1 6 270J 100 NJ 100 NJ 100 NJ 100 NJ 100 1780J
+preplace netloc adc_dat_b_i_1 1 0 1 -140J
+preplace netloc ps_0_FIXED_IO 1 1 6 NJ 790 NJ 790 NJ 790 NJ 790 NJ 790 1710J
+preplace netloc slice_0_Dout 1 5 1 1450
+preplace netloc tx_0_M_AXIS 1 5 1 1450
+preplace netloc tx_0_start_seq 1 5 2 1460 470 1760J
+preplace netloc dac_0_dac_sel 1 6 1 NJ
+preplace netloc dac_0_dac_rst 1 6 1 1750J
+preplace netloc adc_clk_p_i_1 1 0 1 -140J
+levelinfo -pg 1 -160 60 380 630 950 1300 1590 1810 -top -320 -bot 1350
 ",
 }
 
@@ -3057,4 +2899,6 @@ levelinfo -pg 1 -30 250 600 850 1170 1480 1690 -top -320 -bot 1350
 
 create_root_design ""
 
+
+common::send_msg_id "BD_TCL-1000" "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 

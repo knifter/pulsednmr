@@ -32,9 +32,9 @@ module axis_fifo #
 );
 
   assign m_axis_tdata = fifo_read_empty ? {(M_AXIS_TDATA_WIDTH){1'b0}} : fifo_read_data;
-  assign m_axis_tvalid = 1'b1;
+  assign m_axis_tvalid = ~fifo_read_empty; // 1'b1;
 
-  assign s_axis_tready = 1'b1;
+  assign s_axis_tready = ~fifo_write_full; // 1'b1;
 
   assign fifo_read_rden = m_axis_tready;
 
