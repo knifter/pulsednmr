@@ -1,0 +1,7 @@
+ * Use Miniconda3
+ > conda create -n env python=3.5
+ > activate env
+ > conda install pyqt numpy matplotlib
+ * Check that pyqt installed is Qt5! (pyqt=5 might work)
+ * Copy contents of <Miniconda3>/envs/env to this directory and make an installer
+ 
