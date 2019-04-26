@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="nmrpulsesequencer_test_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="nmrpulsesequencer_test" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="957666666fs"></ZoomStartTime>
+      <ZoomEndTime time="1008466667fs"></ZoomEndTime>
+      <Cursor1Time time="957717000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="257"></NameColumnWidth>
+      <ValueColumnWidth column_width="83"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="19" />
+   <wvobject fp_name="/nmrpulsesequencer_test/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/Alen" type="array">
+      <obj_property name="ElementShortName">Alen[15:0]</obj_property>
+      <obj_property name="ObjectShortName">Alen[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/Blen" type="array">
+      <obj_property name="ElementShortName">Blen[15:0]</obj_property>
+      <obj_property name="ObjectShortName">Blen[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/ABdly" type="array">
+      <obj_property name="ElementShortName">ABdly[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ABdly[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/BBdly" type="array">
+      <obj_property name="ElementShortName">BBdly[15:0]</obj_property>
+      <obj_property name="ObjectShortName">BBdly[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/BBcnt" type="array">
+      <obj_property name="ElementShortName">BBcnt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">BBcnt[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/us_counter" type="array">
+      <obj_property name="ElementShortName">us_counter[6:0]</obj_property>
+      <obj_property name="ObjectShortName">us_counter[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/t" type="array">
+      <obj_property name="ElementShortName">t[31:0]</obj_property>
+      <obj_property name="ObjectShortName">t[31:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider28">
+      <obj_property name="label">uS</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/us_trigger" type="logic">
+      <obj_property name="ElementShortName">us_trigger</obj_property>
+      <obj_property name="ObjectShortName">us_trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/state" type="array">
+      <obj_property name="ElementShortName">state[4:0]</obj_property>
+      <obj_property name="ObjectShortName">state[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/b_step" type="logic">
+      <obj_property name="ElementShortName">b_step</obj_property>
+      <obj_property name="ObjectShortName">b_step</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/b_start" type="array">
+      <obj_property name="ElementShortName">b_start[16:0]</obj_property>
+      <obj_property name="ObjectShortName">b_start[16:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/b_stop" type="array">
+      <obj_property name="ElementShortName">b_stop[16:0]</obj_property>
+      <obj_property name="ObjectShortName">b_stop[16:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/bn_start" type="array">
+      <obj_property name="ElementShortName">bn_start[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bn_start[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/bn_stop" type="array">
+      <obj_property name="ElementShortName">bn_stop[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bn_stop[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/start_seq" type="logic">
+      <obj_property name="ElementShortName">start_seq</obj_property>
+      <obj_property name="ObjectShortName">start_seq</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nmrpulsesequencer_test/inst/pulse_on" type="logic">
+      <obj_property name="ElementShortName">pulse_on</obj_property>
+      <obj_property name="ObjectShortName">pulse_on</obj_property>
+   </wvobject>
+</wave_config>
