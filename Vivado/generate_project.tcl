@@ -1,6 +1,6 @@
 
 variable design_name
-set design_name "pulsed_nmr"
+set design_name "PulsedNMR"
 
 # Create the project with the (modified) Vivado Project Tcl
 puts "INFO: Start Importing src/${design_name}_project.tcl"

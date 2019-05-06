@@ -1,5 +1,5 @@
 variable design_name
-set design_name "pulsed_nmr"
+set design_name "PulsedNMR"
 
 # Open Project
 puts "INFO: Opening Project"
