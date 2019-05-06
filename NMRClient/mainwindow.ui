@@ -293,13 +293,6 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="plotFFTCheck">
-              <property name="text">
-               <string>Plot FFT</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="1">
              <widget class="QComboBox" name="plotTimeModeDrop">
               <property name="maximumSize">
@@ -320,9 +313,45 @@
               </item>
               <item>
                <property name="text">
-                <string>Q-Phase</string>
+                <string>Set Phase</string>
                </property>
               </item>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="plotFFTCheck">
+              <property name="text">
+               <string>Plot FFT</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="plotPhaseLabel">
+              <property name="text">
+               <string>Phase</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QSpinBox" name="plotPhaseValue">
+              <property name="maximumSize">
+               <size>
+                <width>130</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+              <property name="suffix">
+               <string> deg</string>
+              </property>
+              <property name="maximum">
+               <number>355</number>
+              </property>
+              <property name="singleStep">
+               <number>5</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -353,16 +382,16 @@
                <string extracomment="periods"> us</string>
               </property>
               <property name="decimals">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="minimum">
-               <double>1.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="maximum">
                <double>1000.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>1.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="value">
                <double>9.000000000000000</double>
@@ -465,16 +494,16 @@
                <string extracomment="periods"> us</string>
               </property>
               <property name="decimals">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="minimum">
-               <double>1.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="maximum">
                <double>100.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>1.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="value">
                <double>9.000000000000000</double>

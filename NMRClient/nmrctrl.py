@@ -40,6 +40,9 @@ class Command(Enum):
     SET_RX_DELAY = 10
     KEEPALIVE = 11
 
+NMR_CORE_CLK = 142857132 # Hz of the Core clock (~143 MHz)
+NMR_PG_CLK = float(NMR_CORE_CLK) / 14 # Hz of the PulseGen Counter
+
 RATES = {0: 25.0e3,   # 25ksmps
          1: 50.0e3,
          2: 125.0e3,
@@ -137,7 +140,8 @@ class NMRCtrl(object):
         # fire
         reply = self._send_cmd(Command.FIRE)
         self._iqdata = reply.data
-
+        # TODO: make measurement here, because configure(), set_rxrate(x), measurement() would cause wrong rate in measurement
+        
     @property
     def measurement(self):
         if(self._iqdata == None):
@@ -226,7 +230,9 @@ class NMRCtrl(object):
             log.debug("Set A-Width %d us." % (usecs))
             self._awidth = usecs
         if self._connected:
-            self._send_cmd(Command.SET_AWIDTH, self._awidth)
+            clks = int(self._awidth * NMR_PG_CLK / 1E6 + 0.5)
+            print("A-wdith: %f us = %d clks, real time = %.8f" % (self._awidth, clks, clks / NMR_PG_CLK))
+            self._send_cmd(Command.SET_AWIDTH, clks)
 
     @property
     def bwidth(self): return self._bwidth
@@ -235,7 +241,9 @@ class NMRCtrl(object):
             log.debug("Set B-Width %d us." % (usecs))
             self._bwidth = usecs
         if self._connected:
-            self._send_cmd(Command.SET_BWIDTH, self._bwidth)
+            clks = int(self._bwidth * NMR_PG_CLK / 1E6 + 0.5)
+            print("B-wdith: %f us = %d clks, real time = %.8f" % (self._bwidth, clks, clks / NMR_PG_CLK))
+            self._send_cmd(Command.SET_BWIDTH, clks)
 
     @property
     def abdelay(self): return self._abdelay
@@ -244,7 +252,8 @@ class NMRCtrl(object):
             log.debug("Set AB-Delay %d us." % (usecs))
             self._abdelay = usecs
         if self._connected:
-            self._send_cmd(Command.SET_ABDELAY, self._abdelay)
+            clks = int(self._abdelay * NMR_PG_CLK / 1E6 + 0.5)
+            self._send_cmd(Command.SET_ABDELAY, clks)
 
     @property
     def bbdelay(self): return self._bbdelay
@@ -253,14 +262,15 @@ class NMRCtrl(object):
             log.debug("Set BB-Delay %d us." % (usecs))
             self._bbdelay = usecs
         if self._connected:
-            self._send_cmd(Command.SET_BBDELAY, self._bbdelay)
+            clks = int(self._bbdelay * NMR_PG_CLK / 1E6 + 0.5)
+            self._send_cmd(Command.SET_BBDELAY, clks)
 
     @property
     def bcount(self): return self._bcount
     def set_bcount(self, cnt = None):
         if cnt != None:
             log.debug("Set B-Count %d." % (cnt))
-            self._bcount = cnt;
+            self._bcount = cnt
         if self._connected:
             self._send_cmd(Command.SET_BCOUNT, self._bcount)
 

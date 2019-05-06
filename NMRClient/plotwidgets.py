@@ -8,16 +8,10 @@ LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.plotwidgets'
 log = logging.getLogger(LOG_NAME)
 
-QT_VERSION = 5
-if QT_VERSION == 4:
-    # Qwidget
-    pass
-if QT_VERSION == 5:
-    from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox
-    matplotlib.use('Qt5Agg')
-    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-    from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
-
+from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox
+matplotlib.use('Qt5Agg')
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
 class PlotWidget(QWidget):
@@ -123,6 +117,7 @@ class PlotTimeWidget(PlotWidget):
     def __init__(self, parent=None, title=None):
         super(PlotTimeWidget, self).__init__(parent)
         self._mode = 'A'
+        self._phase = 0
 
         self.initPlot()
 
@@ -157,12 +152,12 @@ class PlotTimeWidget(PlotWidget):
         x1, x2, y1, y2 = self.axis.axis()
         x1 = xstart
         x2 = xstop
-        if self._mode in ('I', 'Q'):
-            y1 = -1.1
-            y2 = 1.1
+        if self._mode in ('I', 'P'):
+            y1 = -0.6
+            y2 = 0.6
         if self._mode is 'A':
-            y1 = -0.1
-            y2 = 0.4
+            y1 = -0.05
+            y2 = 0.55
         log.debug("Rescale xstart = %d, xstop = %d, ystart = %d, ystop = %d", x1, x2, y1, y2)
         self.axis.axis((x1, x2, y1, y2))
 
@@ -172,14 +167,18 @@ class PlotTimeWidget(PlotWidget):
         if m.size != self._size:
             self.set_size(m.size)
 
+
         # select the right data depending on the mode
         data = None
-        if self._mode == 'A':
+        if self._mode == 'A': # Amplitude
             data = np.abs(m.iqdata)
-        if self._mode == 'I':
+        if self._mode == 'I': # In-Phase
             data = m.iqdata.real
-        if self._mode == 'Q':
-            data = m.iqdata.imag
+        if self._mode == 'P': # Shift Phase
+            # calc phase factors
+            p_r = np.cos(self._phase * 2 * np.pi / 360)
+            p_i = np.sin(self._phase * 2 * np.pi / 360)
+            data = m.iqdata.real*p_r + m.iqdata.imag*p_i
 
         # stream through the averager
         if self._avgdata is None or (len(self._avgdata) != len(data)):
@@ -195,11 +194,18 @@ class PlotTimeWidget(PlotWidget):
         self.canvas.draw()
 
     def setMode(self, mode):
-        if mode not in ['I', 'Q', 'A']:
+        if mode not in ['I', 'P', 'A']:
             ValueError("Invalid mode: %s" % (mode))
         self._mode = mode
         self._avgdata = None
         # self.initPlot()
+
+    def setPhase(self, phase):
+        if phase:
+            phase = int(phase)
+        if phase < 0 or phase > 359:
+            ValueError("Invalid phase: %s" % (phase))
+        self._phase = phase
 
     def getData(self):
         if(self._avgdata is None):

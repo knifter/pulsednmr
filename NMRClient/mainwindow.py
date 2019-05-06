@@ -15,7 +15,7 @@ from nmrctrl import NMRConnectionError, RATES
 LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.gui'
 WINDOW_TITLE = "NMR Control"
-RXTX_OFFSET = 85
+RXTX_OFFSET = 95
 
 log = logging.getLogger(LOG_NAME)
 
@@ -65,6 +65,8 @@ class MainWindow(QMainWindow):
         self.plotTimeCheck.stateChanged.connect(self.action_plotTimeFFTCheck)
         self.plotFFTCheck.stateChanged.connect(self.action_plotTimeFFTCheck)
         self.plotTimeModeDrop.currentIndexChanged.connect(self.action_plotTimeModeDrop)
+        self.plotPhaseValue.valueChanged.connect(self.set_phaseAngle)
+        self.plotPhaseValue.setEnabled(False)
         # Mode 1
         self.freqValue.valueChanged.connect(self.set_freq)
         self.awidthValue.valueChanged.connect(self.set_awidth)
@@ -264,6 +266,10 @@ class MainWindow(QMainWindow):
         self.plotTimeWidget.setRxDelay(usecs)
         self.plotFFTWidget.setRxDelay(usecs)
 
+    def set_phaseAngle(self, value = None):
+        self.checkInputs()
+        self.plotTimeWidget.setPhase(value)
+
     def checkInputs(self):
         # find values, all in us
         awidth = self.awidthValue.value()
@@ -319,12 +325,14 @@ class MainWindow(QMainWindow):
         self.plotFFTWidget.setVisible(self.plotFFTCheck.isChecked())
 
     def action_plotTimeModeDrop(self, index):
+        self.plotPhaseValue.setEnabled(False)
         if index == 0:
             self.plotTimeWidget.setMode('A')
         if index == 1:
             self.plotTimeWidget.setMode('I')
         if index == 2:
-            self.plotTimeWidget.setMode('Q')
+            self.plotTimeWidget.setMode('P')
+            self.plotPhaseValue.setEnabled(True)
 
     def action_Connect(self):
         # open pop-up
