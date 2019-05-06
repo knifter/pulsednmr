@@ -28,15 +28,17 @@
 #define TX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
 #define FREQ_MIN            (DAC_SAMPLE_RATE/TX_BUFSIZE)
 #define FREQ_MAX            (DAC_SAMPLE_RATE/2)
+#define NMR_CORE_CLK		142857132
+#define NMR_PG_CLK			(NMR_CORE_CLK / 14.0)
 
-#define PULSE_LEN_MIN		0
-#define PULSE_LEN_MAX		(64000)			// >100 uS
-#define PULSE_DLY_MIN		100				// >100 uS
-#define PULSE_DLY_MAX		((int)2E6)			// >2E6 uS
+#define PULSE_LEN_MIN		1
+#define PULSE_LEN_MAX		(100000)		// 10 mS
+#define PULSE_DLY_MIN		100				// >10 uS
+#define PULSE_DLY_MAX		((int)2E7)		// >2E6 uS
 #define PULSE_BCNT_MIN		0
 #define PULSE_BCNT_MAX		10
 #define RX_DELAY_MIN		0
-#define	RX_DELAY_MAX		5000000 		// 5 sec
+#define	RX_DELAY_MAX		50000000 		// 5 sec
 
 
 NMRCore::NMRCore()
@@ -74,6 +76,11 @@ NMRCore::NMRCore()
   	if(_txconfig == NULL)
   	{
   		ERROR("mmap(TXCONFIG) failed.\n");
+  		return;
+  	}
+  	if(_map_rxdata == NULL)
+  	{
+  		ERROR("mmap(RXDATA) failed.\n");
   		return;
   	}
 
@@ -183,76 +190,76 @@ int NMRCore::setTxFrequency(uint32_t freq)
 	return 0;
 }
 
-int NMRCore::setTxAlen(uint32_t usec)
+int NMRCore::setTxAlen(uint32_t clks)
 {
 	if(!_txconfig)
 	{
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(usec > PULSE_LEN_MAX | usec < PULSE_LEN_MIN)
+	if(clks > PULSE_LEN_MAX | clks < PULSE_LEN_MIN)
 	{
-		ERROR("A-length %u out of range (%d, %d)\n", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
+		ERROR("A-length %u out of range (%d, %d)\n", clks, PULSE_LEN_MIN, PULSE_LEN_MAX);
 		return 2;
 	}
 
-	DBG("A-length: %u us pulse.\n", usec);
+	DBG("A-length: %u clks pulse.\n", clks);
 
-	_txconfig->a_len = usec;
+	_txconfig->a_len = clks;
 }
 
-int NMRCore::setTxBlen(uint32_t usec)
+int NMRCore::setTxBlen(uint32_t clks)
 {
 	if(!_txconfig)
 	{
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(usec > PULSE_LEN_MAX | usec < PULSE_LEN_MIN)
+	if(clks > PULSE_LEN_MAX | clks < PULSE_LEN_MIN)
 	{
-		ERROR("B-length %u out of range (%d, %d)\n", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
+		ERROR("B-length %u out of range (%d, %d)\n", clks, PULSE_LEN_MIN, PULSE_LEN_MAX);
 		return 2;
 	}
 
-	DBG("B-length: %u us pulse.\n", usec);
+	DBG("B-length: %u clks pulse.\n", clks);
 
-	_txconfig->b_len = usec;
+	_txconfig->b_len = clks;
 }
 
-int NMRCore::setTxABdly(uint32_t usec)
+int NMRCore::setTxABdly(uint32_t clks)
 {
 	if(!_txconfig)
 	{
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(usec > PULSE_DLY_MAX | usec < PULSE_DLY_MIN)
+	if(clks > PULSE_DLY_MAX | clks < PULSE_DLY_MIN)
 	{
-		ERROR("A-to-B-Delay %u out of range (%d, %d)\n", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
+		ERROR("A-to-B-Delay %u out of range (%d, %d)\n", clks, PULSE_DLY_MIN, PULSE_DLY_MAX);
 		return 2;
 	}
 
-	DBG("A-to-B-Delay: %u us.\n", usec);
+	DBG("A-to-B-Delay: %u clks.\n", clks);
 
-	_txconfig->ab_dly = usec;
+	_txconfig->ab_dly = clks;
 }
 
-int NMRCore::setTxBBdly(uint32_t usec)
+int NMRCore::setTxBBdly(uint32_t clks)
 {
 	if(!_txconfig)
 	{
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(usec > PULSE_DLY_MAX | usec < PULSE_DLY_MIN)
+	if(clks > PULSE_DLY_MAX | clks < PULSE_DLY_MIN)
 	{
-		ERROR("B-to-B-Delay %u out of range (%d, %d)\n", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
+		ERROR("B-to-B-Delay %u out of range (%d, %d)\n", clks, PULSE_DLY_MIN, PULSE_DLY_MAX);
 		return 2;
 	}
 
-	DBG("B-to-B-Delay: %u us.\n", usec);
+	DBG("B-to-B-Delay: %u clks.\n", clks);
 
-	_txconfig->bb_dly = usec;
+	_txconfig->bb_dly = clks;
 }
 
 int NMRCore::setTxBBcnt(uint32_t count)
@@ -342,18 +349,19 @@ int NMRCore::setRxSize(uint32_t size)
 	return 0;
 }
 
-int NMRCore::setRxDelay(uint32_t usec)
+int NMRCore::setRxDelay(uint32_t clks)
 {
 	if(!_rxconfig)
 	{
 		ERROR("_rxconfig == NULL\n");
 		return 1;
 	};
-	if(usec > RX_DELAY_MAX | usec < RX_DELAY_MIN)
+	if(clks > RX_DELAY_MAX | clks < RX_DELAY_MIN)
 	{
-		ERROR("Rx-Delay %u us out of range (%d, %d)\n", usec, RX_DELAY_MIN, RX_DELAY_MAX);
+		ERROR("Rx-Delay %u clks out of range (%d, %d)\n", clks, RX_DELAY_MIN, RX_DELAY_MAX);
 		return 2;
 	}
+	uint32_t usec = (float)clks * 1E6 / NMR_PG_CLK;
 	uint32_t samples = ((uint64_t)getRxRate() * (uint64_t)usec) / 1E6;
 	DBG("Rx-Delay %u us, %u samples.\n", usec, samples);
 	_rx_delay = samples;

@@ -20,10 +20,13 @@
 #define DBG(msg, ...)
 #endif
 
-//#define LOG(msg, ...)	    qDebug   ("%s: "msg, __FUNCTION__, ##__VA_ARGS__)
-#define LOG(msg, ...)	    printf   ("%s: " msg, __FUNCTION__, ##__VA_ARGS__)
+#ifdef QT
+#define LOG(msg, ...)	    qDebug   ("%s: "msg, __FUNCTION__, ##__VA_ARGS__)
+#define CRITICAL(msg, ...)  qCritical(__FILE__ ".%s(" __LINESTR__ "): " msg, __FUNCTION__, ##__VA_ARGS__)
+#else
+#define LOG(msg, ...)	    printf   ("%s: "msg, __FUNCTION__, ##__VA_ARGS__)
 #define WARNING(msg, ...)   printf   ("WARN :" __FILE__ ".%s(" __LINESTR__ "): " msg, __FUNCTION__, ##__VA_ARGS__)
-//#define CRITICAL(msg, ...)  qCritical(__FILE__ ".%s(" __LINESTR__ "): " msg, __FUNCTION__, ##__VA_ARGS__)
 #define ERROR(msg, ...)     printf   ("ERROR:" __FILE__ ".%s(" __LINESTR__ "): " msg, __FUNCTION__, ##__VA_ARGS__)
+#endif // QT
 
 #endif // LOG_H

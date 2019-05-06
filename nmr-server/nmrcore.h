@@ -23,12 +23,12 @@ typedef struct {
 
 typedef struct {
 	uint32_t pir;		//   0..31
-	uint16_t a_len; 	//  32..47
-	uint16_t b_len; 	//  48..63
-	uint32_t ab_dly;	//  64..95
-	uint32_t bb_dly;	//  96..127
-	uint16_t bb_cnt;	// 128..143
-	uint16_t _unused;	// 144..159
+	uint32_t a_len; 	//  32..63
+	uint32_t b_len; 	//  64..95
+	uint32_t ab_dly;	//  96..127
+	uint32_t bb_dly;	//  128..159
+	uint16_t bb_cnt;	// 160..175
+	uint16_t _unused;	// 176..191
 } PL_TxConfigRegister;
  
 
@@ -40,7 +40,7 @@ class NMRCore
 {
 public:
 	NMRCore();
-	~NMRCore();
+	virtual ~NMRCore();
 
 	int setFrequency(uint32_t freq);
 	int setRxFrequency(uint32_t freq);
@@ -71,7 +71,6 @@ private:
 	volatile PL_RxConfigRegister* 	_rxconfig;
 	volatile PL_StatusRegister* 	_status;
 	volatile PL_TxConfigRegister* 	_txconfig;
-	//volatile void	 *_map_rxdata = NULL;
 	volatile uint64_t *_map_rxdata;
 
 	// member vars
