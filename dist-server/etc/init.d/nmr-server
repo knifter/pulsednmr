@@ -1,0 +1,55 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:        nmr-server
+# Required-Start:  nmr-config
+# Required-Stop:   
+# Default-Start:   5
+# Default-Stop:
+# Short-Description: Start NMR Server
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+. /lib/lsb/init-functions
+
+DAEMON=/root/nmr-server
+PIDFILE=/var/run/nmr-server.pid
+OPTIONS=
+
+test -x $DAEMON || exit 5
+
+case $1 in
+        start)
+                log_daemon_msg "Starting NMR server" "nmr-server"
+                start-stop-daemon --start --quiet --oknodo --pidfile $PIDFILE --startas $DAEMON -- $OPTIONS 
+                status=$?
+                log_end_msg $status
+                ;;
+        stop)
+                log_daemon_msg "Stopping NMR server" "nmr-server"
+                start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE
+                log_end_msg $?
+                rm -f $PIDFILE
+                ;;
+        restart|force-reload)
+                $0 stop && sleep 2 && $0 start
+                ;;
+        try-restart)
+                if $0 status >/dev/null; then
+                        $0 restart
+                else
+                        exit 0
+                fi
+                ;;
+        reload)
+                exit 3
+                ;;
+        status)
+                status_of_proc $DAEMON "NMR server"
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart|try-restart|force-reload|status}"
+                exit 2
+                ;;
+esac

@@ -1,0 +1,14 @@
+2017-05-29:
+ - Client: All times to clks with 142.8 MHz/10 clk
+ - client-ui: increased A-width and B-width decimals to 1
+ - nmr-server: renamed usec to clks in nmrcore.cpp
+ - nmr-server: Alen, Blen 32bits
+ - nmr-server: version = 20170529
+ - Added phase adjust to client (PlotWidget and MainWindow)
+ - Changed scaling of PlotTimeWidget
+ - Removed (non-functional) Qt4 support, it useless
+ - Updated env (pyqt5 more clean, matplotlib looks better)
+2017-05-24:
+ - incr. Alen, Blen width to 32 bits
+ - set pulse_gen divider to 14 instead of 143
+ 

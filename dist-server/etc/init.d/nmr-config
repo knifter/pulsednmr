@@ -1,0 +1,38 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:        nmr-config
+# Required-Start:  
+# Required-Stop:   
+# Default-Start:   5
+# Default-Stop:
+# Short-Description: Configure PL fabric for NMR
+### END INIT INFO
+
+# PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+. /lib/lsb/init-functions
+
+DEVCFG=/sys/devices/soc0/amba/f8007000.devcfg
+BITFILE=/root/nmr.bit
+
+case $1 in
+        start|reload|restart|force-reload|try-restart)
+                # log_daemon_msg "Configuring PL fabric for NMR" "nmr"
+
+                cat $BITFILE >/dev/xdevcfg
+                echo fclk0 > $DEVCFG/fclk_export
+                echo 1 > $DEVCFG/fclk/fclk0/enable
+                echo 143000000 > $DEVCFG/fclk/fclk0/set_rate
+                status=$?
+
+                # log_end_msg $status
+                ;;
+        stop)
+                exit 0
+		;;
+        *)
+                echo "Usage: $0 {start|restart|try-restart|force-reload}"
+                exit 2
+                ;;
+esac
