@@ -449,13 +449,13 @@
                <number>0</number>
               </property>
               <property name="minimum">
-               <double>100.000000000000000</double>
+               <double>50.000000000000000</double>
               </property>
               <property name="maximum">
                <double>5000.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>100.000000000000000</double>
+               <double>10.000000000000000</double>
               </property>
               <property name="value">
                <double>999.000000000000000</double>
@@ -522,13 +522,13 @@
                <number>1</number>
               </property>
               <property name="minimum">
-               <double>0.500000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="maximum">
                <double>2000.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>1.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
               <property name="value">
                <double>9.000000000000000</double>
