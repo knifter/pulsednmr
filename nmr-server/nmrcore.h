@@ -28,7 +28,7 @@ typedef struct {
 	uint32_t ab_dly;	//  96..127
 	uint32_t bb_dly;	//  128..159
 	uint16_t bb_cnt;	// 160..175
-	uint16_t _unused;	// 176..191
+	uint16_t power_out;	// 176..191
 } PL_TxConfigRegister;
  
 
@@ -56,6 +56,7 @@ public:
 	int setTxABdly(uint32_t usec);
 	int setTxBBdly(uint32_t usec);
 	int setTxBBcnt(uint32_t count);
+	int setTxPower(uint32_t power);
 
 	int singleShot();
 protected:

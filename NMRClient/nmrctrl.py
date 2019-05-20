@@ -39,6 +39,7 @@ class Command(Enum):
     SET_BCOUNT = 9
     SET_RX_DELAY = 10
     KEEPALIVE = 11
+    SET_POWER = 12
 
 NMR_CORE_CLK = 142857132 # Hz of the Core clock (~143 MHz)
 NMR_PG_CLK = float(NMR_CORE_CLK) / 14 # Hz of the PulseGen Counter
@@ -65,6 +66,7 @@ class NMRCtrl(object):
         self._freq = 21E6
         self._rate_index = 6
         self._rate = RATES[self._rate_index]
+        self._power = 0
         self._awidth = 10
         self._bwidth = 10
         self._abdelay = 1000
@@ -85,7 +87,6 @@ class NMRCtrl(object):
         #        self.socket.connected.connect(self.connected)
         #        self.socket.readyRead.connect(self.read_data)
         #        self.socket.error.connect(self.display_error)
-
 
     def connect(self, host:str, port:int=DEFAULT_PORT):
         try:
@@ -127,6 +128,7 @@ class NMRCtrl(object):
 
     def configure(self):
         self.set_freq()
+        #self.set_power()
         self.set_awidth()
         self.set_rate()
         self.set_rxsize()
@@ -224,6 +226,16 @@ class NMRCtrl(object):
             self._send_cmd(Command.SET_RATE, self._rate_index)
 
     @property
+    def power(self): return self._power
+    def set_power(self, dbm = None):
+        if dbm != None:
+            self._power = dbm
+        factor = 3300*(dbm + 10)
+        log.debug("Set power %d dBm, f = %d" % (self._power, factor))
+        if self._connected:
+            self._send_cmd(Command.SET_POWER, int(factor))
+
+    @property
     def awidth(self): return self._awidth
     def set_awidth(self, usecs = None):
         if usecs != None:
@@ -231,7 +243,7 @@ class NMRCtrl(object):
             self._awidth = usecs
         if self._connected:
             clks = int(self._awidth * NMR_PG_CLK / 1E6 + 0.5)
-            print("A-wdith: %f us = %d clks, real time = %.8f" % (self._awidth, clks, clks / NMR_PG_CLK))
+            print("A-width: %f us = %d clks, real time = %.8f" % (self._awidth, clks, clks / NMR_PG_CLK))
             self._send_cmd(Command.SET_AWIDTH, clks)
 
     @property

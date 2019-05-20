@@ -14,10 +14,12 @@
 
 
 #define MEM_DEVICE			"/dev/mem"
+#define SLCR_UNLOCK			2
+#define FPGA0_CLK_CTRL		92
 #define MMAP_RXCONFIG 		0x40000000
-#define RESET_NONE	0x00
-#define RESET_RX 	0x01
-#define RESET_TX 	0x02
+#define RESET_NONE			0x00
+#define RESET_RX 			0x01
+#define RESET_TX 			0x02
 #define MMAP_RXSTATUS 		0x40001000
 #define MMAP_TXCONFIG 		0x40002000
 #define MMAP_RXDATA 		0x40010000
@@ -37,6 +39,8 @@
 #define PULSE_DLY_MAX		((int)2E7)		// >2E6 uS
 #define PULSE_BCNT_MIN		0
 #define PULSE_BCNT_MAX		10
+#define PULSE_POWER_MIN		0
+#define PULSE_POWER_MAX		65535
 #define RX_DELAY_MIN		0
 #define	RX_DELAY_MAX		50000000 		// 5 sec
 
@@ -86,8 +90,6 @@ NMRCore::NMRCore()
 
   	// Configure FCLK0 (143 MHz)
   	printf("Configuring PLL for 143 MHz.\n");
-#define SLCR_UNLOCK		2
-#define FPGA0_CLK_CTRL		92
   	slcr[SLCR_UNLOCK] 		= 0xDF0D; // @=8, SLCR_UNLOCK
   	slcr[FPGA0_CLK_CTRL] 	= (slcr[FPGA0_CLK_CTRL] & ~0x03F03F30) | 0x00100700;
   	// FPGA0_CLK_CTRL:
@@ -114,6 +116,7 @@ NMRCore::NMRCore()
 	printf("\tabdly: %p\n", &(_txconfig->ab_dly));
 	printf("\tbbdly: %p\n", &(_txconfig->bb_dly));
 	printf("\tbbcnt: %p\n", &(_txconfig->bb_cnt));
+	printf("\tpwrout: %p\n", &(_txconfig->pwrout));
 	printf("SizeOf(PL_ConfigTxRegister: %d\n", sizeof(*_txconfig));
 #endif
 
@@ -131,6 +134,7 @@ NMRCore::NMRCore()
 	setTxABdly(200);
 	setTxBBdly(200);
 	setTxBBcnt(0);
+	setTxPower((PULSE_POWER_MAX-PULSE_POWER_MIN)/2);
 }
 
 NMRCore::~NMRCore()
@@ -157,7 +161,7 @@ int NMRCore::setRxFrequency(uint32_t freq)
 		ERROR("setRxFrequency: _rxconfig == NULL\n");
 		return 1;
 	};
-	if(freq < FREQ_MIN | freq > FREQ_MAX)
+	if((freq < FREQ_MIN) | (freq > FREQ_MAX))
 	{
 		ERROR("setRxFrequency: Rx Freq out of range.\n");
 		return 2;
@@ -177,7 +181,7 @@ int NMRCore::setTxFrequency(uint32_t freq)
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(freq < FREQ_MIN | freq > FREQ_MAX)
+	if((freq < FREQ_MIN) | (freq > FREQ_MAX))
 	{
 		ERROR("Tx Freq out of range.");
 		return 2;
@@ -197,7 +201,7 @@ int NMRCore::setTxAlen(uint32_t clks)
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(clks > PULSE_LEN_MAX | clks < PULSE_LEN_MIN)
+	if((clks > PULSE_LEN_MAX) | (clks < PULSE_LEN_MIN))
 	{
 		ERROR("A-length %u out of range (%d, %d)\n", clks, PULSE_LEN_MIN, PULSE_LEN_MAX);
 		return 2;
@@ -206,6 +210,8 @@ int NMRCore::setTxAlen(uint32_t clks)
 	DBG("A-length: %u clks pulse.\n", clks);
 
 	_txconfig->a_len = clks;
+
+	return 0;
 }
 
 int NMRCore::setTxBlen(uint32_t clks)
@@ -215,7 +221,7 @@ int NMRCore::setTxBlen(uint32_t clks)
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(clks > PULSE_LEN_MAX | clks < PULSE_LEN_MIN)
+	if((clks > PULSE_LEN_MAX) | (clks < PULSE_LEN_MIN))
 	{
 		ERROR("B-length %u out of range (%d, %d)\n", clks, PULSE_LEN_MIN, PULSE_LEN_MAX);
 		return 2;
@@ -224,6 +230,8 @@ int NMRCore::setTxBlen(uint32_t clks)
 	DBG("B-length: %u clks pulse.\n", clks);
 
 	_txconfig->b_len = clks;
+
+	return 0;
 }
 
 int NMRCore::setTxABdly(uint32_t clks)
@@ -233,7 +241,7 @@ int NMRCore::setTxABdly(uint32_t clks)
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(clks > PULSE_DLY_MAX | clks < PULSE_DLY_MIN)
+	if((clks > PULSE_DLY_MAX) | (clks < PULSE_DLY_MIN))
 	{
 		ERROR("A-to-B-Delay %u out of range (%d, %d)\n", clks, PULSE_DLY_MIN, PULSE_DLY_MAX);
 		return 2;
@@ -242,6 +250,8 @@ int NMRCore::setTxABdly(uint32_t clks)
 	DBG("A-to-B-Delay: %u clks.\n", clks);
 
 	_txconfig->ab_dly = clks;
+
+	return 0;
 }
 
 int NMRCore::setTxBBdly(uint32_t clks)
@@ -251,7 +261,7 @@ int NMRCore::setTxBBdly(uint32_t clks)
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(clks > PULSE_DLY_MAX | clks < PULSE_DLY_MIN)
+	if((clks > PULSE_DLY_MAX) | (clks < PULSE_DLY_MIN))
 	{
 		ERROR("B-to-B-Delay %u out of range (%d, %d)\n", clks, PULSE_DLY_MIN, PULSE_DLY_MAX);
 		return 2;
@@ -260,6 +270,8 @@ int NMRCore::setTxBBdly(uint32_t clks)
 	DBG("B-to-B-Delay: %u clks.\n", clks);
 
 	_txconfig->bb_dly = clks;
+
+	return 0;
 }
 
 int NMRCore::setTxBBcnt(uint32_t count)
@@ -269,7 +281,7 @@ int NMRCore::setTxBBcnt(uint32_t count)
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if(count > PULSE_BCNT_MAX | count < PULSE_BCNT_MIN)
+	if((count > PULSE_BCNT_MAX) | (count < PULSE_BCNT_MIN))
 	{
 		ERROR("B-Count %u out of range (%d, %d)\n", count, PULSE_BCNT_MIN, PULSE_BCNT_MAX);
 		return 2;
@@ -278,6 +290,28 @@ int NMRCore::setTxBBcnt(uint32_t count)
 	DBG("B-Count: %u pulses.\n", count);
 
 	_txconfig->bb_cnt = count;
+
+	return 0;
+}
+
+int NMRCore::setTxPower(uint32_t power)
+{
+	if(!_txconfig)
+	{
+		ERROR("_txconfig == NULL\n");
+		return 1;
+	};
+	if((power > PULSE_POWER_MAX) | (power < PULSE_POWER_MIN))
+	{
+		ERROR("Power-out %u out of range (%d, %d)\n", power, PULSE_POWER_MIN, PULSE_POWER_MAX);
+		return 2;
+	}
+
+	DBG("Power-out multiplier: %u\n", power);
+
+	_txconfig->power_out = power;
+
+	return 0;
 }
 
 
@@ -356,7 +390,7 @@ int NMRCore::setRxDelay(uint32_t clks)
 		ERROR("_rxconfig == NULL\n");
 		return 1;
 	};
-	if(clks > RX_DELAY_MAX | clks < RX_DELAY_MIN)
+	if((clks > RX_DELAY_MAX) | (clks < RX_DELAY_MIN))
 	{
 		ERROR("Rx-Delay %u clks out of range (%d, %d)\n", clks, RX_DELAY_MIN, RX_DELAY_MAX);
 		return 2;
@@ -387,7 +421,6 @@ int NMRCore::singleShot()
 	DBG("Start Tx.\n");
 	_rxconfig->reset = RESET_RX | RESET_TX;
 
-
 	// enable Rx & Tx
 	_rxconfig->reset = RESET_NONE;
 	DBG("Start Rx.\n");
@@ -397,7 +430,7 @@ int NMRCore::singleShot()
 #ifdef DEBUG_READLOOP
 	DBG("RxDelay discarding %u samples.\n", _rx_delay);
 #endif // DEBUG_READLOOP
-	uint32_t needed = _rx_delay;
+	int32_t needed = _rx_delay;
 	uint64_t dummy;
 	uint32_t check = 0;
 	while(needed)
@@ -418,8 +451,10 @@ int NMRCore::singleShot()
 #endif // DEBUG_READLOOP
 	
 		// discard fifo values by reading into a dummy
-        for(int j = 0; j < len; ++j) 
+        for(int j = 0; j < len; ++j)
+        {
         	dummy = *_map_rxdata;
+        };
 
 		needed -= len;
 		check += len;
@@ -455,8 +490,10 @@ int NMRCore::singleShot()
 #endif
 		if(len > needed)
 			len = needed;
-    for(int j = 0; j < needed; ++j) 
-     	_rx_buffer[j] = *_map_rxdata;
+    	for(int j = 0; j < needed; ++j) 
+    	{
+     		_rx_buffer[j] = *_map_rxdata;
+     	};
 		rx_total += len;
 	};
 #ifdef DEBUG_READLOOP

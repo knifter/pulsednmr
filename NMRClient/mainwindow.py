@@ -70,6 +70,7 @@ class MainWindow(QMainWindow):
         # Mode 1
         self.freqValue.valueChanged.connect(self.set_freq)
         self.awidthValue.valueChanged.connect(self.set_awidth)
+        self.powerValue.valueChanged.connect(self.set_power)
         # Mode 2
         self.bwidthValue.valueChanged.connect(self.set_bwidth)
         self.abdelayValue.valueChanged.connect(self.set_abdelay)
@@ -225,6 +226,10 @@ class MainWindow(QMainWindow):
         self.nmr.set_awidth(width_us)
         self.plotTimeWidget.setIgnore(us=width_us)
         self.plotFFTWidget.setIgnore(us=width_us)
+
+    def set_power(self, power):
+        self.checkInputs()
+        self.nmr.set_power(power)
 
     def set_bwidth(self, width_us):
         self.checkInputs()

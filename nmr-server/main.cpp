@@ -23,9 +23,7 @@ NMRCore* nmr = NULL;
 int main(int argc, char *argv[])
 {
 	struct sockaddr_in addr;
-	uint32_t command, value;
-	char buffer[65536];
-	int i, size, yes = 1;
+	int yes = 1;
 
 	LOG("NMR Server Daemon version %s\n", VERSION);
 
@@ -193,6 +191,10 @@ int handleConnection(int sock_client)
 			case CMD_KEEPALIVE:
 				LOG("Keep-Alive packet received.\n");
 				reply.result = RES_OK;
+				break;
+			case CMD_SET_POWER:
+				LOG("Set Power %d\n", command.param);
+				reply.result = nmr->setTxPower(command.param) ? RES_ERROR : RES_OK;
 				break;
 			default:
 				WARNING("Unknown command code: %d\n", command.commandcode);

@@ -19,7 +19,8 @@ typedef enum CommandCode_enum : uint32_t {
     CMD_SET_BBDLY 	= 8,
     CMD_SET_BBCNT 	= 9,
     CMD_SET_RX_DELAY= 10,
-    CMD_KEEPALIVE	= 11
+    CMD_KEEPALIVE	= 11,
+    CMD_SET_POWER	= 12,
 } CommandCode;
 
 typedef struct {

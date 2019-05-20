@@ -363,45 +363,11 @@
             <string>Mode 1: Half-Time</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
+
             <item row="0" column="0">
              <widget class="QLabel" name="freqLlabel">
               <property name="text">
                <string>Frequency</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QDoubleSpinBox" name="awidthValue">
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-              <property name="suffix">
-               <string extracomment="periods"> us</string>
-              </property>
-              <property name="decimals">
-               <number>1</number>
-              </property>
-              <property name="minimum">
-               <double>0.100000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>1000.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>0.100000000000000</double>
-              </property>
-              <property name="value">
-               <double>9.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="awidthLabel">
-              <property name="text">
-               <string>A width</string>
               </property>
              </widget>
             </item>
@@ -427,6 +393,7 @@
               </property>
              </widget>
             </item>
+
             <item row="1" column="0">
              <widget class="QLabel" name="deltaLabel">
               <property name="text">
@@ -462,6 +429,79 @@
               </property>
              </widget>
             </item>
+
+            <item row="2" column="0">
+             <widget class="QLabel" name="awidthLabel">
+              <property name="text">
+               <string>A width</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QDoubleSpinBox" name="awidthValue">
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="suffix">
+               <string extracomment="periods"> us</string>
+              </property>
+              <property name="decimals">
+               <number>1</number>
+              </property>
+              <property name="minimum">
+               <double>0.100000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>1000.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
+              </property>
+              <property name="value">
+               <double>9.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+
+            <item row="3" column="0">
+             <widget class="QLabel" name="powerLabel">
+              <property name="text">
+               <string>Output Power</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QDoubleSpinBox" name="powerValue">
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="suffix">
+               <string extracomment="periods"> dBm</string>
+              </property>
+              <property name="decimals">
+               <number>0</number>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>10.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
+              </property>
+              <property name="value">
+               <double>0.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+
            </layout>
           </widget>
          </item>

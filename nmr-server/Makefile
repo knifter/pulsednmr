@@ -2,7 +2,7 @@
 # CXX=arm-xilinx-linux-gnueabi-g++
 CXX=arm-linux-gnueabihf-g++
 # CXXFLAGS= -static -std=c++11 -O3 -march=armv7-a -mcpu=cortex-a9 -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard -mfp=vfpv3-fp16
-CXXFLAGS= -static -std=c++11 -O3 -march=armv7-a -mcpu=cortex-a9 -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard
+CXXFLAGS= -static -std=c++11 -O3 -march=armv7-a -mcpu=cortex-a9 -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard -Wall
 LIBS=-lm -lpthread
 DEPS = 
 TARGET = nmr-server
