@@ -231,6 +231,8 @@ class NMRCtrl(object):
         if dbm != None:
             self._power = dbm
         factor = 3300*(dbm + 10)
+        if factor > 63535:
+            factor = 63535
         log.debug("Set power %d dBm, f = %d" % (self._power, factor))
         if self._connected:
             self._send_cmd(Command.SET_POWER, int(factor))
