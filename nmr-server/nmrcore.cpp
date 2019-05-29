@@ -18,17 +18,17 @@
 #define FPGA0_CLK_CTRL		92
 #define MMAP_RXCONFIG 		0x40000000
 #define RESET_NONE			0x00
-#define RESET_RX 			0x01
+#define RESET_DDS 			0x01
 #define RESET_TX 			0x02
 #define MMAP_RXSTATUS 		0x40001000
 #define MMAP_TXCONFIG 		0x40002000
 #define MMAP_RXDATA 		0x40010000
 #define MMAP_SLCR			0xF8000000		// ?
 #define DAC_SAMPLE_RATE     125000000		// 125 MSPS
-#define TX_BUFSIZE          50000           // Configures buffer size (PL)
+//#define TX_BUFSIZE          50000           // Configures buffer size (PL)
 #define RX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
 #define TX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
-#define FREQ_MIN            (DAC_SAMPLE_RATE/TX_BUFSIZE)
+#define FREQ_MIN            (10)
 #define FREQ_MAX            (DAC_SAMPLE_RATE/2)
 #define NMR_CORE_CLK		142857132
 #define NMR_PG_CLK			(NMR_CORE_CLK / 14.0)
@@ -120,9 +120,6 @@ NMRCore::NMRCore()
 	printf("SizeOf(PL_ConfigTxRegister: %d\n", sizeof(*_txconfig));
 #endif
 
-	// Put us in reset
-	// *_reg_rx_rst |= 1; *_reg_tx_rst |= 1;
-
 	// Set some defaults
 	setFrequency(1E6);
 	setRxRate(RATE_2500K);
@@ -135,6 +132,11 @@ NMRCore::NMRCore()
 	setTxBBdly(200);
 	setTxBBcnt(0);
 	setTxPower((PULSE_POWER_MAX-PULSE_POWER_MIN)/2);
+
+    // Align the DDS's, keep the transmitter in reset
+    _rxconfig->reset = RESET_DDS | RESET_TX;
+    sleep(1);
+    _rxconfig->reset = RESET_TX;
 }
 
 NMRCore::~NMRCore()
@@ -419,9 +421,10 @@ int NMRCore::singleShot()
 
 	// reset Rx&Tx cores
 	DBG("Start Tx.\n");
-	_rxconfig->reset = RESET_RX | RESET_TX;
+	_rxconfig->reset = RESET_TX;
+    sleep(1);
 
-	// enable Rx & Tx
+	// Pulse sequence is automatically started after reset
 	_rxconfig->reset = RESET_NONE;
 	DBG("Start Rx.\n");
 
@@ -432,6 +435,7 @@ int NMRCore::singleShot()
 #endif // DEBUG_READLOOP
 	int32_t needed = _rx_delay;
 	uint64_t dummy;
+    dummy = dummy; // unused supression
 	uint32_t check = 0;
 	while(needed)
 	{
@@ -504,7 +508,7 @@ int NMRCore::singleShot()
 #endif // DEBUG_READLOOP
 
 	// stop the receiver
-	_rxconfig->reset = RESET_RX | RESET_TX;
+	// _rxconfig->reset = RESET_RX | RESET_TX;
 
 	DBG("Total %d complex-floats read. %d Bytes.\n", rx_total, rx_total*2*sizeof(float));
 
