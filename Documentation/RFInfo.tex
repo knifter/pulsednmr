@@ -1,0 +1,170 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+
+\title{NMR Data}
+\author{Tijs van Roon}
+\date{May 2019}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+    \pagenumbering{gobble}
+    \maketitle
+%    \newpage
+    \pagenumbering{arabic}
+\section{Theory}
+\subsection{Magnetic field in coil}
+For a single layer air core the field strength, B, is:
+\begin{equation}
+    B = \mu n I = \mu \frac{N}{l} I
+\end{equation}
+With n the turns ratio ($ n= N/l $), N the amount of turns, l the total length and I the current.
+
+The inductance L for circular loop of wire is given by:
+\begin{equation}
+    L = \mu \pi r^2\frac{ N^2  }{ l }
+\end{equation}
+
+\section{Measurements \& Data}
+\subsection{LNA Measurements}
+\subsubsection{UK Pre-amplifiers}
+Measurements with Bode 100 with 20 dB attenuation at the output. Output power ranges from -30 to 13 dBm. Adding the -20 dBm attenuator amplifier input power varies between -50 to -7 dBm.
+
+Before measurements were done the three transformers in the amplifiers were adjusted: 
+The first transformer was adjusted to make the input impedance equal approx. 50 Ohms and then the other coils were adjusted such that the input reflection dip aligned with the peak in output power. Significant gain increase compared to stock was observed.
+
+Measurements were performed with a through (and reflection) measurement starting with a low power and increasing the power until 1 dB compression in the gain was observed. As the gain on this amplifier is adjustable this was done for various gain levels.
+
+\paragraph{}
+Amplifier "A6":\\
+    Gain 45: \\
+    1 dB compression @ -18-20 dBm = -38 dBm input power \\
+    Max output power -35+44 = +9 dBm =~ 0.63 $V_{rms}$ \\
+    \\
+    Gain 30: \\
+    1 dB compression @ -3-20 dBm = -23 dBm input power \\
+    Max output power -23+30 = +7 dBm \\
+
+\paragraph{}
+Amplifier "A5":\\
+    Gain 45: \\
+    1 dB compression @ -18-20 dBm = -38 dBm input power \\
+    Max output power -35+44 = +9 dBm \\
+    \\
+    Gain 30: \\
+    1 dB compression @ -3-20 dBm = -23 dBm input power \\
+    Max output power -23+30 = +7 dBm \\
+
+\paragraph{}
+Both amplifiers appear to perform identical.
+
+\subsubsection{AU-1054 Miteq/Narda}
+From Datasheet:
+\begin{table}[H]
+    % \centering
+    \begin{tabular}{l@{ = }l}
+        Frequency range & 1 .. 500 MHz \\
+        Gain & 30 dB \\ 
+        VSWE & 2.0:1 \\
+        NF & ~1.4 \\ 
+        $ P_{1dB} $ & 8 dBm \\
+        Supply voltage & 15V \\
+        Supply current & 50 mA \\
+    \end{tabular}
+    \caption{Datasheet values for AU-1054}
+    \label{tab:DS-AU-1054}
+\end{table}
+
+\paragraph{}
+Therefor the 1dB compression point input power should be at:
+\begin{equation}
+ P_{in, 1dB} = 8 dBm - 30 dBm = -22 dBm = <30mVpk
+\end{equation}
+
+\subsection{HF Power Amplifiers}
+\subsubsection{Measurements method}
+The measurements were performed with a Bode 100 analyser. An attenuator was placed between the output of the power amplifier and the input 2 of the Bode 100. For the 5W amplifier a 30 dB attenuator was used and for the 20W 40dB of attenuation was used. In both cases a through calibration was done with the attenuation stack in the signal path. All measurements and data are specified around 22 MHz. Other frequencies were not marked down.
+
+\subsubsection{"5W/4U HF Power Amplifier"}
+    A 30 dB attenuator was used to supress the output of the amplifier.
+    Amplification starts (G = 0dB) at -8 dBm input power.\\
+    Peak gain is 33 dB at 2 dBm input power.
+
+    \paragraph{}
+    Measurements:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|r|r|r|}
+            \hline
+            $ P_{in} [dBm] $ & G & $P_{out} [dBm] $ \\
+            \hline 
+             -8 & 0 & -8 \\
+             -5 & 26 & 21 \\
+             0 & 33 & 33 \\
+             5 & 32.5 & 37.5 \\
+             10 & 26 & 36 \\
+             13 & 23 & 36 \\
+            \hline
+        \end{tabular}
+        % \caption{HF Amp 1: Gain vs Input Power}
+        \label{tab:my_label}
+    \end{table}
+
+\paragraph{}
+It would seem that 5-10 dBm, $ 0.56V_{pk} - 1V_{pk} $ is the right amount of input power for this amplifier.
+
+\subsubsection{"20W NMR Power Amplifier / 2U"}
+    40 dB of attenuation was added to the output of the amplifier. 
+    Amplifier gain starts at 1.8 MHz, peaks at 30MHz and then drops off.
+    Peak gain is 44.6 at -25 dBm input power but maximum power output is at 0 dBm input power with 42.6 dBm output power, almost 20W.
+    
+    \paragraph{}
+    Measurements:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|r|r|r|}
+            \hline
+            $ P_{in} [dBm] $ & G & $P_{out} [dBm] $ \\
+            \hline 
+            -30 & 30 & 0\\
+            -25 & 44.6 & 19.6 \\
+            -20 & 44.5 & 24.5 \\
+            -15 & 44.4 & 29.4 \\
+            -10 & 44.1 & 34.1 \\
+            -5 & 44.0 & 39 \\
+            -2 & 43.6 & 41.6 \\
+            0 & 42.6 & 42.6 \\
+            5 & 36.8 & 41.8 \\
+            10 & 31.3 & 41.3 \\
+            \hline
+        \end{tabular}
+        % \caption{HF Amp 1: Gain vs Input Power}
+        \label{tab:my_label}
+    \end{table}
+    
+\paragraph{}
+0 dBm, $0.316V_{pk}$ seems to be the required input power.
+
+\section{Passive Switch}
+
+\subsubsection{Partnumbers}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|l|l|l|}
+        \hline
+         Designator & Value & Partnumber & Odernr \\
+         \hline
+         C1, C2 & 140pF & 12101U141JAT2A & Mouser 581-12101U141JAT2A \\
+         L1 & 360nH & FDUE1040D-H-R36M=P3 & Mouser 81-FDUE1040DHR36MP3 \\
+         C3 & 2x180pF & 251R15S181JV4E & Farnell 1885453 \\
+         D3, D4 & Schottky & MBRS1100T3 or & - \\
+                &          & STPS1L30U & Farnell 1467550 \\
+         L2, L3 & 1.8 $\muH$ & NLV32T-1R8J-EF & Farnell 2747889\\
+        \hline         
+    \end{tabular}
+    \caption{Passive Switch partnumbers}
+    \label{tab:ps-parts}
+\end{table}
+\end{document}
