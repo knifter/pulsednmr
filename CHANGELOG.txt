@@ -1,3 +1,19 @@
+2020-10-21:
+ - Vivado 2020.1
+
+2019-05-28:
+ - Rx Mixer output back to 24 bits (copied from old project), but left the data width converter out, float converter works with all 26 bits from FIR
+
+2019-05-20:
+ - Switched to GIT
+ - Switched to .tcl project control
+ - Added amplitude control
+ - Switched FIFO to Stream FIFO in Rx
+ - Switched to xilinx-cores for known cores
+ ! Changed Rx Mixer output width to 32-bits and kept this width until the float converter
+ - Reset both DDS on Tx/RxReset to sync phase
+ 
+
 2017-05-29:
  - Client: All times to clks with 142.8 MHz/10 clk
  - client-ui: increased A-width and B-width decimals to 1
@@ -8,6 +24,7 @@
  - Changed scaling of PlotTimeWidget
  - Removed (non-functional) Qt4 support, it useless
  - Updated env (pyqt5 more clean, matplotlib looks better)
+
 2017-05-24:
  - incr. Alen, Blen width to 32 bits
  - set pulse_gen divider to 14 instead of 143
