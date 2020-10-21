@@ -218,7 +218,7 @@ set obj [get_filesets utils_1]
 
 # Adding sources referenced in BDs, if not already added
 if { [get_files nmrpulsesequencer.v] == "" } {
-  import_files -quiet -fileset sources_1 D:/Dropbox/NMR/Vivado/src/nmrpulsesequencer.v
+  import_files -quiet -fileset sources_1 ${origin_dir}/../src/nmrpulsesequencer.v
 }
 
 
@@ -860,7 +860,7 @@ proc create_hier_cell_tx_0 { parentCell nameHier } {
    CONFIG.Negative_Sine {false} \
    CONFIG.Noise_Shaping {Taylor_Series_Corrected} \
    CONFIG.Output_Frequency1 {0} \
-   CONFIG.Output_Selection {Cosine} \
+   CONFIG.Output_Selection {Sine} \
    CONFIG.Output_Width {14} \
    CONFIG.PINC1 {0} \
    CONFIG.Parameter_Entry {Hardware_Parameters} \
