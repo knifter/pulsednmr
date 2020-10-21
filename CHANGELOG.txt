@@ -1,5 +1,6 @@
 2020-10-21:
  - Vivado 2020.1
+ - Route Tx output through multiplier
 
 2019-05-28:
  - Rx Mixer output back to 24 bits (copied from old project), but left the data width converter out, float converter works with all 26 bits from FIR
