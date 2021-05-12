@@ -1,3 +1,6 @@
+2021-04-29:
+ - Vivado/Vitis 2020.2 under Linux conversion
+
 2020-10-21:
  - Vivado 2020.1
  - Route Tx output through multiplier
