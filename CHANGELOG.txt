@@ -1,3 +1,22 @@
+2021-05-TODO:
+ - Replace config/status registers core which supports >32bits (suspected bug in old version)
+ - Convert NMRPulseGenerator to packaged IP in localcores
+ - Add blank signal to NMRPulseGenerator
+
+2021-05-12:
+ - xdc: ADC pins added, new RP ADC core with data_width=14 (Pavel update)
+ - xdc: DAC port dac_data_o: set SLEW_FAST to SLEW_SLOW and DRIVE 8->4
+ - xdc: add ports: Vp_Vn_v_*, Vaux*, exp_n_tri_io[], daisy* 
+ - Updated Red Pitaya ADC core to Pavels (v3) version: clk removed, 16 bit support)
+ 	ADC v3: clk to PLL, to DAC with two phases, to logic instead of local 143MHz
+ - Updated Red Pitaya DAC core to Pavels (v2) version:
+	DAC v2: add wrt_clk, SAME_EDGE, switched D1/D2 data lines around
+ - Added Clocking wizard to generate 125, 250_a, 250_b clocks for adc core and DAC ports 
+ - added exp_p/m_tri_io ports, connected to sync, pulse_on (n = inverted)
+ - removed heartbeat leds, connected leds to exp_p.. port, same order
+ - removed from src and auto-generated _wrapper.v
+ - upstream cores(tvr): update Stream Reader, Config reg, Status reg, Stream Variable
+
 2021-04-29:
  - Vivado/Vitis 2020.2 under Linux conversion
 
