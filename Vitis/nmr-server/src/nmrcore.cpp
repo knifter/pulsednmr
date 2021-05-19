@@ -42,8 +42,9 @@
 #define PULSE_POWER_MIN		0
 #define PULSE_POWER_MAX		65535
 #define RX_DELAY_MIN		0
-#define	RX_DELAY_MAX		50000000 		// 5 sec
-
+#define	RX_DELAY_MAX		5000000 		// 5 sec
+#define BLANK_LEN_MIN		0
+#define BLANK_LEN_MAX		5000000			// 5 sec
 
 NMRCore::NMRCore()
 {
@@ -117,6 +118,7 @@ NMRCore::NMRCore()
 	printf("\tbbdly: %p\n", &(_txconfig->bb_dly));
 	printf("\tbbcnt: %p\n", &(_txconfig->bb_cnt));
 	printf("\tpwrout: %p\n", &(_txconfig->pwrout));
+	printf("\tblanklen: %p\n", &(_txconfig->blank_len));
 	printf("SizeOf(PL_ConfigTxRegister: %d\n", sizeof(*_txconfig));
 #endif
 
@@ -132,12 +134,13 @@ NMRCore::NMRCore()
 	setTxBBdly(200);
 	setTxBBcnt(0);
 	setTxPower((PULSE_POWER_MAX-PULSE_POWER_MIN)/2);
+	setTxBlankLen(100);
 
     // Align the DDS's, keep the transmitter in reset
     _rxconfig->reset = RESET_DDS | RESET_TX;
     sleep(1);
     _rxconfig->reset = RESET_TX;
-}
+};
 
 NMRCore::~NMRCore()
 {
@@ -146,7 +149,7 @@ NMRCore::~NMRCore()
 	_rxconfig = NULL;
 	_status = NULL;
 	_txconfig = NULL;
-}
+};
 
 int NMRCore::setFrequency(uint32_t freq)
 {
@@ -154,7 +157,7 @@ int NMRCore::setFrequency(uint32_t freq)
 	if(res)
 		return res;
 	return setTxFrequency(freq);
-}
+};
 
 int NMRCore::setRxFrequency(uint32_t freq)
 {
@@ -174,7 +177,7 @@ int NMRCore::setRxFrequency(uint32_t freq)
 	_rxconfig->pir = pir;
 
 	return 0;
-}
+};
 
 int NMRCore::setTxFrequency(uint32_t freq)
 {
@@ -196,85 +199,85 @@ int NMRCore::setTxFrequency(uint32_t freq)
 	return 0;
 }
 
-int NMRCore::setTxAlen(uint32_t clks)
+int NMRCore::setTxAlen(uint32_t usec)
 {
 	if(!_txconfig)
 	{
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if((clks > PULSE_LEN_MAX) | (clks < PULSE_LEN_MIN))
+	if((usec > PULSE_LEN_MAX) | (usec < PULSE_LEN_MIN))
 	{
-		ERROR("A-length %u out of range (%d, %d)\n", clks, PULSE_LEN_MIN, PULSE_LEN_MAX);
+		ERROR("A-length %u out of range (%d, %d)\n", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
 		return 2;
-	}
+	};
 
-	DBG("A-length: %u clks pulse.\n", clks);
+	DBG("A-length: %u usec pulse.\n", usec);
 
-	_txconfig->a_len = clks;
+	_txconfig->a_len = usec;
 
 	return 0;
-}
+};
 
-int NMRCore::setTxBlen(uint32_t clks)
+int NMRCore::setTxBlen(uint32_t usec)
 {
 	if(!_txconfig)
 	{
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if((clks > PULSE_LEN_MAX) | (clks < PULSE_LEN_MIN))
+	if((usec > PULSE_LEN_MAX) | (usec < PULSE_LEN_MIN))
 	{
-		ERROR("B-length %u out of range (%d, %d)\n", clks, PULSE_LEN_MIN, PULSE_LEN_MAX);
+		ERROR("B-length %u out of range (%d, %d)\n", usec, PULSE_LEN_MIN, PULSE_LEN_MAX);
 		return 2;
-	}
+	};
 
-	DBG("B-length: %u clks pulse.\n", clks);
+	DBG("B-length: %u usec pulse.\n", usec);
 
-	_txconfig->b_len = clks;
+	_txconfig->b_len = usec;
 
 	return 0;
-}
+};
 
-int NMRCore::setTxABdly(uint32_t clks)
+int NMRCore::setTxABdly(uint32_t usec)
 {
 	if(!_txconfig)
 	{
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if((clks > PULSE_DLY_MAX) | (clks < PULSE_DLY_MIN))
+	if((usec > PULSE_DLY_MAX) | (usec < PULSE_DLY_MIN))
 	{
-		ERROR("A-to-B-Delay %u out of range (%d, %d)\n", clks, PULSE_DLY_MIN, PULSE_DLY_MAX);
+		ERROR("A-to-B-Delay %u out of range (%d, %d)\n", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
 		return 2;
-	}
+	};
 
-	DBG("A-to-B-Delay: %u clks.\n", clks);
+	DBG("A-to-B-Delay: %u usec.\n", usec);
 
-	_txconfig->ab_dly = clks;
+	_txconfig->ab_dly = usec;
 
 	return 0;
-}
+};
 
-int NMRCore::setTxBBdly(uint32_t clks)
+int NMRCore::setTxBBdly(uint32_t usec)
 {
 	if(!_txconfig)
 	{
 		ERROR("_txconfig == NULL\n");
 		return 1;
 	};
-	if((clks > PULSE_DLY_MAX) | (clks < PULSE_DLY_MIN))
+	if((usec > PULSE_DLY_MAX) | (usec < PULSE_DLY_MIN))
 	{
-		ERROR("B-to-B-Delay %u out of range (%d, %d)\n", clks, PULSE_DLY_MIN, PULSE_DLY_MAX);
+		ERROR("B-to-B-Delay %u out of range (%d, %d)\n", usec, PULSE_DLY_MIN, PULSE_DLY_MAX);
 		return 2;
 	}
 
-	DBG("B-to-B-Delay: %u clks.\n", clks);
+	DBG("B-to-B-Delay: %u usec.\n", usec);
 
-	_txconfig->bb_dly = clks;
+	_txconfig->bb_dly = usec;
 
 	return 0;
-}
+};
 
 int NMRCore::setTxBBcnt(uint32_t count)
 {
@@ -287,14 +290,14 @@ int NMRCore::setTxBBcnt(uint32_t count)
 	{
 		ERROR("B-Count %u out of range (%d, %d)\n", count, PULSE_BCNT_MIN, PULSE_BCNT_MAX);
 		return 2;
-	}
+	};
 
 	DBG("B-Count: %u pulses.\n", count);
 
 	_txconfig->bb_cnt = count;
 
 	return 0;
-}
+};
 
 int NMRCore::setTxPower(uint32_t power)
 {
@@ -307,15 +310,34 @@ int NMRCore::setTxPower(uint32_t power)
 	{
 		ERROR("Power-out %u out of range (%d, %d)\n", power, PULSE_POWER_MIN, PULSE_POWER_MAX);
 		return 2;
-	}
+	};
 
 	DBG("Power-out multiplier: %u\n", power);
 
 	_txconfig->power_out = power;
 
 	return 0;
-}
+};
 
+int NMRCore::setTxBlankLen(uint32_t usec)
+{
+	if(!_txconfig)
+	{
+		ERROR("_txconfig == NULL\n");
+		return 1;
+	};
+	if((usec > BLANK_LEN_MAX) | (usec < BLANK_LEN_MIN))
+	{
+		ERROR("Blank-len %u out of range (%d, %d)\n", usec, BLANK_LEN_MAX, BLANK_LEN_MIN);
+		return 2;
+	};
+
+	DBG("Blank length: %u usec\n", usec);
+
+	_txconfig->blank_len = usec;
+
+	return 0;
+};
 
 int NMRCore::setRxRate(NMRDecimationRate rate)
 {
@@ -434,7 +456,7 @@ int NMRCore::singleShot()
 	DBG("RxDelay discarding %u samples.\n", _rx_delay);
 #endif // DEBUG_READLOOP
 	int32_t needed = _rx_delay;
-	uint64_t dummy;
+	uint64_t dummy = 0;
     dummy = dummy; // unused supression
 	uint32_t check = 0;
 	while(needed)
