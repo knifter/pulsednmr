@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <spirit:vendor>tijs-roon</spirit:vendor>
+  <spirit:library>user</spirit:library>
+  <spirit:name>NMRPulseSequencer</spirit:name>
+  <spirit:version>1.1</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>rst</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>clk</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_RESET</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_RESET">rst</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>xilinx_verilogsynthesis</spirit:name>
+        <spirit:displayName>Verilog Synthesis</spirit:displayName>
+        <spirit:envIdentifier>verilogSource:vivado.xilinx.com:synthesis</spirit:envIdentifier>
+        <spirit:language>verilog</spirit:language>
+        <spirit:modelName>NMRPulseSequencer</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_verilogsynthesis_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>9214331e</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_verilogbehavioralsimulation</spirit:name>
+        <spirit:displayName>Verilog Simulation</spirit:displayName>
+        <spirit:envIdentifier>verilogSource:vivado.xilinx.com:simulation</spirit:envIdentifier>
+        <spirit:language>verilog</spirit:language>
+        <spirit:modelName>NMRPulseSequencer</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_verilogbehavioralsimulation_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>9214331e</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_xpgui</spirit:name>
+        <spirit:displayName>UI Layout</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:xgui.ui</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_xpgui_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>fc1ae3e8</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_testbench</spirit:name>
+        <spirit:displayName>Test Bench</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:simulation.testbench</spirit:envIdentifier>
+        <spirit:modelName>nmrpulsesequencer_test</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_testbench_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>58e1daa2</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rst</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>enbl</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>Alen_in</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>Blen_in</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>ABdly_in</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>BBdly_in</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>BBcnt_in</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">15</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>BlankLen_in</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>sync_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pulse_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>blank_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>xilinx_verilogsynthesis_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/nmrpulsesequencer.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_9214331e</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/nmrpulsesequencer.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>xgui/NMRPulseSequencer_v1_1.tcl</spirit:name>
+        <spirit:fileType>tclSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_fc1ae3e8</spirit:userFileType>
+        <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_testbench_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/nmrpulsesequencer_test.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_implementation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_synthesis</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/nmrpulsesequencer_test_behav.wcfg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+        <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:description>NMR Pulse Sequence Generator</spirit:description>
+  <spirit:parameters>
+    <spirit:parameter>
+      <spirit:name>Component_Name</spirit:name>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">NMRPulseSequencer_v1_1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>US_DIVIDER</spirit:name>
+      <spirit:displayName>clks/us Divider Value</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.US_DIVIDER">125</spirit:value>
+    </spirit:parameter>
+  </spirit:parameters>
+  <spirit:vendorExtensions>
+    <xilinx:coreExtensions>
+      <xilinx:supportedFamilies>
+        <xilinx:family xilinx:lifeCycle="Production">zynq</xilinx:family>
+      </xilinx:supportedFamilies>
+      <xilinx:taxonomies>
+        <xilinx:taxonomy>/BaseIP</xilinx:taxonomy>
+      </xilinx:taxonomies>
+      <xilinx:displayName>NMRPulseSequencer_v1.1</xilinx:displayName>
+      <xilinx:vendorDisplayName>Tijs van Roon</xilinx:vendorDisplayName>
+      <xilinx:coreRevision>2</xilinx:coreRevision>
+      <xilinx:upgrades>
+        <xilinx:canUpgradeFrom>user.org:user:NMRPulseSequencer:1.1</xilinx:canUpgradeFrom>
+      </xilinx:upgrades>
+      <xilinx:coreCreationDateTime>2021-05-19T11:19:44Z</xilinx:coreCreationDateTime>
+      <xilinx:tags>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c4dad15_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32f4288b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4328d337_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71f2c6ea_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@105f2745_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@315bc04a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32142865_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3dfe1e7e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f0ca92d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a09410d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3691fd9b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@361214da_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1acb6b51_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@742ca4ab_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ab64097_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c9b6ae1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@aa6bdbc_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@426e0479_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24223e42_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@451adf48_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d407699_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@255ff06f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4814ca_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59e5cd0b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ad065d0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21a6e9f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f4f00ec_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b54002e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6403d4fe_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68cdb5e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4455c52_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@356378fd_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f14886f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@12e86c38_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33f390c6_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28d515f7_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ecdb223_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a5b45fe_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@69fd186b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@645c5319_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@56f47403_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4883214a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7cd78ec9_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d836885_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e0de23c_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@16ef8b38_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8afb917_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@599ad38b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@187ba55f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@727e7d01_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7daedfb6_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e6331a2_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d4b0654_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@aa4b20e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14023832_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71981cf1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6cc15771_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5735d4c1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6db66042_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f58f2ce_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@434ea9b9_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e4116b0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@217e458c_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c9b6d4a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7643ce48_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@18f663a2_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7be2698a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@466d3f15_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24015ed1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@12112f75_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@34966155_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@37d9cc9_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a87d824_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c4c49c5_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ccd1c5d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@18181caa_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23e31eb2_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@481d1543_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7d73459e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@773085e1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3645aa90_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@69479ffc_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@34882d88_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76c99e9f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a239612_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e1d5797_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@69d8acc3_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1bfda15d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@418e22d0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7019d042_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@878a12f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c089f53_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@19a6b2b1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23681e41_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4873654a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14ee9c9d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@760908bf_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2735cfb3_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5700a79c_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a24aec8_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@595ac0c4_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74923de8_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f66ccff_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c9fdb6d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ad2ca2f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7489b39e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c6fed22_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33514569_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e8c5e83_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e5cf9e0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2acbd8ef_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c468b74_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67737a88_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@41db054b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11fd36f8_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67f6a4d8_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@653cca57_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1fc6620_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@757686e3_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@93abf59_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2493cee8_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77a020b0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49409560_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27d3a48b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63e50589_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57ac7766_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45029c61_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@232ee70e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@741915ed_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3dbed631_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7e47d4f6_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b91a5f8_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4571922a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@395cd82b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@571252c3_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@718864b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@141d6a53_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b15c6c1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ec2e6d3_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@552acc50_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6dad64ed_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5953deb_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@62d1f6ee_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4753d4ba_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7db9687f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@794673a3_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57bc2017_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c1ff322_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ec11c37_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39989918_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a62b4ad_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76e86d3b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d969754_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f28896f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1524fdb0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e6759c7_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@780aea9e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7bc404cb_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43486a2e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b1a88c2_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@217bf57b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@616be3c6_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43e8c551_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5091c4fd_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@58dd361b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@358f447f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@704ee985_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@75d2734a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@576b6223_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d506adc_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7028715a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f751e80_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13cf06cd_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26966613_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48fbdb8b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52bf106e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d5d2eaf_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14e92221_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1122c192_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7cff19a9_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@12c4f011_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71c444cc_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c5f480f_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@603e346_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ef2d279_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@456f0494_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d766948_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63b138d0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@707fb54_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c2c9409_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24e9c1fc_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@41f88d21_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@419046b0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e18bae0_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24bd0238_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ba563ae_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@df23d49_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@62260d9_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@265e0421_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38888bc1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67242a51_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fc2d788_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7dda95b7_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@611687fb_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10db763c_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57be9f7b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@442268c4_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b033f23_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ff790fe_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b6bfbea_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45442bdb_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33fb6c08_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c8d1d77_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@318320af_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ce005f2_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63bb8284_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@dcb717e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@30591c14_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33fe0b80_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5ca14552_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1bd800d6_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c840419_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@765911eb_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@58274a17_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c76d4a3_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ae0ad11_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3888561d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2238960d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63b96aa8_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+      </xilinx:tags>
+    </xilinx:coreExtensions>
+    <xilinx:packagingInfo>
+      <xilinx:xilinxVersion>2020.2.2</xilinx:xilinxVersion>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="25031715"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="c38f6d7c"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="f47e0513"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="d2e5c3e5"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="cb836995"/>
+    </xilinx:packagingInfo>
+  </spirit:vendorExtensions>
+</spirit:component>

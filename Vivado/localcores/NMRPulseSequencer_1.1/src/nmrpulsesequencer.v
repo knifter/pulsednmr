@@ -21,41 +21,38 @@
 
 
 module NMRPulseSequencer #(
-    parameter US_DIVIDER = 125,
-    parameter US_DIVIDER_WIDTH = 8
+    parameter US_DIVIDER = 125
     )(
     input wire clk,
     input wire rst,
-    input wire pulse_on_in,
+    input wire enbl,
     
-    input wire [31:0] Alen, 
-    input wire [31:0] Blen, 
-    input wire [31:0] ABdly, 
-    input wire [31:0] BBdly, 
-    input wire [15:0] BBcnt,
+    input wire [31:0] Alen_in, 
+    input wire [31:0] Blen_in, 
+    input wire [31:0] ABdly_in, 
+    input wire [31:0] BBdly_in, 
+    input wire [15:0] BBcnt_in,
+    input wire [31:0] BlankLen_in,
     
-    output reg      start_seq,
-    output wire     pulse_on_out,
-    output wire     pulse_on_outn
+    output wire     sync_out,
+    output wire     pulse_out,
+    output wire     blank_out
     );
-    
+          
     // uS divider
-    reg [US_DIVIDER_WIDTH-1:0] us_counter;
+    reg [$clog2(US_DIVIDER)-1:0] us_counter;
     wire us_zero = ~|us_counter;
-    reg us_zero_prv;
     always @(posedge clk)
         if(rst) begin
             us_counter <= US_DIVIDER - 1;
-            us_zero_prv <= 0;
         end else begin
             us_counter <= us_counter - 1;
-            us_zero_prv <= us_zero;
             if (us_zero)
                 us_counter <= US_DIVIDER - 1;
         end
-     wire us_trigger = us_zero;
-        
+      
      // at every uS handle the state machine
+     localparam  STATE_A_START = 0;
      localparam  STATE_AH = 1;
      localparam  STATE_AL = 2;
      localparam  STATE_BH = 3;
@@ -65,51 +62,59 @@ module NMRPulseSequencer #(
      reg  [4:0]  state;
      reg  [31:0] t;
      reg  [15:0] b_cnt;
-     //wire [16:0] b_start = ABdly;
-     //wire [16:0] b_stop =  ABdly + Blen;
-     //wire [16:0] b_step = BBdly;
      reg  [31:0] bn_start;
      reg  [31:0] bn_stop;
-     reg         pulse_on;
+     reg         pulse_reg;
+     // blank regs:
+     reg         pulse_reg_prv;
+     wire        blank_trigger = ~pulse_reg & pulse_reg_prv;
+     reg  [31:0] blank_counter;
+     wire        blank_counter_zero = ~|blank_counter;
      always @ (posedge clk)
         if(rst) begin
             state <= STATE_AH;
             t <= 0;
-            pulse_on <= 0;
+            pulse_reg <= 0;
+            pulse_reg_prv <= 0;
+            blank_counter <= 0;
             
-            b_cnt <= BBcnt - 1;
-            bn_start <= ABdly;
-            bn_stop <= ABdly + Blen; 
+            b_cnt <= BBcnt_in - 1;
+            bn_start <= ABdly_in;
+            bn_stop <= ABdly_in + Blen_in;
+             
         end else begin
-            if(us_trigger)
+            // Count time
+            if(us_zero)
+            begin
                 t <= t + 1;
+            end
+            
+            // Pulse Statemachine
             case(state)
                 STATE_AH: begin // A-pulse starting
-                        pulse_on <= 1;
-                        start_seq <= 1;
-                        if( t == Alen )
+                        pulse_reg <= 1;
+                        if( t == Alen_in )
                             state <= STATE_AL;
                     end
                 STATE_AL: begin // A-pulse finished, waiting for bn_start
-                        pulse_on <= 0;
-                        start_seq <= 0;
+                        pulse_reg <= 0;
                         if( t == bn_start )
                         begin
-                            if(|BBcnt)
+                            if(|BBcnt_in)
                                 state <= STATE_BH;
                             else
                                 state <= STATE_STOP;
                         end
                     end
                 STATE_BH: begin // B-pulse starting, waiting for bn_stop
-                        pulse_on <= 1;
+                        pulse_reg <= 1;
                         if( t == bn_stop )
                             state <= STATE_BNEXT;
                     end
                 STATE_BNEXT: begin // B-pulse finished, initialize next b-pulse
-                        pulse_on <= 0;
-                        bn_start <= bn_start + BBdly;
-                        bn_stop <= bn_stop + BBdly;
+                        pulse_reg <= 0;
+                        bn_start <= bn_start + BBdly_in;
+                        bn_stop <= bn_stop + BBdly_in;
                         b_cnt <= b_cnt - 1;
                         if( |b_cnt)
                             state <= STATE_BL;
@@ -117,17 +122,29 @@ module NMRPulseSequencer #(
                             state <= STATE_STOP;
                     end
                 STATE_BL: begin // B-pulse finihsed, waiting for next bn_start
-                        pulse_on <= 0;
+                        pulse_reg <= 0;
                         if( t == bn_start)
                             state <= STATE_BH;
                     end
                 STATE_STOP: begin // finished all pulses
-                        pulse_on <= 0;
+                        pulse_reg <= 0;
                         state <= STATE_STOP;
                     end
-            endcase                         
+            endcase
+            
+            // Blank machine
+            pulse_reg_prv <= pulse_reg;
+            if(blank_trigger)
+            begin
+                // start blank
+                // start counter
+                blank_counter <= BlankLen_in;
+            end
+            if(~blank_counter_zero & us_zero)
+                blank_counter <= blank_counter -1;
         end
-        
-        assign pulse_on_out = pulse_on | pulse_on_in;
-        assign pulse_on_outn = ~pulse_on_out;
+                
+        assign pulse_out = pulse_reg & enbl;
+        assign sync_out = (state==STATE_AH) & pulse_reg & enbl;
+        assign blank_out = (~blank_counter_zero | blank_trigger) & enbl;
 endmodule

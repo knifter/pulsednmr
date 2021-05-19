@@ -1,7 +1,13 @@
 2021-05-TODO:
  - Replace config/status registers core which supports >32bits (suspected bug in old version)
- - Convert NMRPulseGenerator to packaged IP in localcores
- - Add blank signal to NMRPulseGenerator
+ - Replace "real_multiplier" block with Pavels DSP48 block in Tx output amplitude
+ - nmr-server: Updated TxConfig struct in server for both these changes in TxConfigReg
+ - nmr-server: Added (simple) support for BlankLen, now set to 100us 
+
+2021-05-19:
+ - Packaged NMRPulseSequencer(.v) as an IP core
+ - Added blank signal to NMRPulseSequencer
+ - Added BlankLen to txconfig register in PL
 
 2021-05-12:
  - xdc: ADC pins added, new RP ADC core with data_width=14 (Pavel update)
