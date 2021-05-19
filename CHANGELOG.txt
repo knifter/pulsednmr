@@ -10,6 +10,7 @@
  - Packaged NMRPulseSequencer(.v) as an IP core
  - Added blank signal to NMRPulseSequencer
  - Added BlankLen to txconfig register in PL
+ - Added set Blank len command to protocol
 
 2021-05-12:
  - xdc: ADC pins added, new RP ADC core with data_width=14 (Pavel update)
@@ -43,7 +44,6 @@
  - Switched to xilinx-cores for known cores
  ! Changed Rx Mixer output width to 32-bits and kept this width until the float converter
  - Reset both DDS on Tx/RxReset to sync phase
- 
 
 2017-05-29:
  - Client: All times to clks with 142.8 MHz/10 clk

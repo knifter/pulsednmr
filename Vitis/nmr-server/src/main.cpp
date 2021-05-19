@@ -196,10 +196,14 @@ int handleConnection(int sock_client)
 				LOG("Set Power %d\n", command.param);
 				reply.result = nmr->setTxPower(command.param) ? RES_ERROR : RES_OK;
 				break;
+			case CMD_SET_BLANKLEN:
+				LOG("Set Blank Length %d usec.\n", command.param);
+				reply.result = nmr->setTxBlankLen(command.param) ? RES_ERROR : RES_OK;
+				break;
 			default:
 				WARNING("Unknown command code: %d\n", command.commandcode);
 				break;
-		} // switch(command)
+		}; // switch(command)
 
 		// send reply
 		DBG("Sending reply packet (id = %u, result = %u, data_len = %u)\n", reply.id, reply.result, reply.data_len);
@@ -208,4 +212,4 @@ int handleConnection(int sock_client)
 			send(sock_client, reply_data, reply.data_len, MSG_NOSIGNAL);
 	};
 	return 0;
-}
+};
