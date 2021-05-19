@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
@@ -45,6 +46,14 @@
 #define	RX_DELAY_MAX		5000000 		// 5 sec
 #define BLANK_LEN_MIN		0
 #define BLANK_LEN_MAX		5000000			// 5 sec
+#define BLANK_RECOVER_US	500				// 0.5ms, datasheet says 3ms recover time..
+
+uint32_t max(uint32_t a, uint32_t b)
+{
+	if(a>b)
+		return a;
+	return b;
+};
 
 NMRCore::NMRCore()
 {
@@ -128,13 +137,13 @@ NMRCore::NMRCore()
 	setRxSize(50000);
 	setRxDelay(0);
 
-	setTxAlen(100);
-	setTxBlen(100);
-	setTxABdly(200);
-	setTxBBdly(200);
+	setTxAlen(15);
+	setTxBlen(8);
+	setTxABdly(1500);
+	setTxBBdly(1500);
 	setTxBBcnt(0);
 	setTxPower((PULSE_POWER_MAX-PULSE_POWER_MIN)/2);
-	setTxBlankLen(100);
+	setTxBlankLen(50);
 
     // Align the DDS's, keep the transmitter in reset
     _rxconfig->reset = RESET_DDS | RESET_TX;
@@ -216,6 +225,9 @@ int NMRCore::setTxAlen(uint32_t usec)
 
 	_txconfig->a_len = usec;
 
+	// make sure BlankLen doesn't cut out our pulse
+	setTxBlankLen(_txconfig->blank_len);
+
 	return 0;
 };
 
@@ -235,6 +247,9 @@ int NMRCore::setTxBlen(uint32_t usec)
 	DBG("B-length: %u usec pulse.\n", usec);
 
 	_txconfig->b_len = usec;
+
+	// make sure BlankLen doesn't cut out our pulse
+	setTxBlankLen(_txconfig->blank_len);
 
 	return 0;
 };
@@ -256,6 +271,9 @@ int NMRCore::setTxABdly(uint32_t usec)
 
 	_txconfig->ab_dly = usec;
 
+	// make sure BlankLen doesn't cut out our pulse
+	setTxBlankLen(_txconfig->blank_len);
+
 	return 0;
 };
 
@@ -275,6 +293,9 @@ int NMRCore::setTxBBdly(uint32_t usec)
 	DBG("B-to-B-Delay: %u usec.\n", usec);
 
 	_txconfig->bb_dly = usec;
+
+	// make sure BlankLen doesn't cut out our pulse
+	setTxBlankLen(_txconfig->blank_len);
 
 	return 0;
 };
@@ -331,6 +352,16 @@ int NMRCore::setTxBlankLen(uint32_t usec)
 		ERROR("Blank-len %u out of range (%d, %d)\n", usec, BLANK_LEN_MAX, BLANK_LEN_MIN);
 		return 2;
 	};
+	if(usec > (_txconfig->ab_dly - _txconfig->a_len  - BLANK_RECOVER_US))
+	{
+		WARNING("Blank-len > end of A to to begin of B pulse. Truncating.");
+		usec = max(0, _txconfig->ab_dly - _txconfig->a_len - BLANK_RECOVER_US);
+	};
+	if(usec > (_txconfig->bb_dly - _txconfig->b_len  - BLANK_RECOVER_US))
+	{
+		WARNING("Blank-len > end of B to to begin of next B pulse. Truncating.");
+		usec = max(0, _txconfig->bb_dly - _txconfig->b_len - BLANK_RECOVER_US);
+	};
 
 	DBG("Blank length: %u usec\n", usec);
 
@@ -380,12 +411,12 @@ int NMRCore::setRxRate(NMRDecimationRate rate)
 			return 1;
 	}
 	return 0;
-}
+};
 
 int NMRCore::getRxRate()
 {
 	 return DAC_SAMPLE_RATE / (2*_rxconfig->rate);
-}
+};
 
 int NMRCore::setRxSize(uint32_t size)
 {
@@ -405,7 +436,7 @@ int NMRCore::setRxSize(uint32_t size)
 	_rx_size = size;
 
 	return 0;
-}
+};
 
 int NMRCore::setRxDelay(uint32_t clks)
 {
@@ -425,7 +456,7 @@ int NMRCore::setRxDelay(uint32_t clks)
 	_rx_delay = samples;
 
 	return 0;
-}
+};
 
 int NMRCore::singleShot()
 {
