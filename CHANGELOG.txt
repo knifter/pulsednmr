@@ -2,6 +2,14 @@
  - Replace config/status registers core which supports >32bits (suspected bug in old version)
  - Replace "real_multiplier" block with Pavels DSP48 block in Tx output amplitude
 
+2021-05-21 PL:
+ - mult_0 (mixer) output width 26->24 (error?)
+ - propagate this through: bcast_0, sniffer_0, axis_subset_converter_0, axis_subset_converter_1
+ - fir_0 output width 26->24 (also error?)
+ - 
+ - removed Output attenuator multiplier real_multiplier_0 for now as I have no idea if this works
+ - 
+ 
 2021-05-19 nmr-server:
  - nmr-server: project converted to Vitis
  - nmr-server: Added (simple) support for BlankLen, now only set to 100us
