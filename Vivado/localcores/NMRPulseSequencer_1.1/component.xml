@@ -43,6 +43,166 @@
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>sync_out</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>sync_out</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>pulse_out</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pulse_out</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>blank_out</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>blank_out</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>enbl</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>enbl</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>Alen_in</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>Alen_in</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>Blen_in</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>Blen_in</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>ABdly_in</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>ABdly_in</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>BBdly_in</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>BBdly_in</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>BBcnt_in</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>BBcnt_in</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>BlankLen_in</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>BlankLen_in</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
   </spirit:busInterfaces>
   <spirit:model>
     <spirit:views>
@@ -88,7 +248,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>fc1ae3e8</spirit:value>
+            <spirit:value>4d605bf3</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -312,7 +472,7 @@
       <spirit:file>
         <spirit:name>xgui/NMRPulseSequencer_v1_1.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_fc1ae3e8</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_4d605bf3</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -354,11 +514,11 @@
       </xilinx:taxonomies>
       <xilinx:displayName>NMRPulseSequencer_v1.1</xilinx:displayName>
       <xilinx:vendorDisplayName>Tijs van Roon</xilinx:vendorDisplayName>
-      <xilinx:coreRevision>2</xilinx:coreRevision>
+      <xilinx:coreRevision>4</xilinx:coreRevision>
       <xilinx:upgrades>
         <xilinx:canUpgradeFrom>user.org:user:NMRPulseSequencer:1.1</xilinx:canUpgradeFrom>
       </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2021-05-19T11:19:44Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2021-06-29T10:35:25Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2c4dad15_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@32f4288b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
@@ -589,14 +749,31 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3888561d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2238960d_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@63b96aa8_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@651014e_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b030afd_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@652a4820_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c21d65a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@19c21178_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@50c23138_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76695892_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9273594_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ffa9ccc_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9afabcc_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78201c4a_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b9863a7_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1dea9fb1_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ac4b5ff_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c7a1a3b_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ab08e6c_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7522dfa2_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@318a7a6_ARCHIVE_LOCATION">/home/user/nmr/pulsednmr/Vivado/localcores/NMRPulseSequencer_1.1</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.2.2</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="25031715"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="c38f6d7c"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="f08158c7"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="a7fe97f6"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="f47e0513"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="d2e5c3e5"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="cb836995"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
