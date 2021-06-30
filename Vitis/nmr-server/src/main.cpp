@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	LOG("Sending test pulse...");
+	LOG("Sending test pulse...\n");
 	nmr->singleShot();
 
 	listen(sock_server, 1024);
