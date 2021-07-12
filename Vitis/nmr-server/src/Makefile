@@ -20,5 +20,21 @@ $(TARGET): $(OBJECTS)
 	$(CXX) -o $@ -c $< $(LIBS) $(CXXFLAGS)
 
 upload: $(TARGET)
-	scp $(TARGET) root@redp:/root
+	scp $(TARGET) root@nmr:/root
 
+remote: upload-src build-src
+
+upload-src:
+	scp * root@nmr:/root/build
+
+build-src:
+	ssh root@nmr 'cd /root/build; make clean all'
+
+
+bit: upload-bit update-bit
+
+upload-bit:
+	scp ../../../PulsedNMR_wrapper.bit root@nmr:/root
+
+update-bit:
+	ssh root@nmr 'cat /root/PulsedNMR_wrapper.bit >/dev/xdevcfg'
