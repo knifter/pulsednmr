@@ -15,16 +15,20 @@
 
 
 #define MEM_DEVICE			"/dev/mem"
-#define SLCR_UNLOCK			2
-#define FPGA0_CLK_CTRL		92
+#define MMAP_SLCR			0xF8000000		// ?
+	#define SLCR_LOCK				0x0004
+	#define SLCR_UNLOCK				0x0008
+  	#define SLCR_LOCK_KEY			0x767B
+  	#define SLCR_UNLOCK_KEY			0xDF0D
+	#define SLCR_FPGA0_CLK_CTRL		0x005C // was: 92
+	#define	SLCR_FPGA_RST_CTRL		0x0240
 #define MMAP_RXCONFIG 		0x40000000
-#define RESET_NONE			0x00
-#define RESET_DDS 			0x01
-#define RESET_TX 			0x02
+#define RXCONFIG_RESET_NONE			0x00
+#define RXCONFIG_RESET_DDS 			0x01
+#define RXCONFIG_RESET_TX 			0x02
 #define MMAP_RXSTATUS 		0x40001000
 #define MMAP_TXCONFIG 		0x40002000
 #define MMAP_RXDATA 		0x40010000
-#define MMAP_SLCR			0xF8000000		// ?
 #define DAC_SAMPLE_RATE     125000000		// 125 MSPS
 //#define TX_BUFSIZE          50000           // Configures buffer size (PL)
 #define RX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
@@ -65,51 +69,38 @@ NMRCore::NMRCore()
 		ERROR("ERROR: opening mem-device\n");
 		return;
 	};
-	volatile uint32_t *slcr;
-	slcr = (uint32_t*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_SLCR);
+	
+	_slcr = (uint32_t*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_SLCR);
 	_rxconfig = (PL_RxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXCONFIG);
 	_status =   (PL_StatusRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXSTATUS);
 	_txconfig = (PL_TxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_TXCONFIG);
 	_map_rxdata = (volatile uint64_t*) mmap(NULL, 16*sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXDATA);
   	// sysconf(_SC_PAGESIZE) = 4096, 16*=65536 bytes
-  	if(slcr == NULL)
+  	if(_slcr == NULL)
   	{
   		ERROR("mmap(SLCR) failed.\n");
   		return;
-  	}
+  	};
   	if(_rxconfig == NULL)
   	{
   		ERROR("mmap(RXCONFIG) failed.\n");
   		return;
-  	}
+  	};
   	if(_status == NULL)
   	{
   		ERROR("mmap(TXSTATUS) failed.\n");
   		return;
-  	}
+  	};
   	if(_txconfig == NULL)
   	{
   		ERROR("mmap(TXCONFIG) failed.\n");
   		return;
-  	}
+  	};
   	if(_map_rxdata == NULL)
   	{
   		ERROR("mmap(RXDATA) failed.\n");
   		return;
-  	}
-
-  	// Configure FCLK0 (143 MHz)
-  	printf("Configuring PLL for 143 MHz.\n");
-  	slcr[SLCR_UNLOCK] 		= 0xDF0D; // @=8, SLCR_UNLOCK
-  	slcr[FPGA0_CLK_CTRL] 	= (slcr[FPGA0_CLK_CTRL] & ~0x03F03F30) | 0x00100700;
-  	// FPGA0_CLK_CTRL:
-  	// 	31:26, 6 = 0
-  	// 	25:20, 6 = DIVISOR1
-  	// 	19:14, 6 = 0
-  	// 	13:08, 6 = DIVISOR0
-  	// 	07:06, 2 = 0
-  	// 	05:04, 2 = SRCSEL: 0x: IO PLL, 10: ARM PLL, 11: DDR PLL
-  	// 	03:00, 4 = 0
+  	};
 
   	// Alignment checking
 #ifdef DEBUG_ALIGNMENT
@@ -146,9 +137,7 @@ NMRCore::NMRCore()
 	setTxBlankLen(50);
 
     // Align the DDS's, keep the transmitter in reset
-    _rxconfig->reset = RESET_DDS | RESET_TX;
-    sleep(1);
-    _rxconfig->reset = RESET_TX;
+    _rxconfig->reset = RXCONFIG_RESET_TX;
 };
 
 NMRCore::~NMRCore()
@@ -158,6 +147,50 @@ NMRCore::~NMRCore()
 	_rxconfig = NULL;
 	_status = NULL;
 	_txconfig = NULL;
+};
+
+int NMRCore::configure_fclk0()
+{
+  	// Configure FCLK0 (143 MHz)
+  	printf("Configuring PLL for 143 MHz.\n");
+
+  	// Unlock SLCR
+   	_slcr[SLCR_UNLOCK] 		= SLCR_UNLOCK_KEY; // @=8, SLCR_UNLOCK
+
+  	// FPGA0_CLK_CTRL:
+  	// 	31:26, 6 = 0
+  	// 	25:20, 6 = DIVISOR1
+  	// 	19:14, 6 = 0
+  	// 	13:08, 6 = DIVISOR0
+  	// 	07:06, 2 = 0
+  	// 	05:04, 2 = SRCSEL: 0x: IO PLL, 10: ARM PLL, 11: DDR PLL
+  	// 	03:00, 4 = 0
+  	_slcr[SLCR_FPGA0_CLK_CTRL] 	= (_slcr[SLCR_FPGA0_CLK_CTRL] & ~0x03F03F30) | 0x00100700;
+
+  	// Lock SLCR
+  	// _slcr[SLCR_LOCK] 		= SLCR_LOCK_KEY;
+
+  	return 0;
+};
+
+int NMRCore::reset_pl()
+{
+  	// Unlock SLCR
+  	printf("Unlock SLCR.\n");
+   	_slcr[SLCR_UNLOCK] 		= SLCR_UNLOCK_KEY; // @=8, SLCR_UNLOCK
+
+   	// Toggle reset
+  	printf("Reset PL.\n");
+  	_slcr[SLCR_FPGA_RST_CTRL] = 0x01;
+  	// usleep(1000);
+  	printf("Un-Reset PL.\n");
+  	_slcr[SLCR_FPGA_RST_CTRL] = 0x00;
+
+  	// Lock SLCR
+  	// printf("Lock SLCR.\n");
+  	// _slcr[SLCR_LOCK] 		= SLCR_LOCK_KEY;
+
+  	return 0;
 };
 
 int NMRCore::setFrequency(uint32_t freq)
@@ -363,7 +396,10 @@ int NMRCore::setTxBlankLen(uint32_t usec)
 		usec = max(0, _txconfig->bb_dly - _txconfig->b_len - BLANK_RECOVER_US);
 	};
 
-	DBG("Blank length: %u usec\n", usec);
+	if(usec != _txconfig->blank_len)
+	{
+		DBG("Blank length: %u usec\n", usec);
+	};
 
 	_txconfig->blank_len = usec;
 
@@ -472,101 +508,114 @@ int NMRCore::singleShot()
 		return 2;
 	};
 
-	// reset Rx&Tx cores
+	// reset NMRPulseSequencer
 	DBG("Start Tx.\n");
-	_rxconfig->reset = RESET_TX;
+	_rxconfig->reset = RXCONFIG_RESET_TX;
     sleep(1);
 
 	// Pulse sequence is automatically started after reset
-	_rxconfig->reset = RESET_NONE;
+	_rxconfig->reset = RXCONFIG_RESET_NONE;
 	DBG("Start Rx.\n");
 
 	// Discard _rxdelay samples
-	uint16_t len;
-#ifdef DEBUG_READLOOP
-	DBG("RxDelay discarding %u samples.\n", _rx_delay);
-#endif // DEBUG_READLOOP
-	int32_t needed = _rx_delay;
-	uint64_t dummy = 0;
-    dummy = dummy; // unused supression
-	uint32_t check = 0;
-	while(needed)
+	if(_rx_delay)
 	{
-		// throttle polling
-		while(_status->rx_counter < 1000)
-			usleep(100);
-		
-		// rx_counter is our total number of floats waiting, twice the amount of samples
-		// read it once and cache it locally, it's updated by the PL
-		len = _status->rx_counter >> 1;
-
-		// There is probably more in the fifo then we need at some point
-		if(len > needed)
-			len = needed;
 #ifdef DEBUG_READLOOP
-		DBG(" ... %u/%u/%u samples.\n", len, needed, _rx_delay);
+		DBG("RxDelay: start discarding %u samples.\n", _rx_delay);
 #endif // DEBUG_READLOOP
-	
-		// discard fifo values by reading into a dummy
-        for(int j = 0; j < len; ++j)
-        {
-        	dummy = *_map_rxdata;
-        };
+		int32_t needed = _rx_delay;
+		uint64_t dummy = 0;
+		dummy = dummy; // unused supression
+		uint32_t check = 0;
+		while(needed)
+		{
+			// throttle polling
+			while(_status->rx_counter < 1000)
+				usleep(100);
+			
+			// rx_counter is our total number of floats waiting, twice the amount of samples
+			// read it once and cache it locally, it's updated by the PL
+			int len = _status->rx_counter >> 1;
 
-		needed -= len;
-		check += len;
+			// There is probably more in the fifo then we need at some point
+			if(len > needed)
+				len = needed;
+		#ifdef DEBUG_READLOOP
+			DBG(" ... %u/%u/%u samples.\n", len, needed, _rx_delay);
+		#endif // DEBUG_READLOOP
+
+			// discard fifo values by reading into a dummy
+		    for(int j = 0; j < len; ++j)
+		    {
+		    	dummy = *_map_rxdata;
+		    };
+
+			needed -= len;
+			check += len;
+		};
+		DBG("RxDelay: Discarded %u samples.\n", check);
 	};
-	DBG("RxDelay: Discarded %u samples.\n", check);
 
 	// Get FIFO data into buffer
-#ifdef DEBUG_READLOOP
-	DBG("read loop start\n");
-	struct timeval tv;
-	gettimeofday(&tv,NULL);
-	uint64_t start = 1E6*tv.tv_sec + tv.tv_usec;
-#endif // DEBUG_READLOOP
-
-	// Read rx_size samples into rxbuffer
-	uint32_t rx_total = 0;
-	while(rx_total < _rx_size)
 	{
-		// throttle polling
-		while(_status->rx_counter < 10000)
-		{
-			usleep(100);
-		};
-
-		// rx_counter is our total number of floats waiting, twice the amount of samples
-		// read it once and cache it locally, it's updated by the PL
-		len = _status->rx_counter >> 1;
-
-		// now len is the amount of 'samples', complex floats waiting (even)
-		needed = _rx_size - rx_total;
 #ifdef DEBUG_READLOOP
-		DBG("%d float pairs waiting. %d still needed.\n", len, needed);
-#endif
-		if(len > needed)
-			len = needed;
-    	for(int j = 0; j < needed; ++j) 
-    	{
-     		_rx_buffer[j] = *_map_rxdata;
-     	};
-		rx_total += len;
-	};
-#ifdef DEBUG_READLOOP
-	gettimeofday(&tv,NULL);
-	uint64_t stop = 1E6*tv.tv_sec + tv.tv_usec;
-	uint32_t tim = stop - start;
-	DBG("read loop done. Time = %u, Rate > %.0f smps\n", tim, rx_total*(1.0E6/tim) );
+		DBG("read loop start\n");
+		struct timeval tv;
+		gettimeofday(&tv,NULL);
+		uint64_t start = 1E6*tv.tv_sec + tv.tv_usec;
+		int idle_cnt = 5000; // 500ms
 #endif // DEBUG_READLOOP
 
-	// stop the receiver
-	// _rxconfig->reset = RESET_RX | RESET_TX;
+		// Read rx_size samples into rxbuffer
+		uint32_t rx_total = 0;
+		while(rx_total < _rx_size)
+		{
+			// throttle polling
+			while(_status->rx_counter < 10000)
+			{
+#ifdef DEBUG_READLOOP
+				if(idle_cnt--<1)
+				{
+					idle_cnt = 5000;
+					DBG("Waiting for 10k samples (rx_counter = %d)\n", _status->rx_counter);
+				};
+#endif
+				usleep(100);
+			};
 
-	DBG("Total %d complex-floats read. %d Bytes.\n", rx_total, rx_total*2*sizeof(float));
+			// rx_counter is our total number of floats waiting, twice the amount of samples
+			// read it once and cache it locally, it's updated by the PL
+			int len = _status->rx_counter >> 1;
+
+			// now len is the amount of 'samples', complex floats waiting (even)
+			int needed = _rx_size - rx_total;
+#ifdef DEBUG_READLOOP
+			DBG("%d float pairs waiting. %d still needed.\n", len, needed);
+#endif
+			if(len > needed)
+				len = needed;
+	    	for(int j = 0; j < needed; ++j) 
+	    	{
+	     		_rx_buffer[j] = *_map_rxdata;
+	     	};
+			rx_total += len;
+		};
+#ifdef DEBUG_READLOOP
+		gettimeofday(&tv,NULL);
+		uint64_t stop = 1E6*tv.tv_sec + tv.tv_usec;
+		uint32_t tim = stop - start;
+		DBG("read loop done. Time = %u, Rate > %.0f smps\n", tim, rx_total*(1.0E6/tim) );
+#endif // DEBUG_READLOOP
+
+
+		DBG("Total %d complex-floats read. %d Bytes.\n", rx_total, rx_total*2*sizeof(float));
+	};
+
+	// Keep the Tx in reset
+	_rxconfig->reset = RXCONFIG_RESET_TX;
 
 	return 0;
-}
+};
 
 int NMRCore::getRxBuffer(void** data_target, uint32_t* len_target)
 {
@@ -584,5 +633,5 @@ int NMRCore::getRxBuffer(void** data_target, uint32_t* len_target)
 	*data_target = _rx_buffer;
 	*len_target = _rx_size * 2 * sizeof(float);
 	return 0;
-}
+};
 

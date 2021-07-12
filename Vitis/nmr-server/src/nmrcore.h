@@ -16,6 +16,9 @@ typedef enum : uint8_t {
 
 typedef struct {
 	uint8_t  reset;
+		// 0: DDSReset (rx&tx!)
+		// 1: TxReset
+		// 7: TxForceOn
 	uint8_t _align;
 	uint16_t rate;
 	uint32_t pir;
@@ -41,6 +44,9 @@ class NMRCore
 public:
 	NMRCore();
 	virtual ~NMRCore();
+
+	int configure_fclk0();
+	int reset_pl();
 
 	int setFrequency(uint32_t freq);
 	int setRxFrequency(uint32_t freq);
@@ -70,6 +76,7 @@ private:
 
 	// mappings
 	uint32_t _map_fd;
+	volatile uint32_t*				_slcr;
 	volatile PL_RxConfigRegister* 	_rxconfig;
 	volatile PL_StatusRegister* 	_status;
 	volatile PL_TxConfigRegister* 	_txconfig;
