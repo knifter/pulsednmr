@@ -16,18 +16,78 @@
 #include "nmrcore.h"
 #include "nmr.h"
 
+int run_server();
 int handleConnection(int sock_client);
 
 NMRCore* nmr = NULL;
 
 int main(int argc, char *argv[])
 {
-	struct sockaddr_in addr;
-	int yes = 1;
 
 	LOG("NMR Server Daemon version %s\n", VERSION);
 
 	nmr = new NMRCore();
+
+	int res = EXIT_SUCCESS;
+	bool flag_run_server = true;
+	int c;
+	while( (c = getopt(argc, argv, "f:nrs:"))  != -1)
+	{
+		switch(c)
+		{
+			case 'f':
+			{
+				int freq = atoi(optarg);
+				LOG("Force-on: Pulse output on (f = %d Hz. Press key to stop..", freq);
+				flag_run_server = false;
+				nmr->setFrequency(freq);
+				nmr->forceOn(true);
+				getchar();
+				nmr->forceOn(false);
+			}; 	break;
+			case 'n':
+				flag_run_server = false;
+				break;
+			case 'r':
+				nmr->reset_pl(); // Will crash 2nd time, dunno why
+				break;
+			case 's':
+			{
+				flag_run_server = false;
+				int test_pulse_count = atoi(optarg);
+				while(test_pulse_count--)
+				{
+					LOG("Sending test pulse...\n");
+					nmr->singleShot();
+
+					usleep(5E5);
+				};
+			};	break;
+			case '?': // unknown option
+				DBG("Unknown");
+				break;
+			default:
+				DBG("HERE\n");
+				flag_run_server = false;
+				res = EXIT_FAILURE;
+				break;
+		};
+	};
+
+	// nmr->configure_fclk0();
+
+	if(flag_run_server)
+	{
+	 	res = run_server();
+	};
+
+	delete nmr;
+	return res;
+};
+
+int run_server()
+{
+	LOG("Starting TCP server on port %d\n", SERVER_PORT);
 
 	// Get a server socket
 	int sock_server;
@@ -36,23 +96,23 @@ int main(int argc, char *argv[])
 		ERROR("Cannot instantiate server socket: %s\n", strerror(errno));
 		// perror(NULL);
 		return EXIT_FAILURE;
-	}
+	};
+	int yes = 1;
 	setsockopt(sock_server, SOL_SOCKET, SO_REUSEADDR, (void *)&yes , sizeof(yes));
 
 	/* setup listening address */
+	struct sockaddr_in addr;
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr.sin_port = htons(SERVER_PORT);
-
+	
 	if(bind(sock_server, (struct sockaddr *)&addr, sizeof(addr)) < 0)
 	{
 		ERROR("Cannot bind server socket: %s\n", strerror(errno));
 		return EXIT_FAILURE;
-	}
+	};
 
-	LOG("Sending test pulse...\n");
-	nmr->singleShot();
 
 	listen(sock_server, 1024);
 
@@ -70,13 +130,12 @@ int main(int argc, char *argv[])
 			LOG("Connection Terminated.");
 		};
 		close(sock_client);
-	} // while(1) server
+	}; // while(1) server
 
 	printf("Closing server socket.\n");
 	close(sock_server);
-	delete nmr;
 	return EXIT_SUCCESS;
-}
+};
 
 int handleConnection(int sock_client)
 {
@@ -96,7 +155,7 @@ int handleConnection(int sock_client)
 		{
 			LOG("Remote closed connection.\n");
 			return 0;
-		}
+		};
 		if(res < 0)
 		{
 			ERROR("Read error while reading command: %s\n", strerror(errno));
@@ -106,7 +165,7 @@ int handleConnection(int sock_client)
 		{
 			ERROR("Command extra data_len too big. Bailing out.\n");
 			return 2;
-		}
+		};
 
 		// read extra data
 		if(command.data_len > 0)
@@ -118,7 +177,7 @@ int handleConnection(int sock_client)
 			{
 				LOG("Remote closed connection.\n");
 				return 0;
-			}
+			};
 			if(res < 0)
 			{
 				ERROR("Read error while reading data_len: %s\n", strerror(errno));

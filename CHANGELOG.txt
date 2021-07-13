@@ -1,6 +1,14 @@
-2021-05-TODO:
+2021-07-TODO:
  - Replace config/status registers core which supports >32bits (suspected bug in old version)
  - Replace "real_multiplier" block with Pavels DSP48 block in Tx output amplitude
+
+2021-07-12 nmr-server:
+ - Makefile for remote building, set date, upload bit
+ - Reduced RxReset time from 1 sec to 1 msec
+ - Fix SLCR (un)lock register address, was wrong
+ - no longer config clock on startup
+ - add reset reg write to reset PL (crashes 2nd time)
+ - Add getopt() argument handling for force_on, reset, no server, test pulse etc
 
 2021-05-21 PL:
  - mult_0 (mixer) output width 26->24 (error?)

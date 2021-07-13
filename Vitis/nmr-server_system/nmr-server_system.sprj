@@ -6,7 +6,7 @@
       <options xsi:type="sdkproject:SdkOptions" generateSdCard="true"/>
     </configBuildOptions>
     <lastBuildOptions xsi:type="systemproject:SystemOptions">
-      <applications name="nmr-server" domainName="linux_ps7_cortexa9" domainPrettyName="linux_ps7_cortexa9" appBuildConfig="Debug"/>
+      <applications name="nmr-server" domainName="linux_domain" domainPrettyName="linux on ps7_cortexa9" appBuildConfig="Debug"/>
       <options xsi:type="sdkproject:SdkOptions" generateSdCard="true"/>
     </lastBuildOptions>
   </configuration>

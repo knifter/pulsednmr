@@ -15,7 +15,7 @@ typedef enum : uint8_t {
 } NMRDecimationRate;
 
 typedef struct {
-	uint8_t  reset;
+	uint8_t  control;
 		// 0: DDSReset (rx&tx!)
 		// 1: TxReset
 		// 7: TxForceOn
@@ -66,6 +66,7 @@ public:
 	int setTxBlankLen(uint32_t usec);
 
 	int singleShot();
+	int forceOn(bool on);
 protected:
 	int generatePulse();
 

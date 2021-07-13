@@ -7,6 +7,7 @@ LIBS=-lm -lpthread
 DEPS = 
 TARGET = nmr-server
 OBJECTS = nmrcore.o
+CURRENTDATE = $(shell date +%m%d%H%M.%S)
 
 all: $(TARGET)
 
@@ -24,12 +25,11 @@ upload: $(TARGET)
 
 remote: upload-src build-src
 
-upload-src:
-	scp * root@nmr:/root/build
+upload-src: set-date
+	scp -p * root@nmr:/root/build
 
 build-src:
 	ssh root@nmr 'cd /root/build; make clean all'
-
 
 bit: upload-bit update-bit
 
@@ -38,3 +38,6 @@ upload-bit:
 
 update-bit:
 	ssh root@nmr 'cat /root/PulsedNMR_wrapper.bit >/dev/xdevcfg'
+
+set-date:
+	ssh root@nmr 'date ${CURRENTDATE}'	

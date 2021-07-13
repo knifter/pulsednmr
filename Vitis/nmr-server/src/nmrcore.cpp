@@ -23,9 +23,10 @@
 	#define SLCR_FPGA0_CLK_CTRL		0x005C // was: 92
 	#define	SLCR_FPGA_RST_CTRL		0x0240
 #define MMAP_RXCONFIG 		0x40000000
-#define RXCONFIG_RESET_NONE			0x00
-#define RXCONFIG_RESET_DDS 			0x01
-#define RXCONFIG_RESET_TX 			0x02
+	#define RXCONFIG_NONE				0x00
+	#define RXCONFIG_RESET_DDS 			0x01
+	#define RXCONFIG_RESET_TX 			0x02
+	#define RXCONFIG_FORCE_ON			0x80
 #define MMAP_RXSTATUS 		0x40001000
 #define MMAP_TXCONFIG 		0x40002000
 #define MMAP_RXDATA 		0x40010000
@@ -137,7 +138,7 @@ NMRCore::NMRCore()
 	setTxBlankLen(50);
 
     // Align the DDS's, keep the transmitter in reset
-    _rxconfig->reset = RXCONFIG_RESET_TX;
+    _rxconfig->control = RXCONFIG_NONE;
 };
 
 NMRCore::~NMRCore()
@@ -494,6 +495,21 @@ int NMRCore::setRxDelay(uint32_t clks)
 	return 0;
 };
 
+int NMRCore::forceOn(bool on)
+{
+	if(!_rxconfig)
+	{
+		DBG("forceOn: _rxconfig == NULL\n");
+		return 1;
+	};
+
+	if(on)
+		_rxconfig->control = RXCONFIG_FORCE_ON;
+	else
+		_rxconfig->control = RXCONFIG_NONE;
+	return 0;
+};
+
 int NMRCore::singleShot()
 {
 
@@ -509,12 +525,12 @@ int NMRCore::singleShot()
 	};
 
 	// reset NMRPulseSequencer
-	DBG("Start Tx.\n");
-	_rxconfig->reset = RXCONFIG_RESET_TX;
-    sleep(1);
-
 	// Pulse sequence is automatically started after reset
-	_rxconfig->reset = RXCONFIG_RESET_NONE;
+	DBG("Start Tx.\n");
+	_rxconfig->control = RXCONFIG_RESET_TX;
+    usleep(1000);
+	_rxconfig->control = RXCONFIG_NONE;
+
 	DBG("Start Rx.\n");
 
 	// Discard _rxdelay samples
@@ -611,8 +627,8 @@ int NMRCore::singleShot()
 		DBG("Total %d complex-floats read. %d Bytes.\n", rx_total, rx_total*2*sizeof(float));
 	};
 
-	// Keep the Tx in reset
-	_rxconfig->reset = RXCONFIG_RESET_TX;
+	// // Keep the Tx in reset
+	// _rxconfig->control = RXCONFIG_RESET_TX;
 
 	return 0;
 };
