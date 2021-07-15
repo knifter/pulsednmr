@@ -45,8 +45,6 @@ uint32_t max(uint32_t a, uint32_t b)
 
 NMRCore::NMRCore()
 {
-	printf("-> Min/Max Freq: %d/%d\n", FREQ_MIN, FREQ_MAX);
-
 	// Memory Map PL Registers
 	if((_map_fd = open(MEM_DEVICE, O_RDWR)) < 0)
 	{
@@ -357,13 +355,13 @@ int NMRCore::setTxBlankLen(uint32_t usec)
 	};
 	if(usec > (_txconfig->ab_dly - _txconfig->a_len  - BLANK_RECOVER_US))
 	{
-		WARNING("Blank-len > end of A to to begin of B pulse. Truncating.");
 		usec = max(0, _txconfig->ab_dly - _txconfig->a_len - BLANK_RECOVER_US);
+		WARNING("Blank-len > end of A to to begin of B pulse. Truncated to %d usec\n", usec);
 	};
 	if(usec > (_txconfig->bb_dly - _txconfig->b_len  - BLANK_RECOVER_US))
 	{
-		WARNING("Blank-len > end of B to to begin of next B pulse. Truncating.");
 		usec = max(0, _txconfig->bb_dly - _txconfig->b_len - BLANK_RECOVER_US);
+		WARNING("Blank-len > end of B to to begin of next B pulse. Truncated to %d used.\n", usec);
 	};
 
 	DBG("Blank length: %u usec\n", usec);
@@ -476,6 +474,22 @@ int NMRCore::forceOn(bool on)
 	return 0;
 };
 
+int NMRCore::TxReset()
+{
+	if(!_rxconfig)
+	{
+		DBG("singleShot: _rxconfig == NULL\n");
+		return 1;
+	};
+
+	DBG("TxReset.\n");
+	_rxconfig->control = RXCONFIG_RESET_TX | RXCONFIG_RESET_DDS;
+    usleep(1000);
+	_rxconfig->control = RXCONFIG_NONE;
+
+	return 0;
+};
+
 int NMRCore::singleShot()
 {
 
@@ -486,7 +500,7 @@ int NMRCore::singleShot()
 	};
 	if(!_rx_buffer)
 	{
-		ERROR("No Rx buffer allocated.");
+		ERROR("No Rx buffer allocated.\n");
 		return 2;
 	};
 

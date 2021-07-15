@@ -27,11 +27,25 @@ int main(int argc, char *argv[])
 	LOG("NMR Server Daemon version %s\n", VERSION);
 
 	nmr = new NMRCore();
+	// Set some defaults
+	// nmr->configure_fclk0();
+	nmr->setFrequency(20E6);
+	nmr->setRxRate(RATE_2500K);
+	nmr->setRxSize(50000);
+	nmr->setRxDelay(0);
+
+	nmr->setTxBlankLen(50);
+	nmr->setTxAlen(15);
+	nmr->setTxBlen(8);
+	nmr->setTxABdly(1500);
+	nmr->setTxBBdly(1500);
+	nmr->setTxBBcnt(0);
+	nmr->setTxPower(PULSE_POWER_MAX);
 
 	int res = EXIT_SUCCESS;
 	bool flag_run_server = true;
 	int c;
-	while( (c = getopt(argc, argv, "f:nrs:"))  != -1)
+	while( (c = getopt(argc, argv, "f:nrs:t"))  != -1)
 	{
 		switch(c)
 		{
@@ -64,6 +78,17 @@ int main(int argc, char *argv[])
 					usleep(5E5);
 				};
 			};	break;
+			case 't': // optarg
+			{
+				LOG("TxReset: Toggling. Press ctrl-c to stop..\n");
+				flag_run_server = false;
+				while(1)
+				{
+					nmr->TxReset();
+					usleep(300E3);
+				};
+			}; 	break;
+
 			case '?': // unknown option
 				DBG("Unknown");
 				break;
@@ -74,21 +99,6 @@ int main(int argc, char *argv[])
 				break;
 		};
 	};
-
-	// Set some defaults
-	// nmr->configure_fclk0();
-	nmr->setFrequency(1E6);
-	nmr->setRxRate(RATE_2500K);
-	nmr->setRxSize(50000);
-	nmr->setRxDelay(0);
-
-	nmr->setTxAlen(15);
-	nmr->setTxBlen(8);
-	nmr->setTxABdly(1500);
-	nmr->setTxBBdly(1500);
-	nmr->setTxBBcnt(0);
-	nmr->setTxPower(PULSE_POWER_MAX);
-	nmr->setTxBlankLen(50);
 	
 	if(flag_run_server)
 	{

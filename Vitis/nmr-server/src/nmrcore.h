@@ -67,6 +67,8 @@ public:
 
 	int singleShot();
 	int forceOn(bool on);
+	int TxReset();
+
 protected:
 	int generatePulse();
 
