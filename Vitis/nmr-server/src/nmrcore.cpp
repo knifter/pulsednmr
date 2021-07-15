@@ -34,24 +34,7 @@
 //#define TX_BUFSIZE          50000           // Configures buffer size (PL)
 #define RX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
 #define TX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
-#define FREQ_MIN            (10)
-#define FREQ_MAX            (DAC_SAMPLE_RATE/2)
-#define NMR_CORE_CLK		142857132
-#define NMR_PG_CLK			(NMR_CORE_CLK / 14.0)
-
-#define PULSE_LEN_MIN		1
-#define PULSE_LEN_MAX		(100000)		// 10 mS
-#define PULSE_DLY_MIN		100				// >10 uS
-#define PULSE_DLY_MAX		((int)2E7)		// >2E6 uS
-#define PULSE_BCNT_MIN		0
-#define PULSE_BCNT_MAX		10
-#define PULSE_POWER_MIN		0
-#define PULSE_POWER_MAX		65535
-#define RX_DELAY_MIN		0
-#define	RX_DELAY_MAX		5000000 		// 5 sec
-#define BLANK_LEN_MIN		0
-#define BLANK_LEN_MAX		5000000			// 5 sec
-#define BLANK_RECOVER_US	500				// 0.5ms, datasheet says 3ms recover time..
+// #define NMR_PG_CLK			(NMR_CORE_CLK / 14.0)
 
 uint32_t max(uint32_t a, uint32_t b)
 {
@@ -123,20 +106,6 @@ NMRCore::NMRCore()
 	printf("SizeOf(PL_ConfigTxRegister: %d\n", sizeof(*_txconfig));
 #endif
 
-	// Set some defaults
-	setFrequency(1E6);
-	setRxRate(RATE_2500K);
-	setRxSize(50000);
-	setRxDelay(0);
-
-	setTxAlen(15);
-	setTxBlen(8);
-	setTxABdly(1500);
-	setTxBBdly(1500);
-	setTxBBcnt(0);
-	setTxPower((PULSE_POWER_MAX-PULSE_POWER_MIN)/2);
-	setTxBlankLen(50);
-
     // Align the DDS's, keep the transmitter in reset
     _rxconfig->control = RXCONFIG_NONE;
 };
@@ -182,8 +151,8 @@ int NMRCore::reset_pl()
 
    	// Toggle reset
   	printf("Reset PL.\n");
-  	_slcr[SLCR_FPGA_RST_CTRL] = 0x01;
-  	// usleep(1000);
+  	_slcr[SLCR_FPGA_RST_CTRL] = 0x00;
+  	usleep(80E3); // 80 ms, about what an upload bit file does
   	printf("Un-Reset PL.\n");
   	_slcr[SLCR_FPGA_RST_CTRL] = 0x00;
 
@@ -397,10 +366,7 @@ int NMRCore::setTxBlankLen(uint32_t usec)
 		usec = max(0, _txconfig->bb_dly - _txconfig->b_len - BLANK_RECOVER_US);
 	};
 
-	if(usec != _txconfig->blank_len)
-	{
-		DBG("Blank length: %u usec\n", usec);
-	};
+	DBG("Blank length: %u usec\n", usec);
 
 	_txconfig->blank_len = usec;
 
@@ -475,19 +441,19 @@ int NMRCore::setRxSize(uint32_t size)
 	return 0;
 };
 
-int NMRCore::setRxDelay(uint32_t clks)
+int NMRCore::setRxDelay(uint32_t usec)
 {
 	if(!_rxconfig)
 	{
 		ERROR("_rxconfig == NULL\n");
 		return 1;
 	};
-	if((clks > RX_DELAY_MAX) | (clks < RX_DELAY_MIN))
+	if((usec > RX_DELAY_MAX) | (usec < RX_DELAY_MIN))
 	{
-		ERROR("Rx-Delay %u clks out of range (%d, %d)\n", clks, RX_DELAY_MIN, RX_DELAY_MAX);
+		ERROR("Rx-Delay %u clks out of range (%d, %d)\n", usec, RX_DELAY_MIN, RX_DELAY_MAX);
 		return 2;
 	}
-	uint32_t usec = (float)clks * 1E6 / NMR_PG_CLK;
+	// uint32_t usec = (float)clks * 1E6 / NMR_PG_CLK;
 	uint32_t samples = ((uint64_t)getRxRate() * (uint64_t)usec) / 1E6;
 	DBG("Rx-Delay %u us, %u samples.\n", usec, samples);
 	_rx_delay = samples;

@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	{
 		switch(c)
 		{
-			case 'f':
+			case 'f': // optarg
 			{
 				int freq = atoi(optarg);
 				LOG("Force-on: Pulse output on (f = %d Hz. Press key to stop..", freq);
@@ -51,10 +51,11 @@ int main(int argc, char *argv[])
 			case 'r':
 				nmr->reset_pl(); // Will crash 2nd time, dunno why
 				break;
-			case 's':
+			case 's': // optarg
 			{
 				flag_run_server = false;
 				int test_pulse_count = atoi(optarg);
+				LOG("Sending %d test pulses.\n", test_pulse_count);
 				while(test_pulse_count--)
 				{
 					LOG("Sending test pulse...\n");
@@ -74,8 +75,21 @@ int main(int argc, char *argv[])
 		};
 	};
 
+	// Set some defaults
 	// nmr->configure_fclk0();
+	nmr->setFrequency(1E6);
+	nmr->setRxRate(RATE_2500K);
+	nmr->setRxSize(50000);
+	nmr->setRxDelay(0);
 
+	nmr->setTxAlen(15);
+	nmr->setTxBlen(8);
+	nmr->setTxABdly(1500);
+	nmr->setTxBBdly(1500);
+	nmr->setTxBBcnt(0);
+	nmr->setTxPower(PULSE_POWER_MAX);
+	nmr->setTxBlankLen(50);
+	
 	if(flag_run_server)
 	{
 	 	res = run_server();
