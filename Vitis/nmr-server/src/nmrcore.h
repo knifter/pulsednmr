@@ -37,7 +37,7 @@ typedef struct {
 
 typedef struct{
 	uint16_t rx_counter;
-} PL_StatusRegister;
+} PL_RxStatusRegister;
 
 class NMRCore
 {
@@ -82,7 +82,7 @@ private:
 	uint32_t _map_fd;
 	volatile uint32_t*				_slcr;
 	volatile PL_RxConfigRegister* 	_rxconfig;
-	volatile PL_StatusRegister* 	_status;
+	volatile PL_RxStatusRegister* 	_rxstatus;
 	volatile PL_TxConfigRegister* 	_txconfig;
 	volatile uint64_t *_map_rxdata;
 

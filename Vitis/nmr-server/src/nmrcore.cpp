@@ -53,7 +53,7 @@ NMRCore::NMRCore()
 	};
 	_slcr = (uint32_t*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_SLCR);
 	_rxconfig = (PL_RxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXCONFIG);
-	_status =   (PL_StatusRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXSTATUS);
+	_rxstatus =   (PL_RxStatusRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXSTATUS);
 	_txconfig = (PL_TxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_TXCONFIG);
 	_map_rxdata = (volatile uint64_t*) mmap(NULL, 16*sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXDATA);
   	// sysconf(_SC_PAGESIZE) = 4096, 16*=65536 bytes
@@ -67,7 +67,7 @@ NMRCore::NMRCore()
   		ERROR("mmap(RXCONFIG) failed.\n");
   		return;
   	};
-  	if(_status == NULL)
+  	if(_rxstatus == NULL)
   	{
   		ERROR("mmap(TXSTATUS) failed.\n");
   		return;
@@ -113,23 +113,23 @@ NMRCore::~NMRCore()
 		close(_map_fd);
 	_rxconfig = NULL;
 
-	_status = NULL;
+	_rxstatus = NULL;
 	_txconfig = NULL;
 };
 
 int NMRCore::TestFunction()
 {
-	DBG("Read RxStatus = %u\n", _status->rx_counter);
+	DBG("Read RxStatus = %u\n", _rxstatus->rx_counter);
 
 	// FIXME: test read
 	usleep(100E3);
-	int n = 1000;
+	int n = 100;
 	uint64_t sample;
 	while(n--)
 	{
 		sample = *_map_rxdata;
 		if(sample != 0)
-			DBG("Read %d\n", (uint32_t) sample);
+			DBG("Read %u\n", (uint32_t) sample);
 	};
 
 	DBG("Toggling TxReset.");
@@ -549,12 +549,12 @@ int NMRCore::singleShot()
 		while(needed)
 		{
 			// throttle polling
-			while(_status->rx_counter < 1000)
+			while(_rxstatus->rx_counter < 1000)
 				usleep(100);
 			
 			// rx_counter is our total number of floats waiting, twice the amount of samples
 			// read it once and cache it locally, it's updated by the PL
-			int len = _status->rx_counter >> 1;
+			int len = _rxstatus->rx_counter >> 1;
 
 			// There is probably more in the fifo then we need at some point
 			if(len > needed)
@@ -591,13 +591,13 @@ int NMRCore::singleShot()
 		while(rx_total < _rx_size)
 		{
 			// throttle polling
-			while(_status->rx_counter < 10000)
+			while(_rxstatus->rx_counter < 10000)
 			{
 #ifdef DEBUG_READLOOP
 				if(idle_cnt--<1)
 				{
 					idle_cnt = 5000;
-					DBG("Waiting for 10k samples (rx_counter = %d)\n", _status->rx_counter);
+					DBG("Waiting for 10k samples (rx_counter = %d)\n", _rxstatus->rx_counter);
 				};
 #endif
 				usleep(100);
@@ -605,7 +605,7 @@ int NMRCore::singleShot()
 
 			// rx_counter is our total number of floats waiting, twice the amount of samples
 			// read it once and cache it locally, it's updated by the PL
-			int len = _status->rx_counter >> 1;
+			int len = _rxstatus->rx_counter >> 1;
 
 			// now len is the amount of 'samples', complex floats waiting (even)
 			int needed = _rx_size - rx_total;
