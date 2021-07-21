@@ -51,7 +51,6 @@ NMRCore::NMRCore()
 		ERROR("ERROR: opening mem-device\n");
 		return;
 	};
-	
 	_slcr = (uint32_t*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_SLCR);
 	_rxconfig = (PL_RxConfigRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXCONFIG);
 	_status =   (PL_StatusRegister*) mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, _map_fd, MMAP_RXSTATUS);
@@ -113,8 +112,34 @@ NMRCore::~NMRCore()
 	if(_map_fd)
 		close(_map_fd);
 	_rxconfig = NULL;
+
 	_status = NULL;
 	_txconfig = NULL;
+};
+
+int NMRCore::TestFunction()
+{
+	DBG("Read RxStatus = %u\n", _status->rx_counter);
+
+	// FIXME: test read
+	usleep(100E3);
+	int n = 1000;
+	uint64_t sample;
+	while(n--)
+	{
+		sample = *_map_rxdata;
+		if(sample != 0)
+			DBG("Read %d\n", (uint32_t) sample);
+	};
+
+	DBG("Toggling TxReset.");
+	while(1)
+	{
+		TxReset();
+		usleep(300E3);
+	};
+
+	return 0;
 };
 
 int NMRCore::configure_fclk0()
@@ -511,13 +536,11 @@ int NMRCore::singleShot()
     usleep(1000);
 	_rxconfig->control = RXCONFIG_NONE;
 
-	DBG("Start Rx.\n");
-
 	// Discard _rxdelay samples
 	if(_rx_delay)
 	{
 #ifdef DEBUG_READLOOP
-		DBG("RxDelay: start discarding %u samples.\n", _rx_delay);
+		DBG("Start RxDelay: discarding %u samples.\n", _rx_delay);
 #endif // DEBUG_READLOOP
 		int32_t needed = _rx_delay;
 		uint64_t dummy = 0;
@@ -552,6 +575,7 @@ int NMRCore::singleShot()
 		DBG("RxDelay: Discarded %u samples.\n", check);
 	};
 
+	DBG("Start Rx.\n");
 	// Get FIFO data into buffer
 	{
 #ifdef DEBUG_READLOOP

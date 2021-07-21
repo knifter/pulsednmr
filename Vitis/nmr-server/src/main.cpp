@@ -80,13 +80,9 @@ int main(int argc, char *argv[])
 			};	break;
 			case 't': // optarg
 			{
-				LOG("TxReset: Toggling. Press ctrl-c to stop..\n");
+				LOG("Running test-function. Press ctrl-c to stop..\n");
+				nmr->TestFunction();
 				flag_run_server = false;
-				while(1)
-				{
-					nmr->TxReset();
-					usleep(300E3);
-				};
 			}; 	break;
 
 			case '?': // unknown option
