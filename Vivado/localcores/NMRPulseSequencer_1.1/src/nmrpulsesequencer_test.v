@@ -27,7 +27,7 @@ module nmrpulsesequencer_test(
     
     reg clk;
     reg rst;
-    reg enbl;
+    reg force_on;
     
     reg [31:0]  Alen;
     reg [31:0]  Blen;
@@ -44,7 +44,7 @@ module nmrpulsesequencer_test(
     ) DUT ( 
         .clk(clk),
         .rst(rst),
-        .enbl(enbl),
+        .force_on(force_on),
         .Alen_in(Alen),
         .Blen_in(Blen),
         .ABdly_in(ABdly),
@@ -59,13 +59,13 @@ module nmrpulsesequencer_test(
         
     initial begin
         clk = 0;
-        enbl = 1;
+        force_on = 0;
         rst = 1;
         
-        Alen = 10;
-        Blen = 20;
-        ABdly = 120;
-        BBdly = 60;
+        Alen = 15;
+        Blen = 8;
+        ABdly = 1500;
+        BBdly = 1500;
         BBcnt = 5;
         BlankLen = 5;
         

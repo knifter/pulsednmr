@@ -19,3 +19,8 @@ proc validate_PARAM_VALUE.US_DIVIDER { PARAM_VALUE.US_DIVIDER } {
 }
 
 
+proc update_MODELPARAM_VALUE.US_DIVIDER { MODELPARAM_VALUE.US_DIVIDER PARAM_VALUE.US_DIVIDER } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.US_DIVIDER}] ${MODELPARAM_VALUE.US_DIVIDER}
+}
+
