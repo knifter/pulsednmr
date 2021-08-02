@@ -1,6 +1,16 @@
 2021-07-TODO:
- - Replace config/status registers core which supports >32bits (suspected bug in old version)
- - Replace "real_multiplier" block with Pavels DSP48 block in Tx output amplitude
+ - Replace "real_multiplier" block with DSP-Macro in Tx output amplitude
+ - Remove floating point converter?
+ - Check FIR overflow (sum(coeff) > 1)
+ - increase FIR output bitwidth beyond 24 bits, we got the space
+ - remove (unneeded) data width converter (24->24) in rx chain
+
+2021-08-02 PL:
+ - Added DMA Controller and connected back the AXIS reader, widths might have been changed?
+ - removed xilinx.com:ip:axis_data_fifo:2.0 apparently
+ - Changed RX DDS output to 16 bit: additional changes
+ - rxstatus register must n*AXI_DATA_WIDTH: now 32 bits, added concat
+ - renamed slice blocks for more clarity which bits go where
 
 2021-07-15 PL:
  - Changed RX DDS output to 16 bit (cannot go higher with 30 bit phase, new?)
@@ -9,8 +19,6 @@
  - connect dcm_locked to ps system reset block
  - removed EMIO: GPIO SPI0 TTC0 from PS
  
-
-
 2021-07-15 nmr-server:
  - set defaults in main.cpp, nmrcore no longer configs mmaps with a default
  - add toggle TxReset loop
