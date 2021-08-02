@@ -1029,7 +1029,7 @@ proc create_hier_cell_rx_0 { parentCell nameHier } {
    CONFIG.Latency {13} \
    CONFIG.M_DATA_Has_TUSER {Not_Required} \
    CONFIG.Negative_Sine {false} \
-   CONFIG.Noise_Shaping {Auto} \
+   CONFIG.Noise_Shaping {None} \
    CONFIG.Output_Frequency1 {0} \
    CONFIG.Output_Width {16} \
    CONFIG.PINC1 {0} \
