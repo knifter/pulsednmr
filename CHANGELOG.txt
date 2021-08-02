@@ -2,6 +2,19 @@
  - Replace config/status registers core which supports >32bits (suspected bug in old version)
  - Replace "real_multiplier" block with Pavels DSP48 block in Tx output amplitude
 
+2021-07-15 PL:
+ - Changed RX DDS output to 16 bit (cannot go higher with 30 bit phase, new?)
+ - Snif dds output, removed fifo on sniffer dac1
+ - renamed RxConfig registers slices with bit slice
+ - connect dcm_locked to ps system reset block
+ - removed EMIO: GPIO SPI0 TTC0 from PS
+ 
+
+
+2021-07-15 nmr-server:
+ - set defaults in main.cpp, nmrcore no longer configs mmaps with a default
+ - add toggle TxReset loop
+
 2021-07-12 nmr-server:
  - Makefile for remote building, set date, upload bit
  - Reduced RxReset time from 1 sec to 1 msec
