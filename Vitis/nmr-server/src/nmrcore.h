@@ -84,7 +84,7 @@ private:
 	volatile PL_RxConfigRegister* 	_rxconfig;
 	volatile PL_RxStatusRegister* 	_rxstatus;
 	volatile PL_TxConfigRegister* 	_txconfig;
-	volatile uint64_t *_map_rxdata;
+	volatile uint64_t*				_map_rxdata;
 
 	// member vars
 	uint32_t _rx_freq;

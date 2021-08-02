@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define VERSION				"20210715"
+#define VERSION				"20210721"
 
 #define SERVER_PORT			1001
 #define DEBUG

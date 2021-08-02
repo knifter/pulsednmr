@@ -12,7 +12,7 @@
 #include <math.h>
 #include <sys/mman.h>
 #include <sys/time.h>
-
+#include <errno.h>
 
 #define MEM_DEVICE			"/dev/mem"
 #define MMAP_SLCR			0xF8000000		// ?
@@ -119,21 +119,26 @@ NMRCore::~NMRCore()
 
 int NMRCore::TestFunction()
 {
-	DBG("Read RxStatus = %u\n", _rxstatus->rx_counter);
 
 	// FIXME: test read
-	usleep(100E3);
+	TxReset();
+	// usleep(100E3);
 	int n = 100;
 	uint64_t sample;
-	while(n--)
+	DBG("Starting testread of %d samples. %d 32b words waiting FIFO now.\n", n, _rxstatus->rx_counter);
+	while(n)
 	{
-		sample = *_map_rxdata;
-		if(sample != 0)
-			DBG("Read %u\n", (uint32_t) sample);
+		if(_rxstatus->rx_counter > 1)
+		{
+			sample = *_map_rxdata;
+			DBG("Read I/Q: %0.2f / %0.2f \n", (float) (sample & 0xFFFFFFFF), (float) (sample >> 32));
+			n--;
+		};
 	};
 
+	n = 5;
 	DBG("Toggling TxReset.");
-	while(1)
+	while(n--)
 	{
 		TxReset();
 		usleep(300E3);
