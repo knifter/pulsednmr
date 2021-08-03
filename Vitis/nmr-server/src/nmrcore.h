@@ -67,7 +67,7 @@ public:
 
 	int singleShot();
 	int forceOn(bool on);
-	int TxReset();
+	int Reset();
 	int TestFunction();
 
 protected:

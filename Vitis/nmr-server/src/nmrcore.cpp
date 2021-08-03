@@ -26,6 +26,7 @@
 	#define RXCONFIG_NONE				0x00
 	#define RXCONFIG_RESET_DDS 			0x01
 	#define RXCONFIG_RESET_TX 			0x02
+	#define RXCONFIG_RESET_FIFO			0x04
 	#define RXCONFIG_FORCE_ON			0x80
 #define MMAP_RXSTATUS 		0x40001000
 #define MMAP_TXCONFIG 		0x40002000
@@ -119,28 +120,32 @@ NMRCore::~NMRCore()
 
 int NMRCore::TestFunction()
 {
+	setFrequency(10E6);
 
 	// FIXME: test read
-	TxReset();
+	Reset();
 	// usleep(100E3);
 	int n = 100;
 	uint64_t sample;
-	DBG("Starting testread of %d samples. %d 32b words waiting FIFO now.\n", n, _rxstatus->rx_counter);
+	DBG("Starting testread of %d samples. %d 32b words waiting in FIFO now.\n", n, _rxstatus->rx_counter);
 	while(n)
-	{
+	{		
 		if(_rxstatus->rx_counter > 1)
 		{
 			sample = *_map_rxdata;
-			DBG("Read I/Q: %0.2f / %0.2f \n", (float) (sample & 0xFFFFFFFF), (float) (sample >> 32));
+			// DBG("Read (%u) I/Q F: %0.2f / %0.2f \n", _rxstatus->rx_counter, (float) (sample & 0xFFFFFFFF), (float) (sample >> 32));
+			// DBG("Read (%u) I/Q I: %08x / %08x \n", _rxstatus->rx_counter, (int32_t)(sample & 0xFFFFFFFF), (int32_t)(sample >> 32));
+			DBG("Read (%u) I/Q I: %d / %d \n", _rxstatus->rx_counter, (int32_t)(sample & 0xFFFFFFFF), (int32_t)(sample >> 32));
+
 			n--;
 		};
 	};
 
-	n = 5;
-	DBG("Toggling TxReset.");
+	n = 10;
+	DBG("Toggling Resets.");
 	while(n--)
 	{
-		TxReset();
+		Reset();
 		usleep(300E3);
 	};
 
@@ -504,7 +509,7 @@ int NMRCore::forceOn(bool on)
 	return 0;
 };
 
-int NMRCore::TxReset()
+int NMRCore::Reset()
 {
 	if(!_rxconfig)
 	{
@@ -512,8 +517,8 @@ int NMRCore::TxReset()
 		return 1;
 	};
 
-	DBG("TxReset.\n");
-	_rxconfig->control = RXCONFIG_RESET_TX | RXCONFIG_RESET_DDS;
+	DBG("Reset: TX DDS FIFO\n");
+	_rxconfig->control = RXCONFIG_RESET_TX | RXCONFIG_RESET_DDS | RXCONFIG_RESET_FIFO;
     usleep(1000);
 	_rxconfig->control = RXCONFIG_NONE;
 
@@ -534,13 +539,9 @@ int NMRCore::singleShot()
 		return 2;
 	};
 
-	// reset NMRPulseSequencer
 	// Pulse sequence is automatically started after reset
 	DBG("Start Tx.\n");
-	_rxconfig->control = RXCONFIG_RESET_TX;
-    usleep(1000);
-	_rxconfig->control = RXCONFIG_NONE;
-
+	Reset();
 	// Discard _rxdelay samples
 	if(_rx_delay)
 	{
