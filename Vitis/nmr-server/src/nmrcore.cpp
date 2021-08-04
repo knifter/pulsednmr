@@ -133,8 +133,8 @@ int NMRCore::TestFunction()
 		if(_rxstatus->rx_counter > 1)
 		{
 			sample = *_map_rxdata;
-			// DBG("Read (%u) I/Q F: %0.2f / %0.2f \n", _rxstatus->rx_counter, (float) (sample & 0xFFFFFFFF), (float) (sample >> 32));
-			// DBG("Read (%u) I/Q I: %08x / %08x \n", _rxstatus->rx_counter, (int32_t)(sample & 0xFFFFFFFF), (int32_t)(sample >> 32));
+			DBG("Read (%u) I/Q F: %0.2f / %0.2f \n", _rxstatus->rx_counter, (float) (sample & 0xFFFFFFFF), (float) (sample >> 32));
+			DBG("Read (%u) I/Q x: %08x / %08x \n", _rxstatus->rx_counter, (int32_t)(sample & 0xFFFFFFFF), (int32_t)(sample >> 32));
 			DBG("Read (%u) I/Q I: %d / %d \n", _rxstatus->rx_counter, (int32_t)(sample & 0xFFFFFFFF), (int32_t)(sample >> 32));
 
 			n--;

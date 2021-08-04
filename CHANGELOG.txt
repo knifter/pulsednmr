@@ -1,9 +1,20 @@
 2021-07-TODO:
  - Replace "real_multiplier" block with DSP-Macro in Tx output amplitude
  - Remove floating point converter?
- - Check FIR overflow (sum(coeff) > 1)
  - increase FIR output bitwidth beyond 24 bits, we got the space
- - remove (unneeded) data width converter (24->24) in rx chain
+ - Still a lot of phase jitter on rx&tx, refered to txreset and to eachother
+ - Convert PL to 125 ADC clock
+ - Fix samplerate == gui samplerate (seems off by fact. 2)
+
+2021-08-03 PL:
+ - Added FIFO reset: reset the RX fifo AND:
+ - Reset data-width converter which converts 1x64complex to 32b-float interleaved so I/Q don't get mixed up
+ - Adjusted FIR output width to 32 bit (6 bits fraction) to avoid sign extender
+ - re-configured float converter to convert 26.6 fixed point to float
+ - set rx CIC(2) output width to 32
+ ! Removed float converter: rx output will be 32 bit ints now
+ - bug: samplerate does not seem to match setting in ui for unknown reason
+ - connect dma to HP0 to access ddr (was wrongly connected to GP0), shouldnt matter as we're not (yet) using dma
 
 2021-08-02 PL:
  - Added DMA Controller and connected back the AXIS reader, widths might have been changed?
