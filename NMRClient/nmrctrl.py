@@ -3,7 +3,7 @@ import sys
 import struct
 from enum import Enum, unique
 import socket
-import numpy
+import numpy as np
 
 DEFAULT_PORT = 1001
 LOG_NAME = 'nmr.ctrl'
@@ -13,10 +13,12 @@ log = logging.getLogger(LOG_NAME)
 def main():
     print("Start.")
     nmr = NMRCtrl()
-    nmr.set_freq(22E6)
-    nmr.connect("192.168.1.100")
-    nmr.set_awidth(200)
+    nmr.connect("nmr")
     nmr.set_rate(25E5)
+    nmr.set_freq(22E6)
+    nmr.set_awidth(200)
+    nmr.set_bcount(0)
+    nmr.set_rxsize(1000);
 
     print("Fire.")
     i = 1
@@ -128,7 +130,7 @@ class NMRCtrl(object):
 
     def configure(self):
         self.set_freq()
-        #self.set_power()
+        self.set_power()
         self.set_awidth()
         self.set_rate()
         self.set_rxsize()
@@ -212,12 +214,14 @@ class NMRCtrl(object):
     @property
     def rate(self): return self._rate
     def set_rate(self, rate = None, index = None):
+        # print(f"set_rate({rate}, {index})");
         if index != None:
-            RATES[index] # check that it is valid
+            # log.debug("Index %d: %d" % index, RATES[index])
+            # RATES[index] # check that it is valid
             self._rate_index = index
         if rate != None:
-            log.debug("Index of %d: %d" % (index, list(RATES.values()).index(index)))
             index = list(RATES.values()).index(rate)
+            log.debug("Index of %d: %d" % (rate, index))
             self._rate_index = index
 
         log.debug("Set rate index %d (%d smps)" % (self._rate_index, RATES[self._rate_index]))
@@ -230,9 +234,8 @@ class NMRCtrl(object):
     def set_power(self, dbm = None):
         if dbm != None:
             self._power = dbm
-        factor = 3300*(dbm + 10)
-        if factor > 63535:
-            factor = 63535
+
+        factor = min(3300*(self._power + 10), 65535);
         log.debug("Set power %d dBm, f = %d" % (self._power, factor))
         if self._connected:
             self._send_cmd(Command.SET_POWER, int(factor))
@@ -245,7 +248,7 @@ class NMRCtrl(object):
             self._awidth = usecs
         if self._connected:
             clks = int(self._awidth * NMR_PG_CLK / 1E6 + 0.5)
-            print("A-width: %f us = %d clks, real time = %.8f" % (self._awidth, clks, clks / NMR_PG_CLK))
+            # print("A-width: %f us = %d clks, real time = %.8f" % (self._awidth, clks, clks / NMR_PG_CLK))
             self._send_cmd(Command.SET_AWIDTH, clks)
 
     @property
@@ -256,7 +259,7 @@ class NMRCtrl(object):
             self._bwidth = usecs
         if self._connected:
             clks = int(self._bwidth * NMR_PG_CLK / 1E6 + 0.5)
-            print("B-wdith: %f us = %d clks, real time = %.8f" % (self._bwidth, clks, clks / NMR_PG_CLK))
+            # print("B-width: %f us = %d clks, real time = %.8f" % (self._bwidth, clks, clks / NMR_PG_CLK))
             self._send_cmd(Command.SET_BWIDTH, clks)
 
     @property
