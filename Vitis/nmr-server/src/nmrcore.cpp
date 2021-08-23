@@ -15,23 +15,26 @@
 #include <errno.h>
 
 #define MEM_DEVICE			"/dev/mem"
-#define MMAP_SLCR			0xF8000000		// ?
-	#define SLCR_LOCK				0x0004
-	#define SLCR_UNLOCK				0x0008
-  	#define SLCR_LOCK_KEY			0x767B
-  	#define SLCR_UNLOCK_KEY			0xDF0D
-	#define SLCR_FPGA0_CLK_CTRL		0x005C // was: 92
-	#define	SLCR_FPGA_RST_CTRL		0x0240
-#define MMAP_RXCONFIG 		0x40000000
+#define MMAP_SLCR					0xF8000000		// ?
+	#define SLCR_LOCK					0x0004
+	#define SLCR_UNLOCK					0x0008
+  	#define SLCR_LOCK_KEY				0x767B
+  	#define SLCR_UNLOCK_KEY				0xDF0D
+	#define SLCR_FPGA0_CLK_CTRL			0x005C // was: 92
+	#define	SLCR_FPGA_RST_CTRL			0x0240
+#define MMAP_RXCONFIG 				0x40000000
 	#define RXCONFIG_NONE				0x00
 	#define RXCONFIG_RESET_DDS 			0x01
 	#define RXCONFIG_RESET_TX 			0x02
 	#define RXCONFIG_RESET_FIFO			0x04
 	#define RXCONFIG_FORCE_ON			0x80
-#define MMAP_RXSTATUS 		0x40001000
-#define MMAP_TXCONFIG 		0x40002000
-#define MMAP_RXDATA 		0x40010000
-#define DAC_SAMPLE_RATE     125000000		// 125 MSPS
+#define MMAP_RXSTATUS 				0x40001000
+#define MMAP_TXCONFIG 				0x40002000
+#define MMAP_RXDATA 				0x40010000
+#define DAC_SAMPLE_RATE     		125000000		// 125 MSPS
+#define FIR_RATE					2
+// #define CIC_RATE_MIN				25
+// #define CIC_RATE_MAX				625
 //#define TX_BUFSIZE          50000           // Configures buffer size (PL)
 #define RX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
 #define TX_DDS_PIR_WIDTH	30				// bit-width of DDS Phase register
@@ -406,46 +409,49 @@ int NMRCore::setTxBlankLen(uint32_t usec)
 	return 0;
 };
 
-int NMRCore::setRxRate(NMRDecimationRate rate)
+int NMRCore::setRxRate(NMRDecimationRate idx)
 {
-	DBG("setRxRate: idx = %d\n", rate);
 	if(!_rxconfig)
 	{
 		ERROR("setRxRate: _rxconfig == NULL\n");
 		return 1;
 	};
 	// rx_rate = DAC_SAMPLE_RATE / divider / 2 [CIC(rx_rate) + FIR(2)]
-	switch(rate)
+	int smps = 25E3;
+	switch(idx)
 	{
 		// DAC_SAMPLE_RATE / 2500 = 50ksmps
 		case RATE_25K:
-			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 25E3;
+			smps = 25E3;
 			break;
 		case RATE_50K:
-			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 50E3;
+			smps = 50E3;
 			break;
 		case RATE_125K:
-			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 125E3;
+			smps = 125E3;
 			break;
 		case RATE_250K:
-			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 250E3;
+			smps = 250E3;
 			break;
 		case RATE_500K:
-			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 500E3;
+			smps = 500E3;
 			break;
 		case RATE_1250K:
-			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 1250E3;
+			smps = 1250E3;
 			break;
 		case RATE_2500K:
-			_rxconfig->rate = DAC_SAMPLE_RATE/2 / 2500E3;
+			smps = 2500E3;
 			break;
-		// case RATE_5000K:
-		// 	_rxconfig->rate = DAC_SAMPLE_RATE/2 / 5000E3;
-		// 	break;
 		default: 
-			ERROR("Received an incorrect rate-index: %d\n", rate);
+			ERROR("Received an incorrect rate-index: %d\n", idx);
 			return 1;
-	}
+	};
+
+	// Calc actual cic rate config value & write it
+	int cic_rate = DAC_SAMPLE_RATE/FIR_RATE / smps;
+	DBG("setRxRate: idx = %d: %d ksmps, cic_rate = %d\n", idx, smps/1E3, cic_rate);
+	_rxconfig->rate = cic_rate;
+
 	return 0;
 };
 
