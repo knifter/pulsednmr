@@ -8,6 +8,9 @@
  - use numpy to cast our uint32 to complex float
  - communicate pulse times in usecs, not in clks
 
+2021-08-24 nmr-server:
+ - accept -p(ower) param
+
 2021-08-24 PL:
  - Removed floating point converter
  - multi_0: 30 bit output
@@ -15,7 +18,6 @@
  - cic changed order/name
  - Ran the whole shebang from the 125MHz ADC clock instead of fclk_0 (142 MHz)
  - Added power-out multiplier with DSP48 Macro
- - Wait 1us after DDS reset to wait for the DDS's to startup (takes about 400 ns/50clks), after that reset PulseGen
 
 2021-08-03 PL:
  - Added FIFO reset: reset the RX fifo AND:

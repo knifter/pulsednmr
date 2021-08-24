@@ -359,7 +359,7 @@ int NMRCore::setTxBBcnt(uint32_t count)
 	return 0;
 };
 
-int NMRCore::setTxPower(uint32_t power)
+int NMRCore::setTxPower(uint16_t power)
 {
 	if(!_txconfig)
 	{
@@ -374,7 +374,7 @@ int NMRCore::setTxPower(uint32_t power)
 
 	DBG("Power-out multiplier: %u\n", power);
 
-	_txconfig->power_out = power;
+	_txconfig->power_out = (uint16_t) power;
 
 	return 0;
 };
@@ -449,7 +449,7 @@ int NMRCore::setRxRate(NMRDecimationRate idx)
 
 	// Calc actual cic rate config value & write it
 	int cic_rate = DAC_SAMPLE_RATE/FIR_RATE / smps;
-	DBG("setRxRate: idx = %d: %d ksmps, cic_rate = %d\n", idx, smps/1E3, cic_rate);
+	DBG("setRxRate: idx = %d: %d ksmps, cic_rate = %d\n", idx, (int)(smps/1E3), cic_rate);
 	_rxconfig->rate = cic_rate;
 
 	return 0;
@@ -525,7 +525,6 @@ int NMRCore::Reset()
 
 	DBG("Reset: TX DDS FIFO\n");
 	_rxconfig->control = RXCONFIG_RESET_TX | RXCONFIG_RESET_DDS | RXCONFIG_RESET_FIFO;
-    usleep(1000);
 	_rxconfig->control = RXCONFIG_NONE;
 
 	return 0;
@@ -548,6 +547,7 @@ int NMRCore::singleShot()
 	// Pulse sequence is automatically started after reset
 	DBG("Start Tx.\n");
 	Reset();
+
 	// Discard _rxdelay samples
 	if(_rx_delay)
 	{

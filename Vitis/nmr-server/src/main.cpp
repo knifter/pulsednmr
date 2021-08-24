@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 	int res = EXIT_SUCCESS;
 	bool flag_run_server = true;
 	int c;
-	while( (c = getopt(argc, argv, "f:nrs:t"))  != -1)
+	while( (c = getopt(argc, argv, "f:nrp:s:t"))  != -1)
 	{
 		switch(c)
 		{
@@ -65,6 +65,12 @@ int main(int argc, char *argv[])
 			case 'r':
 				nmr->reset_pl(); // Will crash 2nd time, dunno why
 				break;
+			case 'p': 
+			{
+				uint16_t power = (int) (atoi(optarg)*65535/100);
+				LOG("SetTxPower(%u)\n", power);
+				nmr->setTxPower(power);
+			}; 	break;
 			case 's': // optarg
 			{
 				flag_run_server = false;
@@ -221,7 +227,7 @@ int handleConnection(int sock_client)
 				break;
 			case CMD_SET_RATE:
 				reply.result = nmr->setRxRate((NMRDecimationRate) command.param) ? RES_ERROR : RES_OK;
-				LOG("Set Rx SampleRate #%d: %d ksps.\n", command.param, nmr->getRxRate());
+				LOG("Set Rx SampleRate #%d: %d ksps.\n", command.param, (int)(nmr->getRxRate()/1E3));
 				break;
 			case CMD_SET_AWIDTH:
 				LOG("Set A-Width %d usec.\n", command.param);

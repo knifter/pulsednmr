@@ -62,7 +62,7 @@ public:
 	int setTxABdly(uint32_t usec);
 	int setTxBBdly(uint32_t usec);
 	int setTxBBcnt(uint32_t count);
-	int setTxPower(uint32_t power);
+	int setTxPower(uint16_t power);
 	int setTxBlankLen(uint32_t usec);
 
 	int singleShot();
