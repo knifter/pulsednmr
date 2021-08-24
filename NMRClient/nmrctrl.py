@@ -18,7 +18,7 @@ def main():
     nmr.set_freq(22E6)
     nmr.set_awidth(200)
     nmr.set_bcount(0)
-    nmr.set_rxsize(1000);
+    nmr.set_rxsize(20);
 
     print("Fire.")
     i = 1
@@ -81,7 +81,7 @@ class NMRCtrl(object):
         self._port = None
         self._sequence = 0
         self._needs_config = True
-        self._iqdata = None
+        self._measurement = None
         self._socket = None
 
         # create TCP socket (Qt)
@@ -143,20 +143,27 @@ class NMRCtrl(object):
     def fire(self):
         # fire
         reply = self._send_cmd(Command.FIRE)
-        self._iqdata = reply.data
-        # TODO: make measurement here, because configure(), set_rxrate(x), measurement() would cause wrong rate in measurement
-        
-    @property
-    def measurement(self):
-        if(self._iqdata == None):
-            raise NMRNoDataError("No data points obtained yet.");
+
+        # make measure
         m = NMRMeasurement()
         m.freq = self.freq
         m.rate = self.rate
         m.awidth = self.awidth
         m.size = self.rxsize
-        m.iqdata = numpy.frombuffer(self._iqdata, numpy.complex64)
-        return m
+
+        # ydata = np.abs( self.data.astype(np.float32).view(np.complex64) [0::2] / (1 << 30) )
+        buffer = reply.data;
+        data = np.frombuffer(buffer, np.int32)
+        m.iqdata = np.frombuffer(reply.data, np.int32).astype(np.float32).view(np.complex64) / (1 << 30)
+        # print(m.iqdata);
+        self._measurement = m;
+        return m;
+    
+    @property
+    def measurement(self):
+        if(self._measurement == None):
+            raise NMRNoDataError("No measurement obtained yet.");
+        return self._measurement
 
     def _send_cmd(self, cmd, param = 0, tryconnection=False):
         if not self._connected and not tryconnection:
@@ -247,9 +254,9 @@ class NMRCtrl(object):
             log.debug("Set A-Width %d us." % (usecs))
             self._awidth = usecs
         if self._connected:
-            clks = int(self._awidth * NMR_PG_CLK / 1E6 + 0.5)
+            # clks = int(self._awidth * NMR_PG_CLK / 1E6 + 0.5)
             # print("A-width: %f us = %d clks, real time = %.8f" % (self._awidth, clks, clks / NMR_PG_CLK))
-            self._send_cmd(Command.SET_AWIDTH, clks)
+            self._send_cmd(Command.SET_AWIDTH, self._awidth)
 
     @property
     def bwidth(self): return self._bwidth
@@ -258,9 +265,9 @@ class NMRCtrl(object):
             log.debug("Set B-Width %d us." % (usecs))
             self._bwidth = usecs
         if self._connected:
-            clks = int(self._bwidth * NMR_PG_CLK / 1E6 + 0.5)
+            # clks = int(self._bwidth * NMR_PG_CLK / 1E6 + 0.5)
             # print("B-width: %f us = %d clks, real time = %.8f" % (self._bwidth, clks, clks / NMR_PG_CLK))
-            self._send_cmd(Command.SET_BWIDTH, clks)
+            self._send_cmd(Command.SET_BWIDTH, self._bwidth)
 
     @property
     def abdelay(self): return self._abdelay
@@ -269,8 +276,8 @@ class NMRCtrl(object):
             log.debug("Set AB-Delay %d us." % (usecs))
             self._abdelay = usecs
         if self._connected:
-            clks = int(self._abdelay * NMR_PG_CLK / 1E6 + 0.5)
-            self._send_cmd(Command.SET_ABDELAY, clks)
+            # clks = int(self._abdelay * NMR_PG_CLK / 1E6 + 0.5)
+            self._send_cmd(Command.SET_ABDELAY, self._abdelay)
 
     @property
     def bbdelay(self): return self._bbdelay
@@ -279,8 +286,8 @@ class NMRCtrl(object):
             log.debug("Set BB-Delay %d us." % (usecs))
             self._bbdelay = usecs
         if self._connected:
-            clks = int(self._bbdelay * NMR_PG_CLK / 1E6 + 0.5)
-            self._send_cmd(Command.SET_BBDELAY, clks)
+            # clks = int(self._bbdelay * NMR_PG_CLK / 1E6 + 0.5)
+            self._send_cmd(Command.SET_BBDELAY, self._bbdelay)
 
     @property
     def bcount(self): return self._bcount

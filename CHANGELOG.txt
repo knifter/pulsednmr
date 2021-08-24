@@ -1,13 +1,22 @@
 2021-09-TODO:
- - Replace "real_multiplier" block with DSP-Macro in Tx output amplitude
- - Remove floating point converter?
- - Still a lot of phase jitter on rx&tx, refered to txreset and to eachother
- - Convert PL to 125 ADC clock
- - Fix samplerate == gui samplerate (seems off by fact. 2)
+ - fix LFSR in RX multiplier and power multiplier
+ - UI: manual start/stop fft window
+ - UI: reconnect to last IP
+
+2021-08-24 UI:
+ - Make measurement in fire()
+ - use numpy to cast our uint32 to complex float
+ - communicate pulse times in usecs, not in clks
 
 2021-08-24 PL:
  - Removed floating point converter
- 
+ - multi_0: 30 bit output
+ - CIC_0/1: 30 bit input
+ - cic changed order/name
+ - Ran the whole shebang from the 125MHz ADC clock instead of fclk_0 (142 MHz)
+ - Added power-out multiplier with DSP48 Macro
+ - Wait 1us after DDS reset to wait for the DDS's to startup (takes about 400 ns/50clks), after that reset PulseGen
+
 2021-08-03 PL:
  - Added FIFO reset: reset the RX fifo AND:
  - Reset data-width converter which converts 1x64complex to 32b-float interleaved so I/Q don't get mixed up
