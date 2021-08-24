@@ -1,11 +1,13 @@
-2021-07-TODO:
+2021-09-TODO:
  - Replace "real_multiplier" block with DSP-Macro in Tx output amplitude
  - Remove floating point converter?
- - increase FIR output bitwidth beyond 24 bits, we got the space
  - Still a lot of phase jitter on rx&tx, refered to txreset and to eachother
  - Convert PL to 125 ADC clock
  - Fix samplerate == gui samplerate (seems off by fact. 2)
 
+2021-08-24 PL:
+ - Removed floating point converter
+ 
 2021-08-03 PL:
  - Added FIFO reset: reset the RX fifo AND:
  - Reset data-width converter which converts 1x64complex to 32b-float interleaved so I/Q don't get mixed up
