@@ -3,14 +3,17 @@
  - UI: manual start/stop fft window
  - UI: reconnect to last IP
 
+2021-08-26 PL:
+ - DAC2 outputs mixer output again
+ - LFSR on carry in multi replaced with Pavels version
+ - Order of IO signals changed: pulsegen signals first, then debug
+ 
 2021-08-24 UI:
  - Make measurement in fire()
  - use numpy to cast our uint32 to complex float
  - communicate pulse times in usecs, not in clks
-
 2021-08-24 nmr-server:
  - accept -p(ower) param
-
 2021-08-24 PL:
  - Removed floating point converter
  - multi_0: 30 bit output
