@@ -1,17 +1,18 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define VERSION				"20210824"
+#define VERSION				"20210827"
 
 #define SERVER_PORT			1001
 #define DEBUG
 #define DEBUGLOG			// enabled DBG() macro messages in log
-// #define DEBUG_READLOOP
+#define DEBUG_READLOOP
 // #define DEBUG_ALIGNMENT
 
 #define FREQ_MIN            (10)
 #define FREQ_MAX            (DAC_SAMPLE_RATE/2)
-#define NMR_CORE_CLK		142857132
+#define NMR_CORE_CLK		125000000
+#define NMR_PG_CLK			(NMR_CORE_CLK / 125.0)
 #define PULSE_LEN_MIN		1
 #define PULSE_LEN_MAX		(100000)		// 10 mS
 #define PULSE_DLY_MIN		100				// >10 uS

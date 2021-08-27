@@ -126,9 +126,17 @@ int NMRCore::TestFunction()
 	setFrequency(10E6);
 
 	// FIXME: test read
-	Reset();
+	int n = 1000;
+	DBG("Toggling Resets.");
+	while(n--)
+	{
+		Reset();
+		usleep(1000);
+	};
+	return 0;
+
 	// usleep(100E3);
-	int n = 100;
+	n = 100;
 	uint64_t sample;
 	DBG("Starting testread of %d samples. %d 32b words waiting in FIFO now.\n", n, _rxstatus->rx_counter);
 	while(n)
@@ -142,14 +150,6 @@ int NMRCore::TestFunction()
 
 			n--;
 		};
-	};
-
-	n = 10;
-	DBG("Toggling Resets.");
-	while(n--)
-	{
-		Reset();
-		usleep(300E3);
 	};
 
 	return 0;
@@ -523,9 +523,12 @@ int NMRCore::Reset()
 		return 1;
 	};
 
-	DBG("Reset: TX DDS FIFO\n");
-	_rxconfig->control = RXCONFIG_RESET_TX | RXCONFIG_RESET_DDS | RXCONFIG_RESET_FIFO;
+	DBG("Reset: TX DDS FIFO\n");	
+	_rxconfig->control = RXCONFIG_RESET_DDS | RXCONFIG_RESET_FIFO | RXCONFIG_RESET_TX;
+	// _rxconfig->control = RXCONFIG_RESET_TX;
 	_rxconfig->control = RXCONFIG_NONE;
+	
+	// usleep(500);
 
 	return 0;
 };
