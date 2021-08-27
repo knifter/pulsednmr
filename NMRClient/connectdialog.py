@@ -10,7 +10,7 @@ if QT_VERSION == 5:
     from PyQt5.QtWidgets import QSpinBox, QDialog, QFormLayout, QComboBox, QDialogButtonBox, QSizePolicy
     from PyQt5.QtGui import QRegExpValidator
 
-DEFAULT_HOST = "192.168.1.100"
+DEFAULT_HOST = "192.168.137.100"
 DEFAULT_PORT = 1001
 
 class ConnectDialog(QDialog):
