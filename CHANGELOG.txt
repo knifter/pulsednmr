@@ -3,11 +3,14 @@
  - UI: manual start/stop fft window
  - UI: reconnect to last IP
 
+2021-08-27 PL:
+ - Removed fifo_reset from data-width-converter. (seem to solve the I-Q switch around problem for now)
+ 
 2021-08-26 PL:
  - DAC2 outputs mixer output again
  - LFSR on carry in multi replaced with Pavels version
  - Order of IO signals changed: pulsegen signals first, then debug
- 
+
 2021-08-24 UI:
  - Make measurement in fire()
  - use numpy to cast our uint32 to complex float
