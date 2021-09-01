@@ -1,3 +1,11 @@
+2021-09-01 PL (rkortek)
+- Update cores to latest (incl. ADC inversion fix)
+- Removed subset converter and clock converter after ADC (No Clock Domain crossing and 1 subset converter can be used)
+- Fixed remap of axis_subset_converter_1 (mixer) (16b'0,tdata[15:0] to 18'b0,tdata[13:0])
+- Removed random rounding from complex multiplier to omit LSFR 
+- Fixed remap of axis_subset_converter_1 (DAC) (2'b00, tdata[28:15] to 2'b00, tdata[30:17])
+- Added ILA for debugging purposes
+
 2021-09-TODO:
  - fix LFSR in RX multiplier and power multiplier
  - UI: manual start/stop fft window
