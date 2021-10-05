@@ -1,3 +1,7 @@
+2021-10-05 PL (tvr)
+ - Removed add DMA test blocks in PS hier. 
+ - Removed aux_rst signal, this doesn't work currently and crashes the system
+ 
 2021-09-01 PL (rkortek)
 - Update cores to latest (incl. ADC inversion fix)
 - Removed subset converter and clock converter after ADC (No Clock Domain crossing and 1 subset converter can be used)
