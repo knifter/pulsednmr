@@ -27,6 +27,7 @@
 	#define RXCONFIG_RESET_DDS 			0x01
 	#define RXCONFIG_RESET_TX 			0x02
 	#define RXCONFIG_RESET_FIFO			0x04
+	#define RXCONFIG_AMP_ON 			0x40
 	#define RXCONFIG_FORCE_ON			0x80
 #define MMAP_RXSTATUS 				0x40001000
 #define MMAP_TXCONFIG 				0x40002000
@@ -509,11 +510,26 @@ int NMRCore::forceOn(bool on)
 	};
 
 	if(on)
-		_rxconfig->control = RXCONFIG_FORCE_ON;
+		_rxconfig->control |= RXCONFIG_FORCE_ON;
 	else
-		_rxconfig->control = RXCONFIG_NONE;
+		_rxconfig->control &= ~(RXCONFIG_FORCE_ON);
 	return 0;
 };
+
+int NMRCore::ampOn(bool on)
+{
+    if(!_rxconfig)
+    {
+		DBG("ampOn: _rxconfig == NULL\n");
+		return 1;
+    }
+
+    if(on)
+        _rxconfig->control |= RXCONFIG_AMP_ON;
+    else
+        _rxconfig->control &= ~(RXCONFIG_AMP_ON);
+    return 0;
+}
 
 int NMRCore::Reset()
 {
@@ -524,9 +540,9 @@ int NMRCore::Reset()
 	};
 
 	DBG("Reset: TX DDS FIFO\n");	
-	_rxconfig->control = RXCONFIG_RESET_DDS | RXCONFIG_RESET_FIFO | RXCONFIG_RESET_TX;
+	_rxconfig->control |= RXCONFIG_RESET_DDS | RXCONFIG_RESET_FIFO | RXCONFIG_RESET_TX; 
 	// _rxconfig->control = RXCONFIG_RESET_TX;
-	_rxconfig->control = RXCONFIG_NONE;
+	_rxconfig->control &= ~(RXCONFIG_RESET_DDS | RXCONFIG_RESET_FIFO | RXCONFIG_RESET_TX); 
 	
 	// usleep(500);
 

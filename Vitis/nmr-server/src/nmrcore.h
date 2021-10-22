@@ -67,6 +67,7 @@ public:
 
 	int singleShot();
 	int forceOn(bool on);
+	int ampOn(bool on);
 	int Reset();
 	int TestFunction();
 

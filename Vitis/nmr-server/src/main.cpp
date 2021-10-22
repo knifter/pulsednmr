@@ -285,6 +285,10 @@ int handleConnection(int sock_client)
 				LOG("Set Blank Length %d usec.\n", command.param);
 				reply.result = nmr->setTxBlankLen(command.param) ? RES_ERROR : RES_OK;
 				break;
+            case CMD_SET_AMP:
+                LOG("Set Amplifier %d\n", command.param);
+                reply.result = nmr->ampOn(command.param) ? RES_ERROR : RES_OK;
+                break;
 			default:
 				WARNING("Unknown command code: %d\n", command.commandcode);
 				break;

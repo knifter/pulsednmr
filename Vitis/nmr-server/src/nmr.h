@@ -22,6 +22,7 @@ typedef enum CommandCode_enum : uint32_t {
     CMD_KEEPALIVE	= 11,
     CMD_SET_POWER	= 12,
 	CMD_SET_BLANKLEN= 13,
+    CMD_SET_AMP     = 14,
 } CommandCode;
 
 typedef struct {

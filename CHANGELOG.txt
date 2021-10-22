@@ -1,3 +1,9 @@
+2021-10-22 PL PS PY (rko)
+ - Improved NMRPulseSequencer to v1.2 to include AMP power control
+ - Update server and control gui to switch on and off the amplifier on
+   start/stop of the measurement
+ - Flake8 of some python files
+
 2021-10-05 PL (tvr)
  - Removed add DMA test blocks in PS hier. 
  - Removed aux_rst signal, this doesn't work currently and crashes the system

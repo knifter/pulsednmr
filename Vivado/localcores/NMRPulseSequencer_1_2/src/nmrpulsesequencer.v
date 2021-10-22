@@ -26,6 +26,7 @@ module NMRPulseSequencer #(
     input wire clk,
     input wire rst,
     input wire force_on,
+    input wire amp_on,
     
     input wire [31:0] Alen_in, 
     input wire [31:0] Blen_in, 
@@ -146,5 +147,5 @@ module NMRPulseSequencer #(
                 
         assign pulse_out = pulse_reg | force_on;
         assign sync_out = (state==STATE_AH) & pulse_out;
-        assign blank_out = (~blank_counter_zero | blank_trigger);
+        assign blank_out = (~blank_counter_zero | blank_trigger) | ~amp_on;
 endmodule

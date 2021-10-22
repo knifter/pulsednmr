@@ -27,7 +27,7 @@ upload: $(TARGET)
 remote: upload-src build-src
 
 upload-src: set-date
-	scp -p * root@nmr:/root/build
+	scp -pr * root@nmr:/root/build
 
 build-src:
 	ssh root@nmr 'cd /root/build; make clean all'

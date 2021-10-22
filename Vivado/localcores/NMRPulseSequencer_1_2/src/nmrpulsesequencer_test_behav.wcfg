@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="18615001fs"></ZoomEndTime>
-      <Cursor1Time time="21000000fs"></Cursor1Time>
+      <ZoomEndTime time="2259001fs"></ZoomEndTime>
+      <Cursor1Time time="1671000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+      <ValueColumnWidth column_width="112"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="30" />
+   <WVObjectSize size="31" />
    <wvobject type="logic" fp_name="/nmrpulsesequencer_test/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -28,9 +28,13 @@
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/nmrpulsesequencer_test/DUT/enbl">
-      <obj_property name="ElementShortName">enbl</obj_property>
-      <obj_property name="ObjectShortName">enbl</obj_property>
+   <wvobject type="logic" fp_name="/nmrpulsesequencer_test/force_on">
+      <obj_property name="ElementShortName">force_on</obj_property>
+      <obj_property name="ObjectShortName">force_on</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/nmrpulsesequencer_test/amp_on">
+      <obj_property name="ElementShortName">amp_on</obj_property>
+      <obj_property name="ObjectShortName">amp_on</obj_property>
    </wvobject>
    <wvobject fp_name="divider25" type="divider">
       <obj_property name="label">Config</obj_property>

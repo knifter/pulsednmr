@@ -42,6 +42,8 @@ class Command(Enum):
     SET_RX_DELAY = 10
     KEEPALIVE = 11
     SET_POWER = 12
+    SET_BLANKLEN = 13
+    SET_AMP = 14
 
 NMR_CORE_CLK = 142857132 # Hz of the Core clock (~143 MHz)
 NMR_PG_CLK = float(NMR_CORE_CLK) / 14 # Hz of the PulseGen Counter
@@ -76,6 +78,7 @@ class NMRCtrl(object):
         self._bcount = 0
         self._rxsize = 1000
         self._rxdelay = 0
+        self._amp = False
         self._connected = False
         self._host = None
         self._port = None
@@ -315,6 +318,15 @@ class NMRCtrl(object):
             log.debug("Set Rx-Delay %d us." % (usecs))
         if self._connected:
             self._send_cmd(Command.SET_RX_DELAY, self._rxdelay)
+
+    @property
+    def amp(self): return self._amp
+    def set_amp(self, on = False):
+        self._amp = on 
+        log.debug("Set Amplifier %d." % (on))
+        if self._connected:
+            self._send_cmd(Command.SET_AMP, self._amp)
+
 
 class CommandReply(object):
     def __init__(self):

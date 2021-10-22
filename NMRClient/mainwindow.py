@@ -119,8 +119,10 @@ class MainWindow(QMainWindow):
     ### Start/Stop Meganism
     def startButtonClicked(self):
         if not self.started:
+            self.nmr.set_amp(True)
             self.startTimer()
         else:
+            self.nmr.set_amp(False)
             self.stopTimer()
 
     def startTimer(self):
