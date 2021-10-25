@@ -35,7 +35,7 @@
 proc checkRequiredFiles { origin_dir} {
   set status true
   set files [list \
-   "/home/rkortek/pulsednmr/Vivado/src/PulsedNMR.xdc" \
+   "$origin_dir/src/PulsedNMR.xdc" \
   ]
   foreach ifile $files {
     if { ![file isfile $ifile] } {
