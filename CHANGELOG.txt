@@ -1,3 +1,119 @@
+2021-10-22 PL PS PY (rko)
+ - Improved NMRPulseSequencer to v1.2 to include AMP power control
+ - Update server and control gui to switch on and off the amplifier on
+   start/stop of the measurement
+ - Flake8 of some python files
+
+2021-10-05 PL (tvr)
+ - Removed add DMA test blocks in PS hier. 
+ - Removed aux_rst signal, this doesn't work currently and crashes the system
+ 
+2021-09-01 PL (rkortek)
+- Update cores to latest (incl. ADC inversion fix)
+- Removed subset converter and clock converter after ADC (No Clock Domain crossing and 1 subset converter can be used)
+- Fixed remap of axis_subset_converter_1 (mixer) (16b'0,tdata[15:0] to 18'b0,tdata[13:0])
+- Removed random rounding from complex multiplier to omit LSFR 
+- Fixed remap of axis_subset_converter_1 (DAC) (2'b00, tdata[28:15] to 2'b00, tdata[30:17])
+- Added ILA for debugging purposes
+
+2021-09-TODO:
+ - fix LFSR in RX multiplier and power multiplier
+ - UI: manual start/stop fft window
+ - UI: reconnect to last IP
+
+2021-08-27 PL:
+ - Removed fifo_reset from data-width-converter. (seem to solve the I-Q switch around problem for now)
+ 
+2021-08-26 PL:
+ - DAC2 outputs mixer output again
+ - LFSR on carry in multi replaced with Pavels version
+ - Order of IO signals changed: pulsegen signals first, then debug
+
+2021-08-24 UI:
+ - Make measurement in fire()
+ - use numpy to cast our uint32 to complex float
+ - communicate pulse times in usecs, not in clks
+2021-08-24 nmr-server:
+ - accept -p(ower) param
+2021-08-24 PL:
+ - Removed floating point converter
+ - multi_0: 30 bit output
+ - CIC_0/1: 30 bit input
+ - cic changed order/name
+ - Ran the whole shebang from the 125MHz ADC clock instead of fclk_0 (142 MHz)
+ - Added power-out multiplier with DSP48 Macro
+
+2021-08-03 PL:
+ - Added FIFO reset: reset the RX fifo AND:
+ - Reset data-width converter which converts 1x64complex to 32b-float interleaved so I/Q don't get mixed up
+ - Adjusted FIR output width to 32 bit (6 bits fraction) to avoid sign extender
+ - re-configured float converter to convert 26.6 fixed point to float
+ - set rx CIC(2) output width to 32
+ ! Removed float converter: rx output will be 32 bit ints now
+ - bug: samplerate does not seem to match setting in ui for unknown reason
+ - connect dma to HP0 to access ddr (was wrongly connected to GP0), shouldnt matter as we're not (yet) using dma
+
+2021-08-02 PL:
+ - Added DMA Controller and connected back the AXIS reader, widths might have been changed?
+ - removed xilinx.com:ip:axis_data_fifo:2.0 apparently
+ - Changed RX DDS output to 16 bit: additional changes
+ - rxstatus register must n*AXI_DATA_WIDTH: now 32 bits, added concat
+ - renamed slice blocks for more clarity which bits go where
+
+2021-07-15 PL:
+ - Changed RX DDS output to 16 bit (cannot go higher with 30 bit phase, new?)
+ - Snif dds output, removed fifo on sniffer dac1
+ - renamed RxConfig registers slices with bit slice
+ - connect dcm_locked to ps system reset block
+ - removed EMIO: GPIO SPI0 TTC0 from PS
+ 
+2021-07-15 nmr-server:
+ - set defaults in main.cpp, nmrcore no longer configs mmaps with a default
+ - add toggle TxReset loop
+
+2021-07-12 nmr-server:
+ - Makefile for remote building, set date, upload bit
+ - Reduced RxReset time from 1 sec to 1 msec
+ - Fix SLCR (un)lock register address, was wrong
+ - no longer config clock on startup
+ - add reset reg write to reset PL (crashes 2nd time)
+ - Add getopt() argument handling for force_on, reset, no server, test pulse etc
+
+2021-05-21 PL:
+ - mult_0 (mixer) output width 26->24 (error?)
+ - propagate this through: bcast_0, sniffer_0, axis_subset_converter_0, axis_subset_converter_1
+ - fir_0 output width 26->24 (also error?)
+ - 
+ - removed Output attenuator multiplier real_multiplier_0 for now as I have no idea if this works
+ - 
+ 
+2021-05-19 nmr-server:
+ - nmr-server: project converted to Vitis
+ - nmr-server: Added (simple) support for BlankLen, now only set to 100us
+
+2021-05-19 PL:
+ - Packaged NMRPulseSequencer(.v) as an IP core
+ - Added blank signal to NMRPulseSequencer
+ - Added BlankLen to txconfig register in PL
+ - Added set Blank len command to protocol
+
+2021-05-12:
+ - xdc: ADC pins added, new RP ADC core with data_width=14 (Pavel update)
+ - xdc: DAC port dac_data_o: set SLEW_FAST to SLEW_SLOW and DRIVE 8->4
+ - xdc: add ports: Vp_Vn_v_*, Vaux*, exp_n_tri_io[], daisy* 
+ - Updated Red Pitaya ADC core to Pavels (v3) version: clk removed, 16 bit support)
+ 	ADC v3: clk to PLL, to DAC with two phases, to logic instead of local 143MHz
+ - Updated Red Pitaya DAC core to Pavels (v2) version:
+	DAC v2: add wrt_clk, SAME_EDGE, switched D1/D2 data lines around
+ - Added Clocking wizard to generate 125, 250_a, 250_b clocks for adc core and DAC ports 
+ - added exp_p/m_tri_io ports, connected to sync, pulse_on (n = inverted)
+ - removed heartbeat leds, connected leds to exp_p.. port, same order
+ - removed from src and auto-generated _wrapper.v
+ - upstream cores(tvr): update Stream Reader, Config reg, Status reg, Stream Variable
+
+2021-04-29:
+ - Vivado/Vitis 2020.2 under Linux conversion
+
 2020-10-21:
  - Vivado 2020.1
  - Route Tx output through multiplier
@@ -13,7 +129,6 @@
  - Switched to xilinx-cores for known cores
  ! Changed Rx Mixer output width to 32-bits and kept this width until the float converter
  - Reset both DDS on Tx/RxReset to sync phase
- 
 
 2017-05-29:
  - Client: All times to clks with 142.8 MHz/10 clk

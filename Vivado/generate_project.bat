@@ -1,4 +1,4 @@
-SET vivado=D:\Xilinx\Vivado\2020.1\bin\vivado.bat
+SET vivado=D:\Xilinx\Vivado\2020.2\bin\vivado.bat
 @ECHO OFF
 if not exist %vivado% (
   ECHO.

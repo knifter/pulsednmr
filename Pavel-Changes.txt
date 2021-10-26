@@ -1,0 +1,4 @@
+2021-05 (Only in Pavels version):
+ - ADC v3: clk to PLL, to DAC with two phases, derived 125 MHz to logic instead of fclk 143MHz
+ - DAC v2: add wrt_clk, SAME_EDGE, switched D1/D2 data lines around
+

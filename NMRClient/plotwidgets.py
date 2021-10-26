@@ -1,18 +1,19 @@
 
+import logging
 import matplotlib
 import numpy as np
 from nmrctrl import NMRMeasurement
+from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT
+from matplotlib.figure import Figure
 
-import logging
 LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.plotwidgets'
 log = logging.getLogger(LOG_NAME)
 
-from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox
 matplotlib.use('Qt5Agg')
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
-from matplotlib.figure import Figure
+
 
 class PlotWidget(QWidget):
     def __init__(self, parent=None, title=None):
@@ -31,7 +32,7 @@ class PlotWidget(QWidget):
 
         self.createWidget(title)
 
-    def createWidget(self, title = None):
+    def createWidget(self, title=None):
         # Layout
         mainlayout = QGridLayout()
         # mainlayout.setMargin(0)
@@ -46,11 +47,11 @@ class PlotWidget(QWidget):
         figure = Figure()
         figure.set_facecolor('none')
         self.axis = figure.add_subplot(111)
-        self.canvas = FigureCanvas(figure)
+        self.canvas = FigureCanvasQTAgg(figure)
         layout.addWidget(self.canvas)
 
         # create navigation toolbar, remove subpluts action
-        self.toolbar = NavigationToolbar(self.canvas, self, False)
+        self.toolbar = NavigationToolbar2QT(self.canvas, self, False)
         actions = self.toolbar.actions()
         self.toolbar.removeAction(actions[7])
         layout.addWidget(self.toolbar)
@@ -61,10 +62,10 @@ class PlotWidget(QWidget):
         self.setLayout(mainlayout)
 
     def initPlot(self):
-        #toolbar
-        #self.toolbar.home()
-        #self.toolbar._views.clear()
-        #self.toolbar._positions.clear()
+        # toolbar
+        # self.toolbar.home()
+        # self.toolbar._views.clear()
+        # self.toolbar._positions.clear()
 
         self._avgdata = None
 
@@ -82,33 +83,39 @@ class PlotWidget(QWidget):
         self._size = int(size)
         self.initPlot()
 
-    def setIgnore(self, us = None, samples = None):
-        if us != None:
+    def setIgnore(self, us=None, samples=None):
+        if us is not None:
             self._ignore_us = us
-        if samples != None:
+        if samples is not None:
             self._ignore_samples = samples
         log.debug("ignoring a total of %d samples (%d us + %s samples)."
-                  % (self._get_ignore_samples(), self._ignore_us, self._ignore_samples))
+                  % (self._get_ignore_samples(), self._ignore_us,
+                     self._ignore_samples))
         self.initPlot()
+
     def _get_ignore_samples(self):
-        ignore_samples = int(self._ignore_us * self._rate / 1E6 + self._ignore_samples)
+        ignore_samples = int(self._ignore_us * self._rate / 1E6 +
+                             self._ignore_samples)
         delay_samples = self._get_rxdelay_samples()
         if delay_samples > ignore_samples:
             return 0
         ignore_samples -= delay_samples
         return min(ignore_samples, self._size)
 
-    def setRxDelay(self, us = None):
+    def setRxDelay(self, us=None):
         if us is not None:
             self._rxdelay_us = us
         self.initPlot()
+
     def _get_rxdelay_samples(self):
         return int(self._rxdelay_us * self._rate / 1E6)
+
     def _get_rxdelay_us(self):
         return self._rxdelay_us
 
     def startTime(self):
         return self._get_rxdelay_us()
+
     def stopTime(self):
         return self.startTime() + (self._size - 0) * 1E6 / self._rate
 
@@ -121,20 +128,21 @@ class PlotTimeWidget(PlotWidget):
 
         self.initPlot()
 
-    def initPlot(self, rescale = True):
+    def initPlot(self, rescale=True):
         super(PlotTimeWidget, self).initPlot()
 
         size = self._size
         ignore = self._get_ignore_samples()
 
-         # configure time axis
+        # configure time axis
         time = np.linspace(self.startTime(), self.stopTime(), size)
         zeros = np.zeros(len(time))
 
         # configure axis
         self.axis.clear()
         self.axis.grid()
-        self.curveA = self.axis.plot(time[0:ignore], zeros[0:ignore], '0.50')[0]
+        self.curveA = self.axis.plot(time[0:ignore], zeros[0:ignore],
+                                     '0.50')[0]
         ignore = max(ignore, 1)
         self.curveB = self.axis.plot(time[ignore-1:], zeros[ignore-1:], 'b')[0]
 
@@ -155,26 +163,25 @@ class PlotTimeWidget(PlotWidget):
         if self._mode in ('I', 'P'):
             y1 = -0.6
             y2 = 0.6
-        if self._mode is 'A':
+        if self._mode == 'A':
             y1 = -0.05
             y2 = 0.55
-        log.debug("Rescale xstart = %d, xstop = %d, ystart = %d, ystop = %d", x1, x2, y1, y2)
+        log.debug(f'Rescale xstart={x1}, xstop={x2}, ystart={y1}, ystop={y2}')
         self.axis.axis((x1, x2, y1, y2))
 
-    def updatePlot(self, m:NMRMeasurement):
+    def updatePlot(self, m: NMRMeasurement):
         if m.rate != self._rate:
             self.set_rate(m.rate)
         if m.size != self._size:
             self.set_size(m.size)
 
-
         # select the right data depending on the mode
         data = None
-        if self._mode == 'A': # Amplitude
+        if self._mode == 'A':  # Amplitude
             data = np.abs(m.iqdata)
-        if self._mode == 'I': # In-Phase
+        if self._mode == 'I':  # In-Phase
             data = m.iqdata.real
-        if self._mode == 'P': # Shift Phase
+        if self._mode == 'P':  # Shift Phase
             # calc phase factors
             p_r = np.cos(self._phase * 2 * np.pi / 360)
             p_i = np.sin(self._phase * 2 * np.pi / 360)
@@ -214,6 +221,7 @@ class PlotTimeWidget(PlotWidget):
         Ydata = self._avgdata
         return (Xdata, Ydata)
 
+
 class PlotFFTWidget(PlotWidget):
     def __init__(self, parent=None, title=None):
         super(PlotFFTWidget, self).__init__(parent)
@@ -230,8 +238,9 @@ class PlotFFTWidget(PlotWidget):
         rate = self._rate
         ignore = self._get_ignore_samples()
 
-        fftsize = max(size - ignore, 1) # no zeroes here
-        freqs = (np.fft.fftshift(np.fft.fftfreq(fftsize, d=float(1 / rate))) + self._freq_offset) / 1E6
+        fftsize = max(size - ignore, 1)  # no zeroes here
+        freqs = (np.fft.fftshift(np.fft.fftfreq(fftsize, d=float(1 / rate))) +
+                 self._freq_offset) / 1E6
         zeros = np.zeros(len(freqs))
 
         # configure axis
@@ -251,7 +260,7 @@ class PlotFFTWidget(PlotWidget):
         self._freqs = freqs
         self.rescale()
 
-    def rescale(self, xstart = None, xstop = None, ystart = None, ystop = None):
+    def rescale(self, xstart=None, xstop=None, ystart=None, ystop=None):
         if xstart is None:
             xstart = min(self._freqs)
         if xstop is None:
@@ -273,7 +282,8 @@ class PlotFFTWidget(PlotWidget):
 
         # create FFT
         ignore = self._get_ignore_samples()
-        fft = np.abs(np.fft.fftshift(np.fft.fft(m.iqdata[ignore:], norm='ortho')))
+        fft = np.abs(np.fft.fftshift(np.fft.fft(m.iqdata[ignore:],
+                     norm='ortho')))
 
         # stream through the averager
         if self._avgdata is None:

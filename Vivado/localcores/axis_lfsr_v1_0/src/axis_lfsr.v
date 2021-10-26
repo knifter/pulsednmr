@@ -3,8 +3,8 @@
 
 module axis_lfsr #
 (
-  parameter integer LFSR_WIDTH = 64,
-  parameter integer AXIS_TDATA_WIDTH = 64
+  parameter integer AXIS_TDATA_WIDTH = 64,
+  parameter         HAS_TREADY = "FALSE"
 )
 (
   // System signals
@@ -17,8 +17,7 @@ module axis_lfsr #
   output wire                        m_axis_tvalid
 );
 
-  //reg [AXIS_TDATA_WIDTH-1:0] int_lfsr_reg, int_lfsr_next;
-  reg [LFSR_WIDTH-1:0] int_lfsr_reg, int_lfsr_next;
+  reg [AXIS_TDATA_WIDTH-1:0] int_lfsr_reg, int_lfsr_next;
   reg int_enbl_reg, int_enbl_next;
 
   always @(posedge aclk)
@@ -35,23 +34,46 @@ module axis_lfsr #
     end
   end
 
-  always @*
-  begin
-    int_lfsr_next = int_lfsr_reg;
-    int_enbl_next = int_enbl_reg;
+  generate
+    if(HAS_TREADY == "TRUE")
+    begin : HAS_TREADY
+      always @*
+      begin
+        int_lfsr_next = int_lfsr_reg;
+        int_enbl_next = int_enbl_reg;
 
-    if(~int_enbl_reg)
-    begin
-      int_enbl_next = 1'b1;
+        if(~int_enbl_reg)
+        begin
+          int_enbl_next = 1'b1;
+        end
+
+        if(int_enbl_reg & m_axis_tready)
+        begin
+          int_lfsr_next = {int_lfsr_reg[62:0], int_lfsr_reg[62] ~^ int_lfsr_reg[61]};
+        end
+      end
     end
+    else
+    begin : NO_TREADY
+      always @*
+      begin
+        int_lfsr_next = int_lfsr_reg;
+        int_enbl_next = int_enbl_reg;
 
-    if(int_enbl_reg & m_axis_tready)
-    begin
-      int_lfsr_next = {int_lfsr_reg[62:0], int_lfsr_reg[62] ~^ int_lfsr_reg[61]}; 
+        if(~int_enbl_reg)
+        begin
+          int_enbl_next = 1'b1;
+        end
+
+        if(int_enbl_reg)
+        begin
+          int_lfsr_next = {int_lfsr_reg[62:0], int_lfsr_reg[62] ~^ int_lfsr_reg[61]};
+        end
+      end
     end
-  end
+  endgenerate
 
-  assign m_axis_tdata = int_lfsr_reg[AXIS_TDATA_WIDTH-1:0];
+  assign m_axis_tdata = int_lfsr_reg;
   assign m_axis_tvalid = int_enbl_reg;
 
 endmodule
