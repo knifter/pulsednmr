@@ -4,6 +4,7 @@ import struct
 from enum import Enum, unique
 import socket
 import numpy as np
+import math
 
 DEFAULT_PORT = 1001
 LOG_NAME = 'nmr.ctrl'
@@ -245,10 +246,10 @@ class NMRCtrl(object):
         if dbm != None:
             self._power = dbm
 
-        factor = min(3300*(self._power + 10), 65535);
-        log.debug("Set power %d dBm, f = %d" % (self._power, factor))
+        multip = 65535 * 10.0**(0.5*(self._power - 10)/10)
+        log.debug("Set power %d dBm, m = %d" % (self._power, multip))
         if self._connected:
-            self._send_cmd(Command.SET_POWER, int(factor))
+            self._send_cmd(Command.SET_POWER, int(multip))
 
     @property
     def awidth(self): return self._awidth
