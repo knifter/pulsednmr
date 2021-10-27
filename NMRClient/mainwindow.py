@@ -15,7 +15,7 @@ from nmrctrl import NMRConnectionError, RATES
 LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.gui'
 WINDOW_TITLE = "NMR Control"
-RXTX_OFFSET = 95
+RXTX_OFFSET = 105
 
 log = logging.getLogger(LOG_NAME)
 
