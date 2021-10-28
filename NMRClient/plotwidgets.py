@@ -63,12 +63,10 @@ class PlotWidget(QWidget):
         self.setLayout(mainlayout)
 
     def initPlot(self):
-        # toolbar
-        # self.toolbar.home()
-        # self.toolbar._views.clear()
-        # self.toolbar._positions.clear()
+        pass
 
-        self._avgdata = None
+    def redraw(self):
+        pass
 
     def setTitle(self, title):
         self.frame.setTitle(title)
@@ -96,7 +94,6 @@ class PlotWidget(QWidget):
         self._select_begin = begin
         self._select_end = end
         self.initPlot()
-        self.canvas.draw()
 
     def setRxDelay(self, us=None):
         if us is not None:
@@ -123,57 +120,51 @@ class PlotTimeWidget(PlotWidget):
         self._phase = 0
 
         self.initPlot()
-        self.autoscale()
+        # self.autoscale()
 
     def initPlot(self, rescale=True):
         super(PlotTimeWidget, self).initPlot()
 
-        size = self._size
-
         # configure time axis
-        time = np.linspace(self.startTime(), self.stopTime(), size)
-        zeros = np.zeros(len(time))
+        time = np.linspace(self.startTime(), self.stopTime(), self._size)
+        # zeros = np.zeros(len(time))
+        self._avgdata = np.zeros(len(time))
 
         # configure axis
         self.axis.clear()
         self.axis.grid()
-
-        # x1, x2, y1, y2 = self.axis.axis()
+        self.axis.set_xlabel('t [us]')
 
         start = self._select_begin
         stop = self._select_end
-        self.curveA = self.axis.plot(time[0:start+1], zeros[0:start+1], '0.50')[0]
-        self.curveB = self.axis.plot(time[start:stop], zeros[start:stop], 'b')[0]
-        self.curveC = self.axis.plot(time[stop-1:], zeros[stop-1:], '0.50')[0]
-        self._avgdata = None
+        self.curveA = self.axis.plot(time[0:start+1], self._avgdata[0:start+1], '0.50')[0]
+        self.curveB = self.axis.plot(time[start:stop], self._avgdata[start:stop], 'b')[0]
+        self.curveC = self.axis.plot(time[stop-1:], self._avgdata[stop-1:], '0.50')[0]
 
-        # self.axis.axis((x1, x2, y1, y2))
         self.autoscale()
 
-    def autoscale(self, xstart=None, xstop=None, ystart=None, ystop=None):
-        if xstart is None:
-            xstart = self.startTime()
-        if xstop is None:
-            xstop = self.stopTime()
-
-        self.axis.set_xlabel('t [us]')
+    def autoscale(self):
         # x1, x2, y1, y2 = self.axis.axis()
 
         try:
             maxdata = max(self._avgdata)
         except TypeError:
             maxdata = 100
+        if maxdata < 10:
+            maxdata = 100
 
-        x1 = xstart
-        x2 = xstop
+        x1 = self.startTime()
+        x2 = self.stopTime()
         if self._mode in ('I', 'P'):
             y1 = maxdata * 1.1
             y2 = -maxdata * 1.1
         if self._mode == 'A':
             y1 = -maxdata * 0.1
             y2 = maxdata * 1.1
-        log.debug(f'PlotTime.Rescale xstart={x1}, xstop={x2}, ystart={y1}, ystop={y2}')
+        log.debug(f'PlotTime.Autoscale xstart={x1}, xstop={x2}, ystart={y1}, ystop={y2}')
         self.axis.axis((x1, x2, y1, y2))
+
+        self.redraw()
 
     def updatePlot(self, m: NMRMeasurement):
         if m.rate != self._rate:
@@ -199,14 +190,19 @@ class PlotTimeWidget(PlotWidget):
         self._avgdata = (self._avg - 1) * self._avgdata + data
         self._avgdata = self._avgdata / self._avg
 
-        # plot zeros and store the returned Line2D object
+        self.redraw()
+
+    def redraw(self):
+        super(PlotTimeWidget, self).redraw()
+
+        # x1, x2, y1, y2 = self.axis.axis()
         start = self._select_begin
         stop = self._select_end
-        # ignore = self._get_ignore_samples()
         self.curveA.set_ydata(self._avgdata[0:start+1])
         self.curveB.set_ydata(self._avgdata[start:stop])
         self.curveC.set_ydata(self._avgdata[stop-1:])
         self.canvas.draw()
+        # self.axis.axis((x1, x2, y1, y2))
 
     def setMode(self, mode):
         if mode not in ['I', 'P', 'A']:
@@ -237,7 +233,7 @@ class PlotFFTWidget(PlotWidget):
         self._freq_offset = 0
 
         self.initPlot()
-        self.autoscale()
+        # self.autoscale()
 
     def initPlot(self):
         super(PlotFFTWidget, self).initPlot()
