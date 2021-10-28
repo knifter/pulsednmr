@@ -158,7 +158,7 @@ class NMRCtrl(object):
         # ydata = np.abs( self.data.astype(np.float32).view(np.complex64) [0::2] / (1 << 30) )
         buffer = reply.data;
         data = np.frombuffer(buffer, np.int32)
-        m.iqdata = np.frombuffer(reply.data, np.int32).astype(np.float32).view(np.complex64) / (1 << 30)
+        m.iqdata = np.frombuffer(reply.data, np.int32).astype(np.float32).view(np.complex64) / 1.5E6
         # print(m.iqdata);
         self._measurement = m;
         return m;

@@ -123,7 +123,7 @@ class PlotTimeWidget(PlotWidget):
         self._phase = 0
 
         self.initPlot()
-        self.rescale()
+        self.autoscale()
 
     def initPlot(self, rescale=True):
         super(PlotTimeWidget, self).initPlot()
@@ -138,6 +138,8 @@ class PlotTimeWidget(PlotWidget):
         self.axis.clear()
         self.axis.grid()
 
+        # x1, x2, y1, y2 = self.axis.axis()
+
         start = self._select_begin
         stop = self._select_end
         self.curveA = self.axis.plot(time[0:start+1], zeros[0:start+1], '0.50')[0]
@@ -145,22 +147,31 @@ class PlotTimeWidget(PlotWidget):
         self.curveC = self.axis.plot(time[stop-1:], zeros[stop-1:], '0.50')[0]
         self._avgdata = None
 
-    def rescale(self, xstart=None, xstop=None, ystart=None, ystop=None):
+        # self.axis.axis((x1, x2, y1, y2))
+        self.autoscale()
+
+    def autoscale(self, xstart=None, xstop=None, ystart=None, ystop=None):
         if xstart is None:
             xstart = self.startTime()
         if xstop is None:
             xstop = self.stopTime()
 
         self.axis.set_xlabel('t [us]')
-        x1, x2, y1, y2 = self.axis.axis()
+        # x1, x2, y1, y2 = self.axis.axis()
+
+        try:
+            maxdata = max(self._avgdata)
+        except TypeError:
+            maxdata = 100
+
         x1 = xstart
         x2 = xstop
         if self._mode in ('I', 'P'):
-            y1 = -0.6
-            y2 = 0.6
+            y1 = maxdata * 1.1
+            y2 = -maxdata * 1.1
         if self._mode == 'A':
-            y1 = -0.05
-            y2 = 0.55
+            y1 = -maxdata * 0.1
+            y2 = maxdata * 1.1
         log.debug(f'PlotTime.Rescale xstart={x1}, xstop={x2}, ystart={y1}, ystop={y2}')
         self.axis.axis((x1, x2, y1, y2))
 
@@ -226,7 +237,7 @@ class PlotFFTWidget(PlotWidget):
         self._freq_offset = 0
 
         self.initPlot()
-        self.rescale()
+        self.autoscale()
 
     def initPlot(self):
         super(PlotFFTWidget, self).initPlot()
@@ -244,14 +255,18 @@ class PlotFFTWidget(PlotWidget):
                  self._freq_offset) / 1E6
         zeros = np.zeros(len(freqs))
 
+        # store view
+        x1, x2, y1, y2 = self.axis.axis()
+
         # configure axis
         self.axis.clear()
         self.axis.grid()
         self.curve = self.axis.plot(freqs, zeros, 'b')[0]
 
+
         # create vertical line
         vertlinepos = [self._freq_offset/1E6, self._freq_offset/1E6]
-        self.vertLine = self.axis.plot(vertlinepos, [-100, 100], 'y--')[0]
+        self.vertLine = self.axis.plot(vertlinepos, [-100, 500], 'y--')[0]
         self.vertLine.set_color(color='r')
         self.vertLine.set_linestyle('--')
         self.vertLine.set_linewidth(2.0)
@@ -260,17 +275,27 @@ class PlotFFTWidget(PlotWidget):
 
         self._freqs = freqs
 
-    def rescale(self, xstart=None, xstop=None, ystart=None, ystop=None):
+        # restore view
+        self.axis.axis((None, None, y1, y2))
+
+    def autoscale(self, xstart=None, xstop=None, ystart=None, ystop=None):
         if xstart is None:
             xstart = min(self._freqs)
         if xstop is None:
             xstop = max(self._freqs)
 
-        x1, x2, y1, y2 = self.axis.axis()
+        try:
+            maxdata = max(self._avgdata)
+        except TypeError:
+            maxdata = 500
+
+        if(maxdata < 50):
+            maxdata = 500
+
         x1 = xstart
         x2 = xstop
-        y1 = 0
-        y2 = 1.1
+        y1 = -maxdata * 0.1
+        y2 = maxdata * 1.1
 
         log.debug(f'PlotFFT.Rescale x1={x1}, x2={x2}, y1={y1}, y2={y2}')
         self.axis.axis((x1, x2, y1, y2))

@@ -123,8 +123,8 @@ class MainWindow(QMainWindow):
         self.plotFFTStartValue.setValue(start)
         self.plotFFTStopValue.setValue(stop)
 
-        self.plotTimeWidget.rescale()
-        self.plotFFTWidget.rescale()
+        self.plotTimeWidget.autoscale()
+        self.plotFFTWidget.autoscale()
         
     @property
     def nmr(self):
