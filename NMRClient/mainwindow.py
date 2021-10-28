@@ -10,12 +10,13 @@ import datetime
 
 from connectdialog import ConnectDialog
 from nmrctrl import NMRConnectionError, RATES
+from plotwidgets import PlotTimeWidget
 
 
 LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.gui'
 WINDOW_TITLE = "NMR Control"
-RXTX_OFFSET = 105
+PULSE_START_OFFSET_US = 185
 
 log = logging.getLogger(LOG_NAME)
 
@@ -67,6 +68,8 @@ class MainWindow(QMainWindow):
         self.plotTimeModeDrop.currentIndexChanged.connect(self.action_plotTimeModeDrop)
         self.plotPhaseValue.valueChanged.connect(self.set_phaseAngle)
         self.plotPhaseValue.setEnabled(False)
+        self.plotFFTStartValue.valueChanged.connect(self.set_selection)
+        self.plotFFTStopValue.valueChanged.connect(self.set_selection)
         # Mode 1
         self.freqValue.valueChanged.connect(self.set_freq)
         self.awidthValue.valueChanged.connect(self.set_awidth)
@@ -88,10 +91,8 @@ class MainWindow(QMainWindow):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.fireTimer)
 
-        self.plotTimeWidget.setIgnore(samples=RXTX_OFFSET)
-        self.plotFFTWidget.setIgnore(samples=RXTX_OFFSET)
-
     def setDefaults(self):
+        # Acquisition
         self.deltaValue.setValue(300)
         self.rateValue.setCurrentIndex(4)
         self.rxTimeValue.setValue(2.0)
@@ -100,9 +101,10 @@ class MainWindow(QMainWindow):
         self.rxDelayValue.setValue(0)
         self.rxDelayCheck.setChecked(False)
 
+        # Mode 1
         self.freqValue.setValue(22)
         self.awidthValue.setValue(12)
-
+        # Mode 2
         self.bwidthValue.setValue(12)
         self.abdelayValue.setValue(1)
         self.bbdelayValue.setValue(1)
@@ -112,6 +114,18 @@ class MainWindow(QMainWindow):
         self.plotTimeCheck.setChecked(True)
         self.plotTimeModeDrop.setCurrentIndex(0)
 
+        start = PULSE_START_OFFSET_US + self.awidthValue.value()
+        stop = start + 1000
+        self.plotFFTStartValue.setMinimum(0)
+        self.plotFFTStartValue.setMaximum(10000)
+        self.plotFFTStopValue.setMinimum(0)
+        self.plotFFTStopValue.setMaximum(10000)
+        self.plotFFTStartValue.setValue(start)
+        self.plotFFTStopValue.setValue(stop)
+
+        self.plotTimeWidget.rescale()
+        self.plotFFTWidget.rescale()
+        
     @property
     def nmr(self):
         return self.application.nmr
@@ -226,8 +240,6 @@ class MainWindow(QMainWindow):
     def set_awidth(self, width_us):
         self.checkInputs()
         self.nmr.set_awidth(width_us)
-        self.plotTimeWidget.setIgnore(us=width_us)
-        self.plotFFTWidget.setIgnore(us=width_us)
 
     def set_power(self, power):
         self.checkInputs()
@@ -325,6 +337,18 @@ class MainWindow(QMainWindow):
         self.abdelayValue.setEnabled(ben)
         self.bwidthValue.setEnabled(ben)
         self.bbdelayValue.setEnabled(ben)
+
+        if(self.plotFFTStopValue.value() <= self.plotFFTStartValue.value()):
+            self.plotFFTStopValue.setValue(self.plotFFTStartValue.value() + 100)
+        # self.plotFFTStartValue.setMaximum(max(0, self.plotFFTStopValue.value()-1))
+        # self.plotFFTStopValue.setMinimum(self.plotFFTStartValue.value()+1)
+        # self.plotFFTStopValue.setMaximum(self.nmr.rxsize)
+    
+    def set_selection(self, value = None):
+        start = self.plotFFTStartValue.value()
+        stop = self.plotFFTStopValue.value()
+        self.plotTimeWidget.setSelection(start, stop)
+        self.plotFFTWidget.setSelection(start, stop)
 
     ### (Menu) ACTIONS ########################################################################
     def action_plotTimeFFTCheck(self):

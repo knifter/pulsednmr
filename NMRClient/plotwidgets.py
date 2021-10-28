@@ -23,12 +23,13 @@ class PlotWidget(QWidget):
         self._size = 10
         self._avg = 1
         self._avgdata = None
-        self._ignore_us = 0
-        self._ignore_samples = 0
         self.curveA = None
         self.curveB = None
+        self.curveC = None
         self._avgdata = None
         self._rxdelay_us = 0
+        self._select_begin = 100
+        self._select_end = 200
 
         self.createWidget(title)
 
@@ -83,24 +84,19 @@ class PlotWidget(QWidget):
         self._size = int(size)
         self.initPlot()
 
-    def setIgnore(self, us=None, samples=None):
-        if us is not None:
-            self._ignore_us = us
-        if samples is not None:
-            self._ignore_samples = samples
-        log.debug("ignoring a total of %d samples (%d us + %s samples)."
-                  % (self._get_ignore_samples(), self._ignore_us,
-                     self._ignore_samples))
-        self.initPlot()
+    def setSelection(self, begin_us, end_us):
+        begin = int(begin_us * self._rate / 1E6)
+        end = int(end_us * self._rate / 1E6)
+        
+        begin = max(begin, 1)
+        end = max(end, begin)
+        end = min(end, self._size)
 
-    def _get_ignore_samples(self):
-        ignore_samples = int(self._ignore_us * self._rate / 1E6 +
-                             self._ignore_samples)
-        delay_samples = self._get_rxdelay_samples()
-        if delay_samples > ignore_samples:
-            return 0
-        ignore_samples -= delay_samples
-        return min(ignore_samples, self._size)
+        log.debug("Set selection [0, [%d, %d], %d]." % (begin, end, self._size))
+        self._select_begin = begin
+        self._select_end = end
+        self.initPlot()
+        self.canvas.draw()
 
     def setRxDelay(self, us=None):
         if us is not None:
@@ -127,12 +123,12 @@ class PlotTimeWidget(PlotWidget):
         self._phase = 0
 
         self.initPlot()
+        self.rescale()
 
     def initPlot(self, rescale=True):
         super(PlotTimeWidget, self).initPlot()
 
         size = self._size
-        ignore = self._get_ignore_samples()
 
         # configure time axis
         time = np.linspace(self.startTime(), self.stopTime(), size)
@@ -141,14 +137,13 @@ class PlotTimeWidget(PlotWidget):
         # configure axis
         self.axis.clear()
         self.axis.grid()
-        self.curveA = self.axis.plot(time[0:ignore], zeros[0:ignore],
-                                     '0.50')[0]
-        ignore = max(ignore, 1)
-        self.curveB = self.axis.plot(time[ignore-1:], zeros[ignore-1:], 'b')[0]
 
+        start = self._select_begin
+        stop = self._select_end
+        self.curveA = self.axis.plot(time[0:start+1], zeros[0:start+1], '0.50')[0]
+        self.curveB = self.axis.plot(time[start:stop], zeros[start:stop], 'b')[0]
+        self.curveC = self.axis.plot(time[stop-1:], zeros[stop-1:], '0.50')[0]
         self._avgdata = None
-
-        self.rescale()
 
     def rescale(self, xstart=None, xstop=None, ystart=None, ystop=None):
         if xstart is None:
@@ -166,7 +161,7 @@ class PlotTimeWidget(PlotWidget):
         if self._mode == 'A':
             y1 = -0.05
             y2 = 0.55
-        log.debug(f'Rescale xstart={x1}, xstop={x2}, ystart={y1}, ystop={y2}')
+        log.debug(f'PlotTime.Rescale xstart={x1}, xstop={x2}, ystart={y1}, ystop={y2}')
         self.axis.axis((x1, x2, y1, y2))
 
     def updatePlot(self, m: NMRMeasurement):
@@ -194,10 +189,12 @@ class PlotTimeWidget(PlotWidget):
         self._avgdata = self._avgdata / self._avg
 
         # plot zeros and store the returned Line2D object
-        ignore = self._get_ignore_samples()
-        self.curveA.set_ydata(self._avgdata[0:ignore])
-        ignore = max(ignore, 1)
-        self.curveB.set_ydata(self._avgdata[ignore-1:])
+        start = self._select_begin
+        stop = self._select_end
+        # ignore = self._get_ignore_samples()
+        self.curveA.set_ydata(self._avgdata[0:start+1])
+        self.curveB.set_ydata(self._avgdata[start:stop])
+        self.curveC.set_ydata(self._avgdata[stop-1:])
         self.canvas.draw()
 
     def setMode(self, mode):
@@ -236,9 +233,13 @@ class PlotFFTWidget(PlotWidget):
 
         size = self._size
         rate = self._rate
-        ignore = self._get_ignore_samples()
+        start = self._select_begin
+        stop = self._select_end
+        # ignore = self._get_ignore_samples()
 
-        fftsize = max(size - ignore, 1)  # no zeroes here
+        fftsize = max(stop - start, 1)  # no zeroes here
+        # log.debug("fftsize = stop - start = %d - %d = %d" % (start, stop, fftsize))
+
         freqs = (np.fft.fftshift(np.fft.fftfreq(fftsize, d=float(1 / rate))) +
                  self._freq_offset) / 1E6
         zeros = np.zeros(len(freqs))
@@ -258,7 +259,6 @@ class PlotFFTWidget(PlotWidget):
         self._avgdata = zeros
 
         self._freqs = freqs
-        self.rescale()
 
     def rescale(self, xstart=None, xstop=None, ystart=None, ystop=None):
         if xstart is None:
@@ -271,6 +271,8 @@ class PlotFFTWidget(PlotWidget):
         x2 = xstop
         y1 = 0
         y2 = 1.1
+
+        log.debug(f'PlotFFT.Rescale x1={x1}, x2={x2}, y1={y1}, y2={y2}')
         self.axis.axis((x1, x2, y1, y2))
         self.axis.set_xlabel('F [MHz]')
 
@@ -281,8 +283,10 @@ class PlotFFTWidget(PlotWidget):
             self.set_size(m.size)
 
         # create FFT
-        ignore = self._get_ignore_samples()
-        fft = np.abs(np.fft.fftshift(np.fft.fft(m.iqdata[ignore:],
+        # ignore = self._get_ignore_samples()
+        start = self._select_begin
+        stop = self._select_end
+        fft = np.abs(np.fft.fftshift(np.fft.fft(m.iqdata[start:stop],
                      norm='ortho')))
 
         # stream through the averager
