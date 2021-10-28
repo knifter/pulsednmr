@@ -12,7 +12,7 @@ from connectdialog import ConnectDialog
 from nmrctrl import NMRConnectionError, RATES
 from plotwidgets import PlotTimeWidget
 
-
+VERSION = "20211028"
 LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.gui'
 WINDOW_TITLE = "NMR Control"
@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
 
     def createForm(self):
         loadUi("mainwindow.ui", self)
-
+        self.setWindowTitle("Pulsed NMR (v%s)" % VERSION)
         # Plot Widget
 
         # LogWidget
