@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT
 from matplotlib.figure import Figure
+from mpldatacursor import datacursor
 
 LOG_ROOT = 'nmr'
 LOG_NAME = 'nmr.plotwidgets'
@@ -137,9 +138,11 @@ class PlotTimeWidget(PlotWidget):
 
         start = self._select_begin
         stop = self._select_end
-        self.curveA = self.axis.plot(time[0:start+1], self._avgdata[0:start+1], '0.50')[0]
+        self.curveA = self.axis.plot(time[0:], self._avgdata[0:], '0.50')[0]
         self.curveB = self.axis.plot(time[start:stop], self._avgdata[start:stop], 'b')[0]
-        self.curveC = self.axis.plot(time[stop-1:], self._avgdata[stop-1:], '0.50')[0]
+        #self.curveC = self.axis.plot(time[stop-1:], self._avgdata[stop-1:], '0.50')[0]
+
+        datacursor(self.curveA, draggable=True)
 
         self.autoscale()
 
@@ -198,9 +201,9 @@ class PlotTimeWidget(PlotWidget):
         # x1, x2, y1, y2 = self.axis.axis()
         start = self._select_begin
         stop = self._select_end
-        self.curveA.set_ydata(self._avgdata[0:start+1])
+        self.curveA.set_ydata(self._avgdata[0:])
         self.curveB.set_ydata(self._avgdata[start:stop])
-        self.curveC.set_ydata(self._avgdata[stop-1:])
+        #self.curveC.set_ydata(self._avgdata[stop-1:])
         self.canvas.draw()
         # self.axis.axis((x1, x2, y1, y2))
 

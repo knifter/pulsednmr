@@ -7,10 +7,11 @@ name = "pypi"
 pyqt5 = "*"
 numpy = "*"
 matplotlib = "*"
-pyqt5-tools = "*"
-flake8 = "*"
+mpldatacursor = {git = "https://github.com/rfkortekaas/mpldatacursor"}
 
 [dev-packages]
+pyqt5-tools = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3"
