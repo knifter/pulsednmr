@@ -1,3 +1,4 @@
 *.log
 *.pyd
 __pycache__
+Pipfile.lock
